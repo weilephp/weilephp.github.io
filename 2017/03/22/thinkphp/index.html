@@ -6,18 +6,21 @@
   <title>thinkphp笔记 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="thinkphp SHOW_PAGE_TRACE和upload文件上传thinkphp的show_page_trace设置后只有display()的页面才能显示出来。
-还有upload文件长传，$upload-&amp;gt;savePath的目录是以index.php同一级开始的，应该说是thinkphp中除了模版文件定义之外，所有的地方定义目录同级目录下都是以index.php入口文件为标准。">
+还有upload文件长传，$upload-&amp;gt;savePath的目录是以index.php同一级开始的，应该说是thinkphp中除了模版文件定义之外，所有的地方定义目录同级目录下都是以index.php入口文件为标准。
+自动验">
 <meta property="og:type" content="article">
 <meta property="og:title" content="thinkphp笔记">
 <meta property="og:url" content="http://weilephp.github.io/2017/03/22/thinkphp/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="thinkphp SHOW_PAGE_TRACE和upload文件上传thinkphp的show_page_trace设置后只有display()的页面才能显示出来。
-还有upload文件长传，$upload-&amp;gt;savePath的目录是以index.php同一级开始的，应该说是thinkphp中除了模版文件定义之外，所有的地方定义目录同级目录下都是以index.php入口文件为标准。">
-<meta property="og:updated_time" content="2017-03-22T14:48:50.933Z">
+还有upload文件长传，$upload-&amp;gt;savePath的目录是以index.php同一级开始的，应该说是thinkphp中除了模版文件定义之外，所有的地方定义目录同级目录下都是以index.php入口文件为标准。
+自动验">
+<meta property="og:updated_time" content="2017-03-24T13:07:42.997Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="thinkphp笔记">
 <meta name="twitter:description" content="thinkphp SHOW_PAGE_TRACE和upload文件上传thinkphp的show_page_trace设置后只有display()的页面才能显示出来。
-还有upload文件长传，$upload-&amp;gt;savePath的目录是以index.php同一级开始的，应该说是thinkphp中除了模版文件定义之外，所有的地方定义目录同级目录下都是以index.php入口文件为标准。">
+还有upload文件长传，$upload-&amp;gt;savePath的目录是以index.php同一级开始的，应该说是thinkphp中除了模版文件定义之外，所有的地方定义目录同级目录下都是以index.php入口文件为标准。
+自动验">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -57,7 +60,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
@@ -90,11 +93,18 @@
       
         <h1 id="thinkphp-SHOW-PAGE-TRACE和upload文件上传"><a href="#thinkphp-SHOW-PAGE-TRACE和upload文件上传" class="headerlink" title="thinkphp SHOW_PAGE_TRACE和upload文件上传"></a>thinkphp SHOW_PAGE_TRACE和upload文件上传</h1><p>thinkphp的show_page_trace设置后只有display()的页面才能显示出来。</p>
 <p>还有upload文件长传，$upload-&gt;savePath的目录是以index.php同一级开始的，应该说是thinkphp中除了模版文件定义之外，所有的地方定义目录同级目录下都是以index.php入口文件为标准。</p>
+<h2 id="自动验证"><a href="#自动验证" class="headerlink" title="自动验证"></a>自动验证</h2><p>自动验证，设置自动验证后会根据create方法创造的数据验证。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public function add()&#123;</div><div class="line">		$admin = D(&quot;Admin&quot;);</div><div class="line">		$data[&apos;username&apos;] = I(&apos;username&apos;);</div><div class="line">		$data[&apos;password&apos;] = md5(I(&apos;password&apos;));</div><div class="line">		if(IS_POST)&#123;</div><div class="line">			if(!$admin-&gt;create($data))&#123;</div><div class="line">				$this -&gt; error($admin-&gt;getError());</div><div class="line">			&#125;else&#123;</div><div class="line">				if($admin-&gt;add())&#123;</div><div class="line">					$this -&gt; success(&quot;栏目添加成功！&quot;,U(&quot;Admin/Admin/lst&quot;));</div><div class="line">				&#125;else&#123;</div><div class="line">					$this -&gt; error(&quot;栏目添加失败！&quot;);</div><div class="line">				&#125;</div><div class="line">				return;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		$this -&gt; display();</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<p>自动验证代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">array(&apos;password&apos;,&apos;checkPassword&apos;,&apos;管理员密码必须！&apos;,1,&apos;callback&apos;,1),</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public function checkPassword($password)&#123;</div><div class="line">		if($password == md5(&apos;&apos;))&#123;</div><div class="line">			return false;</div><div class="line">		&#125;else&#123;</div><div class="line">			return true;</div><div class="line">		&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>像这里，我要是直接用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">array(&apos;password&apos;,&apos;require&apos;,&apos;管理员密码必须！&apos;,1,&apos;regex&apos;,1),</div></pre></td></tr></table></figure>
+<p>这样验证是不行的，因为我将表单提交过来的数据进行md5加密后才进行了数据创建create()，所以会根据数据创建的数据来验证，即使传入为空，但进行md5加密后会不为空，这是就不能进行空验证了，这是可以自定义一个验证方法，传入参数是创建要创建数据集的数据，像上面的checkPassword方法一样可以进行密码不为空验证</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/22/thinkphp/" data-id="cj0l34hdx000148mmvfflqssb" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/03/22/thinkphp/" data-id="cj0nuf4sv0000commc4mc6kjp" class="article-share-link">Share</a>
       
       
     </footer>
@@ -128,7 +138,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">归档</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
     </div>
@@ -138,7 +148,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
         
