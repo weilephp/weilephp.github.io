@@ -3,21 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>my name is weile | Hexo</title>
+  <title>ajax传递数据给后台与form表单的冲突 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very last post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+  <meta name="description" content="首先form表单123&amp;lt;form method=&amp;quot;&amp;quot; action=&amp;quot;&amp;quot;&amp;gt;    &amp;lt;input type=&amp;quot;submit&amp;quot; name=&amp;quot;submit&amp;quot; id=&amp;quot;register&amp;quot; /&amp;gt;&amp;lt;/form&amp;gt;
+form表单默认的method方法是get传递，而action默">
 <meta property="og:type" content="article">
-<meta property="og:title" content="my name is weile">
+<meta property="og:title" content="ajax传递数据给后台与form表单的冲突">
 <meta property="og:url" content="http://weilephp.github.io/2017/03/19/hello-world/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very last post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2017-03-19T11:59:40.057Z">
+<meta property="og:description" content="首先form表单123&amp;lt;form method=&amp;quot;&amp;quot; action=&amp;quot;&amp;quot;&amp;gt;    &amp;lt;input type=&amp;quot;submit&amp;quot; name=&amp;quot;submit&amp;quot; id=&amp;quot;register&amp;quot; /&amp;gt;&amp;lt;/form&amp;gt;
+form表单默认的method方法是get传递，而action默">
+<meta property="og:updated_time" content="2017-04-01T16:24:22.131Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="my name is weile">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very last post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="ajax传递数据给后台与form表单的冲突">
+<meta name="twitter:description" content="首先form表单123&amp;lt;form method=&amp;quot;&amp;quot; action=&amp;quot;&amp;quot;&amp;gt;    &amp;lt;input type=&amp;quot;submit&amp;quot; name=&amp;quot;submit&amp;quot; id=&amp;quot;register&amp;quot; /&amp;gt;&amp;lt;/form&amp;gt;
+form表单默认的method方法是get传递，而action默">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -80,7 +80,7 @@ Quick">
         
   
     <h1 class="article-title" itemprop="name">
-      my name is weile
+      ajax传递数据给后台与form表单的冲突
     </h1>
   
 
@@ -88,20 +88,16 @@ Quick">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very last post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>首先form表单<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;form method=&quot;&quot; action=&quot;&quot;&gt;</div><div class="line">    &lt;input type=&quot;submit&quot; name=&quot;submit&quot; id=&quot;register&quot; /&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
+<p>form表单默认的method方法是get传递，而action默认是当前的url，也就是当按提交按钮时会将数据提交到当前url。</p>
+<p>那么，这样的一个特性和ajax又有什么冲突呢？很明显，这一特性与submit按钮点击调用ajax方法有冲突了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$(&quot;#register&quot;).click(function()&#123;</div><div class="line">    $.ajax(&#123;</div><div class="line">        url:&quot;./reg.php&quot;,</div><div class="line">        type:&quot;post&quot;,</div><div class="line">    	data:&#123;&apos;username&apos;:username,&apos;password&apos;:pass1,&apos;email&apos;:email&#125;,</div><div class="line">    	dataType:&quot;json&quot;,</div><div class="line">    	success:function(data)&#123;</div><div class="line">    		alert(data.msg);</div><div class="line">    	&#125;,</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>其中register是submit提交按钮的id。像这样的一段代码，我们发现了什么，没错，ajax传递数据的url为reg.php，但是，这个按钮在form表单里面，那么，这个时候按下提交按钮是提交到当前的html页面还是reg.php后台页面呢，经过测试，它有时会提交到reg.php，有时会提交到当前url，但是提交到当前url的次数较多，我个人认为这种情况可能是提交到当前页面所用的时间和耗费的资源较少，浏览器就比较喜欢这种页面，所以优先提交给静态的当前页面，置于有时候会偶尔提交给reg.php页面，可能是某种原因，暂时还不知道</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/19/hello-world/" data-id="cj0w6kjh30002rkmmcruo1413" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/03/19/hello-world/" data-id="cj0zgy4v70001k8mmjaq8dql4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -141,7 +137,7 @@ Quick">
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
     </div>
   </div>
 
@@ -152,6 +148,10 @@ Quick">
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/04/02/form_and_ajax/">(no title)</a>
+          </li>
         
           <li>
             <a href="/2017/03/30/fileupload/">文件上传</a>
@@ -166,7 +166,7 @@ Quick">
           </li>
         
           <li>
-            <a href="/2017/03/19/hello-world/">my name is weile</a>
+            <a href="/2017/03/19/hello-world/">ajax传递数据给后台与form表单的冲突</a>
           </li>
         
       </ul>
