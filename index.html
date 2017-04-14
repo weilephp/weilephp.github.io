@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
@@ -60,6 +60,48 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-catetree" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/14/catetree/" class="article-date">
+  <time datetime="2017-04-14T12:24:40.664Z" itemprop="datePublished">2017-04-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/14/catetree/">无限极分类思路</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>无限极分类是php的一个重要知识点，很多地方都可以用到，例如当前位置信息显示等等很多方面，所以无限极分类是必须掌握的内容。下面来看看如何实现无限极分类</p>
+<p>1.无限极分类是首先依据就是数据表，其内必须有一个父id（pid）字段用来对应栏目分类信息，第一级栏目的父id为0，二级子栏目父id分别对应各自的第一级栏目的id，三级栏目的父id对应二级，以此类推，如下图</p>
+<p><img src="http://on47sru77.bkt.clouddn.com/catetree20170414200756.png" alt="image"></p>
+<p>接下来就要用递归的方法实现无限极分类查找树<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public function catetree()&#123;</div><div class="line">		$data = $this -&gt; order(&apos;cate_id asc&apos;) -&gt; select();</div><div class="line">		return $this -&gt; resort($data);</div><div class="line">&#125;</div><div class="line">	</div><div class="line">	</div><div class="line">private function resort($data,$parentid=0,$level=0)&#123;</div><div class="line">		static $res = array();</div><div class="line">		foreach($data as $key =&gt; $val)&#123;</div><div class="line">			if($val[&apos;parentid&apos;]==$parentid)&#123;</div><div class="line">				$val[&apos;level&apos;] = $level;</div><div class="line">				$res[] = $val;</div><div class="line">				$this -&gt; resort($data,$val[&apos;cate_id&apos;],$level+1);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		return $res;</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<p>看到resort方法，有三个参数，第一个是表的所有数据的数组参数，第二个是父id默认为0，第三个是level，级别，level参数是为了在列表页展示的时候缩进的时候用的。</p>
+<p>首先定义一个静态的空数组，用来存放每次foreach循环的对应的所有内容，即每次循环的顶级栏目以及对应的所有栏目，接下来foreach循环，首先当有栏目的父id=0时就将$level加进数组，并且把该栏目对应的所有信息给了静态数组，然后进行递归调用，把数据，当前栏目id当作父id，已经$level+1当作参数，然后进行下一轮的查找，一直递归，直到找不到子栏目就退出，这就是无限极分类树，核心思想是递归调用。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/14/catetree/" data-id="cj1ht5ema0000dkmmaxqx9ew4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-twolevel_cate" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -96,7 +138,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/14/twolevel_cate/" data-id="cj1hm1eez0002l8mmwtjfvilz" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/14/twolevel_cate/" data-id="cj1ht5en00004dkmm34jsjkja" class="article-share-link">Share</a>
       
       
     </footer>
@@ -137,7 +179,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/12/thinkphpVariable/" data-id="cj1hm1efr0004l8mm778zpxm6" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/12/thinkphpVariable/" data-id="cj1ht5emw0003dkmmnlb1of6j" class="article-share-link">Share</a>
       
       
     </footer>
@@ -178,7 +220,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/02/form_and_ajax/" data-id="cj1hm1eg10005l8mm3tydms6y" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/02/form_and_ajax/" data-id="cj1ht5eml0001dkmm1nbjw45f" class="article-share-link">Share</a>
       
       
     </footer>
@@ -224,7 +266,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/30/fileupload/" data-id="cj1hm1eeu0001l8mmhb6foe8l" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/03/30/fileupload/" data-id="cj1ht5emr0002dkmmm1orfi1o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -269,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/22/thinkphp/" data-id="cj1hm1eec0000l8mm0qzlnidz" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/03/22/thinkphp/" data-id="cj1ht5en80005dkmmch4syr0k" class="article-share-link">Share</a>
       
       
     </footer>
@@ -319,7 +361,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/20/ueditor/" data-id="cj1hm1efo0003l8mmue6789cj" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/03/20/ueditor/" data-id="cj1ht5ene0006dkmmmiudje4v" class="article-share-link">Share</a>
       
       
     </footer>
@@ -354,9 +396,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/04/14/catetree/">无限极分类思路</a>
+          </li>
         
           <li>
             <a href="/2017/04/14/twolevel_cate/">thinkphp动态调用二级分类栏目</a>
@@ -374,10 +420,6 @@
             <a href="/2017/03/30/fileupload/">文件上传</a>
           </li>
         
-          <li>
-            <a href="/2017/03/22/thinkphp/">thinkphp笔记</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -391,7 +433,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 John Doe<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
