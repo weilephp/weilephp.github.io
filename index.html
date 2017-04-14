@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
@@ -60,6 +60,220 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-lamp_4" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/15/lamp_4/" class="article-date">
+  <time datetime="2017-04-14T17:04:36.736Z" itemprop="datePublished">2017-04-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/15/lamp_4/">lamp环境搭建（四）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="安装phpmyadmin"><a href="#安装phpmyadmin" class="headerlink" title="安装phpmyadmin"></a>安装phpmyadmin</h2><p> 安装好MySQL，Apache及PHP后，为了可视化的管理MySQL数据库，我们可以安装phpMyAdmin。到其官网下载最新版本：<a href="http://www.phpmyadmin.net/home_page/" target="_blank" rel="external">http://www.phpmyadmin.net/home_page/</a></p>
+<p>一开始我直接下载最新版本，但是安装后提示版本不符合，于是下载了4.0版本的zip包。</p>
+<h6 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# unzip phpMyAdmin-4.2.6-all-languages.zip</div><div class="line">[root@localhost ~]# mv phpMyAdmin-4.2.6-all-languages /var/www/html/phpmyadmin</div><div class="line">[root@localhost ~]# cd /var/www/html/phpmyadmin</div><div class="line">[root@localhost ~]# cp libraries/config.default.php config.inc.php</div><div class="line"> </div><div class="line">[root@localhost ~]# vi cnfig.inc.php</div><div class="line">$cfg[&apos;PmaAbsoluteUri&apos;] = &apos;&apos;;这里填写 phpMyAdmin 的访问网址。</div><div class="line">$cfg[&apos;Servers&apos;][$i][&apos;host&apos;] = &apos;localhost&apos;; // MySQL hostname or IP address</div><div class="line">$cfg[&apos;Servers&apos;][$i][&apos;port&apos;] = &apos;&apos;; // MySQL port - leave blank for default port</div><div class="line">$cfg[&apos;Servers&apos;][$i][&apos;user&apos;] = &apos;root&apos;; // 填写 MySQL 访问 phpMyAdmin 使用的 MySQL 用户名，默认为 root。</div><div class="line">fg[&apos;Servers&apos;][$i][&apos;password&apos;] = &apos;&apos;; // 填写对应上述 MySQL 用户名的密码</div></pre></td></tr></table></figure>
+<p>。</p>
+<h4 id="然后重启-httpd服务"><a href="#然后重启-httpd服务" class="headerlink" title="然后重启,httpd服务"></a>然后重启,httpd服务</h4><p>[root@localhost ~]# service httpd restart</p>
+<p>在浏览器键入<a href="http://localhost/phpmyadmin" target="_blank" rel="external">http://localhost/phpmyadmin</a> ，但是进去了登录的时候我出现了#2002无法登录的问题，这时把配置文件的<br><img src="http://on47sru77.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720170415005832.png" alt="image"></p>
+<p>改一下，改为127.0.0.1就可以了。</p>
+<h5 id="有时候会遇到下述问题"><a href="#有时候会遇到下述问题" class="headerlink" title="有时候会遇到下述问题"></a>有时候会遇到下述问题</h5><p><img src="http://on47sru77.bkt.clouddn.com/20170415010142.png" alt="image"></p>
+<p>经过查询和尝试发现是SELinux的问题。把目录或文件设成了user_home_t类型，因此apache的进程没有权限，造成无法访问。因为针对 Apache的进程所使用的SELinux target policy规定了apache的进程只能访问httpd_sys_content_t类型的目录或文件。<br>以下为解决办法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># chcon -R -t httpd_sys_content_t /var/www/html/phpmyadmin</div></pre></td></tr></table></figure>
+<p>然后再次访问phpMyAdmin目录得到：<br><img src="http://on47sru77.bkt.clouddn.com/20170415010308.png" alt="image"></p>
+<p>这是由于未安装mbstring扩展。</p>
+<p>执行：#yum install -y php-mbstring</p>
+<p>#service httpd restart</p>
+<p>解决。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_4/" data-id="cj1i350iy0002zgmm2eo06br0" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-lamp_3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/15/lamp_3/" class="article-date">
+  <time datetime="2017-04-14T16:54:16.514Z" itemprop="datePublished">2017-04-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/15/lamp_3/">lamp环境搭建（三）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="PHP篇"><a href="#PHP篇" class="headerlink" title="PHP篇"></a>PHP篇</h2><p>安装centos6.5自带php</p>
+<p>安装相关模块：为了让PHP支持MySQL，我们可以安装php-mysql软件包；也可使用以下命令搜索可用的php模块<br>[root@localhost ~]# yum -y install php php-mysql</p>
+<h4 id="安装php常用扩展"><a href="#安装php常用扩展" class="headerlink" title="安装php常用扩展"></a>安装php常用扩展</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# yum search php</div><div class="line">[root@localhost ~]# yum -y install gd php-gd gd-devel php-xml php-common php-mbstring php-ldap php-pear php-xmlrpc php-imap</div></pre></td></tr></table></figure>
+<p>其中gd-devel php-mbstring php-imap找不到镜像，要下载rpm包才可以，但是找不到php-imap-5.3.3-26-el6-x86_64的包，所以没装</p>
+<h4 id="重启httpd服务，这一步很重要"><a href="#重启httpd服务，这一步很重要" class="headerlink" title="重启httpd服务，这一步很重要"></a>重启httpd服务，这一步很重要</h4><p>[root@localhost ~]# service httpd restart</p>
+<p>然后，我们提供php页面，测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# cd /var/www/html/</div><div class="line">[root@localhost html]# vi index.php</div><div class="line">&lt;?php</div><div class="line">    phpinfo();</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_3/" data-id="cj1i350j30003zgmmjx8qtz2k" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-lamp_2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/15/lamp_2/" class="article-date">
+  <time datetime="2017-04-14T16:50:11.575Z" itemprop="datePublished">2017-04-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/15/lamp_2/">lamp环境搭建（二）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Mysql篇"><a href="#Mysql篇" class="headerlink" title="Mysql篇"></a>Mysql篇</h2><p>材料mysql-5.1.73 .tar.gz，源码编译安装</p>
+<p>安装之前得先安装：ncurses-devel  perl-Data-Dumper  boost  boost-doc  boost-devel,不然无法进行make编译,用yum命令装。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">groupadd -r mysql                                                      </div><div class="line">#添加mysql用户组</div><div class="line">useradd -g mysql -r mysql                                          #添加mysql用户</div><div class="line">mkdir -p /usr/local/mysql/                                            #添加mysql的安装目录</div><div class="line">mkdir -p /usr/local/mysql/data/                                    #添加mysql的数据库目录</div><div class="line">mkdir -p /usr/local/mysql/etc/                                      #添加mysql的配置文件存放路径</div><div class="line">#配置</div><div class="line">./configure --prefix=/usr/local/mysql/ --localstatedir=/usr/local/mysql/data/ --sysconfdir=/usr/local/mysql/etc/ --with-charset=utf8</div><div class="line">make                                                                          #编译</div><div class="line">make install                                                                #安装</div><div class="line">cd /usr/local/mysql/                                                    #进入mysql的安装目录</div><div class="line">chown -R mysql .                                                       #给mysql用户对这个目录有权限</div><div class="line">chgrp -R mysql .                                                         #给mysql组对这个目录有权限</div><div class="line">#安装默认数据</div><div class="line">/usr/local/mysql/bin/mysql_install_db --user=mysql --datadir=/usr/local/mysql/data</div><div class="line">#复制mysql的启动文件</div><div class="line">cp /usr/local/mysql/share/mysql/mysql.server  /etc/rc.d/init.d/mysqld</div><div class="line">#复制mysql的配置文件</div><div class="line">cp /usr/local/mysql/share/mysql/my-large.cnf  /usr/local/mysql/etc/my.cnf</div><div class="line">chmod +x /etc/init.d/mysqld           #给mysql执行权限</div><div class="line">chkconfig --add mysqld                 #把mysql注册为服务</div><div class="line">chkconfig --level 345 mysqld on    #让mysql自启动</div><div class="line">service mysqld start                       #启动mysql</div></pre></td></tr></table></figure></p>
+<h4 id="如果初次启动出现Starting-MySQL-Manager-of-pid-file-quit-without-updating-fi-FAILED-的报错，则有以下原因"><a href="#如果初次启动出现Starting-MySQL-Manager-of-pid-file-quit-without-updating-fi-FAILED-的报错，则有以下原因" class="headerlink" title="##### 如果初次启动出现Starting MySQL.Manager of pid-file quit without updating fi[FAILED]的报错，则有以下原因"></a>##### 如果初次启动出现Starting MySQL.Manager of pid-file quit without updating fi[FAILED]的报错，则有以下原因</h4><h6 id="二、也许是selinux惹的祸"><a href="#二、也许是selinux惹的祸" class="headerlink" title="二、也许是selinux惹的祸"></a>二、也许是selinux惹的祸</h6><p>如果是centos系统，默认会开启selinux，这个时候可以先关闭它，打开/etc/selinux/config，把SELINUX=enforcing改为SELINUX=disabled后存盘退出重启机器试试。</p>
+<h6 id="三、残余数据"><a href="#三、残余数据" class="headerlink" title="三、残余数据"></a>三、残余数据</h6><p>也有可能是第二次在机器上安装mysql，有残余数据影响了服务的启动，去mysql的数据目录/data看看，如果存在mysql-bin.index，就赶快把它删除掉吧，它就是罪魁祸首了。</p>
+<h6 id="四、确定数据目录的权限"><a href="#四、确定数据目录的权限" class="headerlink" title="四、确定数据目录的权限"></a>四、确定数据目录的权限</h6><p>数据目录一般是<prefix>/data，检查一下它的归属，如果不是mysql所有者，一般安装mysql时都会创建mysql的用户和组的，这时要修改一下用户和组：<br>chown -R mysql:mysql /var/data</prefix></p>
+<h6 id="五、没有指定数据目录"><a href="#五、没有指定数据目录" class="headerlink" title="五、没有指定数据目录"></a>五、没有指定数据目录</h6><p>mysql在启动时没有指定配置文件时会使用/etc/my.cnf配置文件，请打开这个文件查看在[mysqld]节下有没有指定数据目录(datadir)。如果没有请在[mysqld]下设置这一行：<br>datadir = /usr/local/mysql/data</p>
+<h6 id="六、还有mysql进程在跑着"><a href="#六、还有mysql进程在跑着" class="headerlink" title="六、还有mysql进程在跑着"></a>六、还有mysql进程在跑着</h6><p>如果这是第二次在机器上安装mysql就极有可能会出现这种情况的，这时系统上很有可能还有mysql进程在运行着。可以执行下列命令查看：<br>ps -ef | grep mysql<br>如果出现的结果不止一行的就赶快把它kill掉吧。</p>
+<h6 id="七、skip-federated字段在作祟"><a href="#七、skip-federated字段在作祟" class="headerlink" title="七、skip-federated字段在作祟"></a>七、skip-federated字段在作祟</h6><p>可以检查一下/etc/my.cnf文件中有没有没被注释掉的skip-federated字段，如果有就立即注释掉吧。</p>
+<h6 id="八、出错日志目录不存在"><a href="#八、出错日志目录不存在" class="headerlink" title="八、出错日志目录不存在"></a>八、出错日志目录不存在</h6><p>也有可能你现在还不知道mysql的出错日志在哪里吧？这时你可以执行命令查看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd mysql/bin</div><div class="line">./mysql_safe</div></pre></td></tr></table></figure>
+<p>这时一定会报错的， 并在错误中显示将错误写在某某目录的某某文件里了，这里检查一下这个目录和文件是否在，在的话就按日志指示解决，如果没有的话就要创建目录并修改权限和归属了。一般会是/var/lib/mysql/mysql.error，注意mysql.error不用创建的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cd /var/lib</div><div class="line">mkdir mysql</div><div class="line">chmod 777 mysql</div><div class="line">chown mysql:mysql mysql</div></pre></td></tr></table></figure>
+<h6 id="九、可能是data-mysql-bin-index在作怪"><a href="#九、可能是data-mysql-bin-index在作怪" class="headerlink" title="九、可能是data/mysql-bin.index在作怪"></a>九、可能是data/mysql-bin.index在作怪</h6><p>前因：因为硬盘满了，mysql启动不起来了。登录上去看了一下，发现原因。删除mysql的日志文件，重启mysql发现错误：Starting MySQL.Manager of pid-file quit without updating file.[FAILED]</p>
+<p>网上有不少这个原因的解释，但是都不是我想说的。我要说的原因其实很白痴：data/mysql-bin.index没有删除，data/mysql-bin.index是存放日志文件索引的文件，只删除了日志文件而没有对日志的索引文件做处理显然是不行的。<br>删除data/mysql-bin.index文件，再service mysqld start就可以了。</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>/usr/local/mysql/bin/mysqladmin -u root password ‘123456’  #设置密码</p>
+<p>最后登录mysql，会有这个问题-bash:mysql:command not found</p>
+<p>因为mysql命令的路径在/usr/local/mysql/bin下面,所以你直接使用mysql命令时,<br>系统在/usr/bin下面查此命令,所以找不到了<br>   解决办法是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ln -s /usr/local/mysql/bin/mysql /usr/bin　做个链接即可</div></pre></td></tr></table></figure>
+<p>登录之后就可以开心使用mysql了<br><img src="http://on47sru77.bkt.clouddn.com/20170415002612.png" alt="image"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_2/" data-id="cj1i350ig0000zgmmjgifnffi" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-lamp_1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/15/lamp_1/" class="article-date">
+  <time datetime="2017-04-14T16:32:05.020Z" itemprop="datePublished">2017-04-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/15/lamp_1/">lamp环境搭建（一）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Lamp环境的配置</p>
+<p>准备材料：虚拟机vm12.0 ，centos6.5 64位镜像，apache2.4.4源码包，mysql5.1.73源码包</p>
+<h1 id="1-Apache篇"><a href="#1-Apache篇" class="headerlink" title="1.    Apache篇"></a>1.    Apache篇</h1><p>apr-1.5.2.tar.gz、apr-util-1.5.4.tar.gz、httpd-2.4.4.tar.gz、pcre-8.36.tar.gz</p>
+<p>APR对于Tomcat最大的作用就是socket调度。</p>
+<p>你在局域网环境测，就算是400个并发，也是一瞬间就处理/传<br>输完毕，但是在真实的Internet环境下，页面处理时间只占<br>0.1%都不到，绝大部分时间都用来页面传输。如果不用APR，<br>一个线程同一时间只能处理一个用户，势必会造成阻塞。所以<br>生产环境下用apr是非常必要的。</p>
+<p>  注：APR(Apache portable Run-time libraries，Apache可移植运行库)的目的如其名称一样，主要为上层的应用程序提供一个可以跨越多操作系统平台使用的底层支持接口库。</p>
+<pre><code>一般情况下，APR开发包很容易理解为仅仅是一个开发包，不过事实上并不是。目前，完整的APR实际上包含了三个开发包：apr、apr-util以及apr-iconv，每一个开发包分别独立开发，并拥有自己的版本。
+</code></pre><p>而pcre是一个perl库，包含perl兼容的正则表达式库</p>
+<p>安装：编译安装，所以要先安装gcc gcc-c++包来进行编译：yum –y install gcc gcc-c++。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">tar zxvf apr-1.5.2.tar.gz</div><div class="line">cd apr-1.5.2</div><div class="line">./configure--prefix=/usr/local/apr  这是安装目录</div><div class="line">make &amp;&amp; make install 需要root权限</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">tar zxvfapr-util-1.5.4.tar.gz</div><div class="line">cd apr-util-1.5.4</div><div class="line">./configure--prefix=/usr/local/apr-util --with-apr=/usr/local/apr</div><div class="line">make &amp;&amp; make install</div><div class="line"></div><div class="line">tar zxvf pcre-8.36.tar.gz</div><div class="line">cd pcre-8.36</div><div class="line">./configure --prefix=/usr/local/pcre--with-apr-util=/usr/local/apr-util --with-apr=/usr/local/apr</div><div class="line">make &amp;&amp; make install</div><div class="line"></div><div class="line">到这里，要安装apache：首先解压，进入解压后的文件夹cd httpd-2.4.4</div><div class="line">./configure --prefix=/usr/local/apache2 --with-apr=/usr/local/apr --with-apr-util=/usr/local/apr-util --with-pcre=/usr/local/pcre --enable-so --enable-rewrite  </div><div class="line">部分配置信息解释如下：</div><div class="line">--prefix=/usr/local/apache:  httpd的安装路径</div><div class="line">    --sysconfdir=/etc/httpd:  配置文件的安装路径</div><div class="line">    --enable-so:  支持DSO的方式动态装卸模块,默认启用</div><div class="line">    --enable-ssl:  编译启用ssl,rpm –qa|grep opensll要能查看到openssl-devel</div><div class="line">    --enable-cgi:  默认启用cgi模块</div><div class="line">    --enable-rewrite:  支持url重写,服务器自动重写url以跳转到新位置</div><div class="line">    --with-pcre:  支持pcre,perl的正则表达库rpm –qa|grep pcre要能查看到pcre-devel</div><div class="line">    --with-zlib:  支持在网络传输时使用压缩库</div><div class="line">    --with-apr=/usr/local/apr:  指定apr位置</div><div class="line">    --with-apr-util=/usr/local/apr-util:  指定apr-util位置</div><div class="line">    --enable-mpms-shared=all --with-mpm=event:  默认使用event模式</div><div class="line">    --enable-modules=most: 编译大多数常用模块</div></pre></td></tr></table></figure>
+<p>完成后可进行make&amp;&amp;make install</p>
+<h4 id="将Apache添加成httpd服务并开机自启动"><a href="#将Apache添加成httpd服务并开机自启动" class="headerlink" title="将Apache添加成httpd服务并开机自启动"></a>将Apache添加成httpd服务并开机自启动</h4><p>1.将apachectl文件copy一分到/etc/rc.d/init.d中，然后再/etc/rc.d/rc5.d中加入链接。</p>
+<p>其中init.d中的脚本就相当于window中的注册表，在系统启动的时候某些指定的脚本被执行。而rc5.d就和rc3.d差不多吧。也都是一些脚本只是执行级别不同。<br>命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cp /usr/local/apache/bin/apachectl /etc/init.d/httpd</div><div class="line">ln -s /etc/init.d/httpd/etc/rc.d/rc5.d/S85httpd</div></pre></td></tr></table></figure>
+<ol>
+<li>运行chkconfig –list 发现列表中没有httpd，通过chkconfig –add httpd来添加，可能会提示httpd服务不支持chkconfig，需要编辑/etc/rc.d/init.d/httpd<br>在第二行添加以下注视信息：</li>
+</ol>
+<h6 id="chkconfig-345-85-15"><a href="#chkconfig-345-85-15" class="headerlink" title="chkconfig: 345 85 15"></a>chkconfig: 345 85 15</h6><p>description:Activates/Deactivates Apache Web Server</p>
+<p>345代表哪些linux级别需要启动httpd，启动序号是85，关闭序号是15。</p>
+<p>保存以后执行 chkconfig –addhttpd 添加成功</p>
+<ol>
+<li><p>运行chkconfig –list httpd 基本就存在了。然后就可以用了。</p>
+</li>
+<li><p>service httpd start 和 service httpd stop<br>测试，在浏览器上输入127.0.0.1会出现it works。<br>打开apache配置文件，找到根目录，并记住<br><img src="http://on47sru77.bkt.clouddn.com/20170415002611.png" alt="image"></p>
+</li>
+</ol>
+<h3 id="安装自带apache"><a href="#安装自带apache" class="headerlink" title="安装自带apache"></a>安装自带apache</h3><p>1、安装Apache<br>[root@localhost ~]# yum -y install httpd</p>
+<h4 id="开机自启动"><a href="#开机自启动" class="headerlink" title="开机自启动"></a>开机自启动</h4><p>[root@localhost ~]# chkconfig httpd on</p>
+<h4 id="启动httpd-服务"><a href="#启动httpd-服务" class="headerlink" title="启动httpd 服务"></a>启动httpd 服务</h4><p>[root@localhost ~]# service httpd start</p>
+<h4 id="安装apache-一些扩展"><a href="#安装apache-一些扩展" class="headerlink" title="安装apache 一些扩展"></a>安装apache 一些扩展</h4><p>root@localhost ~]# yum -y install httpd-manual mod_ssl mod_perl mod_auth_mysql</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_1/" data-id="cj1i350is0001zgmm10y532ib" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-catetree" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -93,7 +307,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/14/catetree/" data-id="cj1ht5ema0000dkmmaxqx9ew4" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/14/catetree/" data-id="cj1i350j70004zgmmx6qt740u" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -138,7 +352,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/14/twolevel_cate/" data-id="cj1ht5en00004dkmm34jsjkja" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/14/twolevel_cate/" data-id="cj1i350jx0008zgmmh2atsk35" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -179,7 +393,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/12/thinkphpVariable/" data-id="cj1ht5emw0003dkmmnlb1of6j" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/12/thinkphpVariable/" data-id="cj1i350l2000azgmm50yqa9b0" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -220,7 +434,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/02/form_and_ajax/" data-id="cj1ht5eml0001dkmm1nbjw45f" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/02/form_and_ajax/" data-id="cj1i350jd0005zgmmyf1hjsuh" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -266,7 +480,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/30/fileupload/" data-id="cj1ht5emr0002dkmmm1orfi1o" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/03/30/fileupload/" data-id="cj1i350ji0006zgmm4xpwcxmu" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -311,57 +525,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/22/thinkphp/" data-id="cj1ht5en80005dkmmch4syr0k" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ueditor" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/20/ueditor/" class="article-date">
-  <time datetime="2017-03-20T14:46:47.655Z" itemprop="datePublished">2017-03-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/20/ueditor/">ueditor的使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="tp下的udeitord的使用"><a href="#tp下的udeitord的使用" class="headerlink" title="tp下的udeitord的使用"></a>tp下的udeitord的使用</h1><ol>
-<li>下载ueditor的扩展包，然后解压在合适的目录下</li>
-<li>引入ueditor文件里面的js文件</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ueditor.config.js</div><div class="line">ueditor.all.min.js</div><div class="line">lang/zh-cn/zh-cn.js</div></pre></td></tr></table></figure>
-<p>上面三个文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">3. 编辑器处像&lt;textarea&gt;标签引入id=&quot;content&quot;</div></pre></td></tr></table></figure>
-<ol>
-<li>底部</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//实例化编辑器</div><div class="line">    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor(&apos;editor&apos;)就能拿到相关的实例</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">UE.getEditor(&apos;content&apos;,&#123;initialFrameWidth:1500,initialFrameHeight:400,&#125;);</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/20/ueditor/" data-id="cj1ht5ene0006dkmmmiudje4v" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/03/22/thinkphp/" data-id="cj1i350jo0007zgmmfujs6c03" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -372,6 +536,10 @@
 
   
 
+
+  <nav id="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
+  </nav>
 </section>
         
           <aside id="sidebar">
@@ -396,28 +564,28 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
         
           <li>
+            <a href="/2017/04/15/lamp_4/">lamp环境搭建（四）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/15/lamp_3/">lamp环境搭建（三）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/15/lamp_2/">lamp环境搭建（二）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/15/lamp_1/">lamp环境搭建（一）</a>
+          </li>
+        
+          <li>
             <a href="/2017/04/14/catetree/">无限极分类思路</a>
-          </li>
-        
-          <li>
-            <a href="/2017/04/14/twolevel_cate/">thinkphp动态调用二级分类栏目</a>
-          </li>
-        
-          <li>
-            <a href="/2017/04/12/thinkphpVariable/">thinkphp模板引擎volist标签与php原生代码嵌合的变量用法</a>
-          </li>
-        
-          <li>
-            <a href="/2017/04/02/form_and_ajax/">ajax传递数据给后台与form表单的冲突</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/30/fileupload/">文件上传</a>
           </li>
         
       </ul>
@@ -433,7 +601,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>lamp环境搭建（二） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Mysql篇材料mysql-5.1.73 .tar.gz，源码编译安装
+安装之前得先安装：ncurses-devel  perl-Data-Dumper  boost  boost-doc  boost-devel,不然无法进行make编译,用yum命令装。1234567891011121314151617181920212223groupadd -r mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lamp环境搭建（二）">
+<meta property="og:url" content="http://weilephp.github.io/2017/04/15/lamp_2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Mysql篇材料mysql-5.1.73 .tar.gz，源码编译安装
+安装之前得先安装：ncurses-devel  perl-Data-Dumper  boost  boost-doc  boost-devel,不然无法进行make编译,用yum命令装。1234567891011121314151617181920212223groupadd -r mysql">
+<meta property="og:image" content="http://on47sru77.bkt.clouddn.com/20170415002612.png">
+<meta property="og:updated_time" content="2017-04-14T16:51:01.892Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="lamp环境搭建（二）">
+<meta name="twitter:description" content="Mysql篇材料mysql-5.1.73 .tar.gz，源码编译安装
+安装之前得先安装：ncurses-devel  perl-Data-Dumper  boost  boost-doc  boost-devel,不然无法进行make编译,用yum命令装。1234567891011121314151617181920212223groupadd -r mysql">
+<meta name="twitter:image" content="http://on47sru77.bkt.clouddn.com/20170415002612.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-lamp_2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/15/lamp_2/" class="article-date">
+  <time datetime="2017-04-14T16:50:11.575Z" itemprop="datePublished">2017-04-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      lamp环境搭建（二）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Mysql篇"><a href="#Mysql篇" class="headerlink" title="Mysql篇"></a>Mysql篇</h2><p>材料mysql-5.1.73 .tar.gz，源码编译安装</p>
+<p>安装之前得先安装：ncurses-devel  perl-Data-Dumper  boost  boost-doc  boost-devel,不然无法进行make编译,用yum命令装。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">groupadd -r mysql                                                      </div><div class="line">#添加mysql用户组</div><div class="line">useradd -g mysql -r mysql                                          #添加mysql用户</div><div class="line">mkdir -p /usr/local/mysql/                                            #添加mysql的安装目录</div><div class="line">mkdir -p /usr/local/mysql/data/                                    #添加mysql的数据库目录</div><div class="line">mkdir -p /usr/local/mysql/etc/                                      #添加mysql的配置文件存放路径</div><div class="line">#配置</div><div class="line">./configure --prefix=/usr/local/mysql/ --localstatedir=/usr/local/mysql/data/ --sysconfdir=/usr/local/mysql/etc/ --with-charset=utf8</div><div class="line">make                                                                          #编译</div><div class="line">make install                                                                #安装</div><div class="line">cd /usr/local/mysql/                                                    #进入mysql的安装目录</div><div class="line">chown -R mysql .                                                       #给mysql用户对这个目录有权限</div><div class="line">chgrp -R mysql .                                                         #给mysql组对这个目录有权限</div><div class="line">#安装默认数据</div><div class="line">/usr/local/mysql/bin/mysql_install_db --user=mysql --datadir=/usr/local/mysql/data</div><div class="line">#复制mysql的启动文件</div><div class="line">cp /usr/local/mysql/share/mysql/mysql.server  /etc/rc.d/init.d/mysqld</div><div class="line">#复制mysql的配置文件</div><div class="line">cp /usr/local/mysql/share/mysql/my-large.cnf  /usr/local/mysql/etc/my.cnf</div><div class="line">chmod +x /etc/init.d/mysqld           #给mysql执行权限</div><div class="line">chkconfig --add mysqld                 #把mysql注册为服务</div><div class="line">chkconfig --level 345 mysqld on    #让mysql自启动</div><div class="line">service mysqld start                       #启动mysql</div></pre></td></tr></table></figure></p>
+<h4 id="如果初次启动出现Starting-MySQL-Manager-of-pid-file-quit-without-updating-fi-FAILED-的报错，则有以下原因"><a href="#如果初次启动出现Starting-MySQL-Manager-of-pid-file-quit-without-updating-fi-FAILED-的报错，则有以下原因" class="headerlink" title="##### 如果初次启动出现Starting MySQL.Manager of pid-file quit without updating fi[FAILED]的报错，则有以下原因"></a>##### 如果初次启动出现Starting MySQL.Manager of pid-file quit without updating fi[FAILED]的报错，则有以下原因</h4><h6 id="二、也许是selinux惹的祸"><a href="#二、也许是selinux惹的祸" class="headerlink" title="二、也许是selinux惹的祸"></a>二、也许是selinux惹的祸</h6><p>如果是centos系统，默认会开启selinux，这个时候可以先关闭它，打开/etc/selinux/config，把SELINUX=enforcing改为SELINUX=disabled后存盘退出重启机器试试。</p>
+<h6 id="三、残余数据"><a href="#三、残余数据" class="headerlink" title="三、残余数据"></a>三、残余数据</h6><p>也有可能是第二次在机器上安装mysql，有残余数据影响了服务的启动，去mysql的数据目录/data看看，如果存在mysql-bin.index，就赶快把它删除掉吧，它就是罪魁祸首了。</p>
+<h6 id="四、确定数据目录的权限"><a href="#四、确定数据目录的权限" class="headerlink" title="四、确定数据目录的权限"></a>四、确定数据目录的权限</h6><p>数据目录一般是<prefix>/data，检查一下它的归属，如果不是mysql所有者，一般安装mysql时都会创建mysql的用户和组的，这时要修改一下用户和组：<br>chown -R mysql:mysql /var/data</prefix></p>
+<h6 id="五、没有指定数据目录"><a href="#五、没有指定数据目录" class="headerlink" title="五、没有指定数据目录"></a>五、没有指定数据目录</h6><p>mysql在启动时没有指定配置文件时会使用/etc/my.cnf配置文件，请打开这个文件查看在[mysqld]节下有没有指定数据目录(datadir)。如果没有请在[mysqld]下设置这一行：<br>datadir = /usr/local/mysql/data</p>
+<h6 id="六、还有mysql进程在跑着"><a href="#六、还有mysql进程在跑着" class="headerlink" title="六、还有mysql进程在跑着"></a>六、还有mysql进程在跑着</h6><p>如果这是第二次在机器上安装mysql就极有可能会出现这种情况的，这时系统上很有可能还有mysql进程在运行着。可以执行下列命令查看：<br>ps -ef | grep mysql<br>如果出现的结果不止一行的就赶快把它kill掉吧。</p>
+<h6 id="七、skip-federated字段在作祟"><a href="#七、skip-federated字段在作祟" class="headerlink" title="七、skip-federated字段在作祟"></a>七、skip-federated字段在作祟</h6><p>可以检查一下/etc/my.cnf文件中有没有没被注释掉的skip-federated字段，如果有就立即注释掉吧。</p>
+<h6 id="八、出错日志目录不存在"><a href="#八、出错日志目录不存在" class="headerlink" title="八、出错日志目录不存在"></a>八、出错日志目录不存在</h6><p>也有可能你现在还不知道mysql的出错日志在哪里吧？这时你可以执行命令查看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd mysql/bin</div><div class="line">./mysql_safe</div></pre></td></tr></table></figure>
+<p>这时一定会报错的， 并在错误中显示将错误写在某某目录的某某文件里了，这里检查一下这个目录和文件是否在，在的话就按日志指示解决，如果没有的话就要创建目录并修改权限和归属了。一般会是/var/lib/mysql/mysql.error，注意mysql.error不用创建的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cd /var/lib</div><div class="line">mkdir mysql</div><div class="line">chmod 777 mysql</div><div class="line">chown mysql:mysql mysql</div></pre></td></tr></table></figure>
+<h6 id="九、可能是data-mysql-bin-index在作怪"><a href="#九、可能是data-mysql-bin-index在作怪" class="headerlink" title="九、可能是data/mysql-bin.index在作怪"></a>九、可能是data/mysql-bin.index在作怪</h6><p>前因：因为硬盘满了，mysql启动不起来了。登录上去看了一下，发现原因。删除mysql的日志文件，重启mysql发现错误：Starting MySQL.Manager of pid-file quit without updating file.[FAILED]</p>
+<p>网上有不少这个原因的解释，但是都不是我想说的。我要说的原因其实很白痴：data/mysql-bin.index没有删除，data/mysql-bin.index是存放日志文件索引的文件，只删除了日志文件而没有对日志的索引文件做处理显然是不行的。<br>删除data/mysql-bin.index文件，再service mysqld start就可以了。</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>/usr/local/mysql/bin/mysqladmin -u root password ‘123456’  #设置密码</p>
+<p>最后登录mysql，会有这个问题-bash:mysql:command not found</p>
+<p>因为mysql命令的路径在/usr/local/mysql/bin下面,所以你直接使用mysql命令时,<br>系统在/usr/bin下面查此命令,所以找不到了<br>   解决办法是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ln -s /usr/local/mysql/bin/mysql /usr/bin　做个链接即可</div></pre></td></tr></table></figure>
+<p>登录之后就可以开心使用mysql了<br><img src="http://on47sru77.bkt.clouddn.com/20170415002612.png" alt="image"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_2/" data-id="cj1i350ig0000zgmmjgifnffi" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/15/lamp_3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          lamp环境搭建（三）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/15/lamp_1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">lamp环境搭建（一）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/04/15/lamp_4/">lamp环境搭建（四）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/15/lamp_3/">lamp环境搭建（三）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/15/lamp_2/">lamp环境搭建（二）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/15/lamp_1/">lamp环境搭建（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/14/catetree/">无限极分类思路</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

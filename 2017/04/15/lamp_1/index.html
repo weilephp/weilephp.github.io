@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>lamp环境搭建（一） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Lamp环境的配置
+准备材料：虚拟机vm12.0 ，centos6.5 64位镜像，apache2.4.4源码包，mysql5.1.73源码包
+1.    Apache篇apr-1.5.2.tar.gz、apr-util-1.5.4.tar.gz、httpd-2.4.4.tar.gz、pcre-8.36.tar.gz
+APR对于Tomcat最大的作用就是socket调度。
+你在局域网环境测，就算是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lamp环境搭建（一）">
+<meta property="og:url" content="http://weilephp.github.io/2017/04/15/lamp_1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Lamp环境的配置
+准备材料：虚拟机vm12.0 ，centos6.5 64位镜像，apache2.4.4源码包，mysql5.1.73源码包
+1.    Apache篇apr-1.5.2.tar.gz、apr-util-1.5.4.tar.gz、httpd-2.4.4.tar.gz、pcre-8.36.tar.gz
+APR对于Tomcat最大的作用就是socket调度。
+你在局域网环境测，就算是">
+<meta property="og:image" content="http://on47sru77.bkt.clouddn.com/20170415002611.png">
+<meta property="og:updated_time" content="2017-04-14T16:33:33.374Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="lamp环境搭建（一）">
+<meta name="twitter:description" content="Lamp环境的配置
+准备材料：虚拟机vm12.0 ，centos6.5 64位镜像，apache2.4.4源码包，mysql5.1.73源码包
+1.    Apache篇apr-1.5.2.tar.gz、apr-util-1.5.4.tar.gz、httpd-2.4.4.tar.gz、pcre-8.36.tar.gz
+APR对于Tomcat最大的作用就是socket调度。
+你在局域网环境测，就算是">
+<meta name="twitter:image" content="http://on47sru77.bkt.clouddn.com/20170415002611.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-lamp_1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/15/lamp_1/" class="article-date">
+  <time datetime="2017-04-14T16:32:05.020Z" itemprop="datePublished">2017-04-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      lamp环境搭建（一）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Lamp环境的配置</p>
+<p>准备材料：虚拟机vm12.0 ，centos6.5 64位镜像，apache2.4.4源码包，mysql5.1.73源码包</p>
+<h1 id="1-Apache篇"><a href="#1-Apache篇" class="headerlink" title="1.    Apache篇"></a>1.    Apache篇</h1><p>apr-1.5.2.tar.gz、apr-util-1.5.4.tar.gz、httpd-2.4.4.tar.gz、pcre-8.36.tar.gz</p>
+<p>APR对于Tomcat最大的作用就是socket调度。</p>
+<p>你在局域网环境测，就算是400个并发，也是一瞬间就处理/传<br>输完毕，但是在真实的Internet环境下，页面处理时间只占<br>0.1%都不到，绝大部分时间都用来页面传输。如果不用APR，<br>一个线程同一时间只能处理一个用户，势必会造成阻塞。所以<br>生产环境下用apr是非常必要的。</p>
+<p>  注：APR(Apache portable Run-time libraries，Apache可移植运行库)的目的如其名称一样，主要为上层的应用程序提供一个可以跨越多操作系统平台使用的底层支持接口库。</p>
+<pre><code>一般情况下，APR开发包很容易理解为仅仅是一个开发包，不过事实上并不是。目前，完整的APR实际上包含了三个开发包：apr、apr-util以及apr-iconv，每一个开发包分别独立开发，并拥有自己的版本。
+</code></pre><p>而pcre是一个perl库，包含perl兼容的正则表达式库</p>
+<p>安装：编译安装，所以要先安装gcc gcc-c++包来进行编译：yum –y install gcc gcc-c++。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">tar zxvf apr-1.5.2.tar.gz</div><div class="line">cd apr-1.5.2</div><div class="line">./configure--prefix=/usr/local/apr  这是安装目录</div><div class="line">make &amp;&amp; make install 需要root权限</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">tar zxvfapr-util-1.5.4.tar.gz</div><div class="line">cd apr-util-1.5.4</div><div class="line">./configure--prefix=/usr/local/apr-util --with-apr=/usr/local/apr</div><div class="line">make &amp;&amp; make install</div><div class="line"></div><div class="line">tar zxvf pcre-8.36.tar.gz</div><div class="line">cd pcre-8.36</div><div class="line">./configure --prefix=/usr/local/pcre--with-apr-util=/usr/local/apr-util --with-apr=/usr/local/apr</div><div class="line">make &amp;&amp; make install</div><div class="line"></div><div class="line">到这里，要安装apache：首先解压，进入解压后的文件夹cd httpd-2.4.4</div><div class="line">./configure --prefix=/usr/local/apache2 --with-apr=/usr/local/apr --with-apr-util=/usr/local/apr-util --with-pcre=/usr/local/pcre --enable-so --enable-rewrite  </div><div class="line">部分配置信息解释如下：</div><div class="line">--prefix=/usr/local/apache:  httpd的安装路径</div><div class="line">    --sysconfdir=/etc/httpd:  配置文件的安装路径</div><div class="line">    --enable-so:  支持DSO的方式动态装卸模块,默认启用</div><div class="line">    --enable-ssl:  编译启用ssl,rpm –qa|grep opensll要能查看到openssl-devel</div><div class="line">    --enable-cgi:  默认启用cgi模块</div><div class="line">    --enable-rewrite:  支持url重写,服务器自动重写url以跳转到新位置</div><div class="line">    --with-pcre:  支持pcre,perl的正则表达库rpm –qa|grep pcre要能查看到pcre-devel</div><div class="line">    --with-zlib:  支持在网络传输时使用压缩库</div><div class="line">    --with-apr=/usr/local/apr:  指定apr位置</div><div class="line">    --with-apr-util=/usr/local/apr-util:  指定apr-util位置</div><div class="line">    --enable-mpms-shared=all --with-mpm=event:  默认使用event模式</div><div class="line">    --enable-modules=most: 编译大多数常用模块</div></pre></td></tr></table></figure>
+<p>完成后可进行make&amp;&amp;make install</p>
+<h4 id="将Apache添加成httpd服务并开机自启动"><a href="#将Apache添加成httpd服务并开机自启动" class="headerlink" title="将Apache添加成httpd服务并开机自启动"></a>将Apache添加成httpd服务并开机自启动</h4><p>1.将apachectl文件copy一分到/etc/rc.d/init.d中，然后再/etc/rc.d/rc5.d中加入链接。</p>
+<p>其中init.d中的脚本就相当于window中的注册表，在系统启动的时候某些指定的脚本被执行。而rc5.d就和rc3.d差不多吧。也都是一些脚本只是执行级别不同。<br>命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cp /usr/local/apache/bin/apachectl /etc/init.d/httpd</div><div class="line">ln -s /etc/init.d/httpd/etc/rc.d/rc5.d/S85httpd</div></pre></td></tr></table></figure>
+<ol>
+<li>运行chkconfig –list 发现列表中没有httpd，通过chkconfig –add httpd来添加，可能会提示httpd服务不支持chkconfig，需要编辑/etc/rc.d/init.d/httpd<br>在第二行添加以下注视信息：</li>
+</ol>
+<h6 id="chkconfig-345-85-15"><a href="#chkconfig-345-85-15" class="headerlink" title="chkconfig: 345 85 15"></a>chkconfig: 345 85 15</h6><p>description:Activates/Deactivates Apache Web Server</p>
+<p>345代表哪些linux级别需要启动httpd，启动序号是85，关闭序号是15。</p>
+<p>保存以后执行 chkconfig –addhttpd 添加成功</p>
+<ol>
+<li><p>运行chkconfig –list httpd 基本就存在了。然后就可以用了。</p>
+</li>
+<li><p>service httpd start 和 service httpd stop<br>测试，在浏览器上输入127.0.0.1会出现it works。<br>打开apache配置文件，找到根目录，并记住<br><img src="http://on47sru77.bkt.clouddn.com/20170415002611.png" alt="image"></p>
+</li>
+</ol>
+<h3 id="安装自带apache"><a href="#安装自带apache" class="headerlink" title="安装自带apache"></a>安装自带apache</h3><p>1、安装Apache<br>[root@localhost ~]# yum -y install httpd</p>
+<h4 id="开机自启动"><a href="#开机自启动" class="headerlink" title="开机自启动"></a>开机自启动</h4><p>[root@localhost ~]# chkconfig httpd on</p>
+<h4 id="启动httpd-服务"><a href="#启动httpd-服务" class="headerlink" title="启动httpd 服务"></a>启动httpd 服务</h4><p>[root@localhost ~]# service httpd start</p>
+<h4 id="安装apache-一些扩展"><a href="#安装apache-一些扩展" class="headerlink" title="安装apache 一些扩展"></a>安装apache 一些扩展</h4><p>root@localhost ~]# yum -y install httpd-manual mod_ssl mod_perl mod_auth_mysql</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_1/" data-id="cj1i350is0001zgmm10y532ib" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/15/lamp_2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          lamp环境搭建（二）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/14/catetree/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">无限极分类思路</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/04/15/lamp_4/">lamp环境搭建（四）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/15/lamp_3/">lamp环境搭建（三）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/15/lamp_2/">lamp环境搭建（二）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/15/lamp_1/">lamp环境搭建（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/14/catetree/">无限极分类思路</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
