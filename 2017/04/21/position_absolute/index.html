@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>无依赖的绝对定位position absolute | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="无依赖的绝对定位，就是不依赖于父元素的绝对定位。什么是不依赖父元素的绝对定位呢？
+这里首先点名一点：absolute不一定非与relative绑定在一起；二者是分离的、对立的；不是兄弟元素；absolute越独立越强大；
+我们知道，一般子元素相对父元素的绝对定位都会在父元素那里加个absolute:position;例如：
+1234&amp;lt;div class=&amp;quot;box&amp;quot;&amp;gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="无依赖的绝对定位position absolute">
+<meta property="og:url" content="http://weilephp.github.io/2017/04/21/position_absolute/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="无依赖的绝对定位，就是不依赖于父元素的绝对定位。什么是不依赖父元素的绝对定位呢？
+这里首先点名一点：absolute不一定非与relative绑定在一起；二者是分离的、对立的；不是兄弟元素；absolute越独立越强大；
+我们知道，一般子元素相对父元素的绝对定位都会在父元素那里加个absolute:position;例如：
+1234&amp;lt;div class=&amp;quot;box&amp;quot;&amp;gt;">
+<meta property="og:image" content="http://on47sru77.bkt.clouddn.com/20170421221431.png">
+<meta property="og:updated_time" content="2017-04-21T14:43:24.351Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="无依赖的绝对定位position absolute">
+<meta name="twitter:description" content="无依赖的绝对定位，就是不依赖于父元素的绝对定位。什么是不依赖父元素的绝对定位呢？
+这里首先点名一点：absolute不一定非与relative绑定在一起；二者是分离的、对立的；不是兄弟元素；absolute越独立越强大；
+我们知道，一般子元素相对父元素的绝对定位都会在父元素那里加个absolute:position;例如：
+1234&amp;lt;div class=&amp;quot;box&amp;quot;&amp;gt;">
+<meta name="twitter:image" content="http://on47sru77.bkt.clouddn.com/20170421221431.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-position_absolute" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/21/position_absolute/" class="article-date">
+  <time datetime="2017-04-21T14:42:10.361Z" itemprop="datePublished">2017-04-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      无依赖的绝对定位position absolute
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>无依赖的绝对定位，就是不依赖于父元素的绝对定位。什么是不依赖父元素的绝对定位呢？</p>
+<p>这里首先点名一点：absolute不一定非与relative绑定在一起；二者是分离的、对立的；不是兄弟元素；absolute越独立越强大；</p>
+<p>我们知道，一般子元素相对父元素的绝对定位都会在父元素那里加个absolute:position;例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;box&quot;&gt;</div><div class="line">	&lt;div class=&quot;sub&quot;&gt;&lt;/div&gt;</div><div class="line">	&lt;div class=&quot;sub1&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>例如，上述代码，要实现如图所示的效果：</p>
+<p><img src="http://on47sru77.bkt.clouddn.com/20170421221431.png" alt="image"><br>一般都会用如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">.box&#123;</div><div class="line">	background: red;</div><div class="line">	width:300px;</div><div class="line">	height:200px;</div><div class="line">	margin:50px auto;</div><div class="line">	position:relative;</div><div class="line">&#125;</div><div class="line">.sub&#123;</div><div class="line">	position:absolute;</div><div class="line">	width:20px;</div><div class="line">	height:20px;</div><div class="line">	left:-20px;</div><div class="line">	background: #000;</div><div class="line">&#125;</div><div class="line">.sub1&#123;</div><div class="line">	width:200px;</div><div class="line">	height:150px;</div><div class="line">	background: #ff7f50;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是依赖于父元素的relative;而用无依赖的绝对定位，即不依赖与父元素的relative怎么实现呢，是利用绝对定位加margin实现的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">.box&#123;</div><div class="line">	background: red;</div><div class="line">	width:300px;</div><div class="line">	height:200px;</div><div class="line">	margin:50px auto;</div><div class="line">	//这里少了position:relative;</div><div class="line">&#125;</div><div class="line">.sub&#123;</div><div class="line">	position:absolute;</div><div class="line">	width:20px;</div><div class="line">	height:20px;</div><div class="line">	margin-left: -20px;//这里利用margin-left</div><div class="line">	background: #000;</div><div class="line">&#125;</div><div class="line">.sub1&#123;</div><div class="line">	width:200px;</div><div class="line">	height:150px;</div><div class="line">	background: #ff7f50;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样同让会实现上述效果，这就是无依赖的绝对定位。<br>此外，要多多利用absolute的跟随性和无依赖，绝对定位的跟随性，就是原来出现在什么位置，绝对定位后就出现在什么位置，只不过这时它已经脱离了文档流而已，这就是跟随性，利用这种特性，可以实现图片居中。</p>
+<p>思路就是利用父元素给个text-align，然后父元素包裹一个空格，后面紧跟&lt;img&gt;图片，这是因为absolute不能继承text-align，所以给个空格继承，然后利用跟随性和无依赖就可以实现居中了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/21/position_absolute/" data-id="cj1ry5qtx0007h4mmuz5n0odc" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">html meta http-equiv X-UA-Compatible viewport</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/04/21/position_absolute/">无依赖的绝对定位position absolute</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/">html meta http-equiv X-UA-Compatible viewport</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/21/input_button/">input button</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/21/javascript_global_jubu_bianliang/">javascript局部变量与全局变量</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/21/w3c_media_type/">W3C媒体类型和媒体特性(CSS3@midia)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

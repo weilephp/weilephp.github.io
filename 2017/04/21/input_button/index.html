@@ -3,24 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>lamp环境搭建（三） | Hexo</title>
+  <title>input button | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="PHP篇安装centos6.5自带php
-安装相关模块：为了让PHP支持MySQL，我们可以安装php-mysql软件包；也可使用以下命令搜索可用的php模块[root@localhost ~]# yum -y install php php-mysql
-安装php常用扩展12[root@localhost ~]# yum search php[root@localhost ~]# yum -y">
+  <meta name="description" content="如果把windows的主题换一下，那么，按钮的样式就会发生变化了，所以一般按钮都会自己手动添加样式而不会利用button的自定义样式。
+而现在的各大网站很多按钮都是利用a标签加css3的圆角属性制作。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="lamp环境搭建（三）">
-<meta property="og:url" content="http://weilephp.github.io/2017/04/15/lamp_3/index.html">
+<meta property="og:title" content="input button">
+<meta property="og:url" content="http://weilephp.github.io/2017/04/21/input_button/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="PHP篇安装centos6.5自带php
-安装相关模块：为了让PHP支持MySQL，我们可以安装php-mysql软件包；也可使用以下命令搜索可用的php模块[root@localhost ~]# yum -y install php php-mysql
-安装php常用扩展12[root@localhost ~]# yum search php[root@localhost ~]# yum -y">
-<meta property="og:updated_time" content="2017-04-14T16:55:05.747Z">
+<meta property="og:description" content="如果把windows的主题换一下，那么，按钮的样式就会发生变化了，所以一般按钮都会自己手动添加样式而不会利用button的自定义样式。
+而现在的各大网站很多按钮都是利用a标签加css3的圆角属性制作。">
+<meta property="og:updated_time" content="2017-04-21T14:40:03.834Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="lamp环境搭建（三）">
-<meta name="twitter:description" content="PHP篇安装centos6.5自带php
-安装相关模块：为了让PHP支持MySQL，我们可以安装php-mysql软件包；也可使用以下命令搜索可用的php模块[root@localhost ~]# yum -y install php php-mysql
-安装php常用扩展12[root@localhost ~]# yum search php[root@localhost ~]# yum -y">
+<meta name="twitter:title" content="input button">
+<meta name="twitter:description" content="如果把windows的主题换一下，那么，按钮的样式就会发生变化了，所以一般按钮都会自己手动添加样式而不会利用button的自定义样式。
+而现在的各大网站很多按钮都是利用a标签加css3的圆角属性制作。">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -69,10 +66,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-lamp_3" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-input_button" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/04/15/lamp_3/" class="article-date">
-  <time datetime="2017-04-14T16:54:16.514Z" itemprop="datePublished">2017-04-15</time>
+    <a href="/2017/04/21/input_button/" class="article-date">
+  <time datetime="2017-04-21T14:39:13.877Z" itemprop="datePublished">2017-04-21</time>
 </a>
     
   </div>
@@ -83,7 +80,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      lamp环境搭建（三）
+      input button
     </h1>
   
 
@@ -91,17 +88,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="PHP篇"><a href="#PHP篇" class="headerlink" title="PHP篇"></a>PHP篇</h2><p>安装centos6.5自带php</p>
-<p>安装相关模块：为了让PHP支持MySQL，我们可以安装php-mysql软件包；也可使用以下命令搜索可用的php模块<br>[root@localhost ~]# yum -y install php php-mysql</p>
-<h4 id="安装php常用扩展"><a href="#安装php常用扩展" class="headerlink" title="安装php常用扩展"></a>安装php常用扩展</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# yum search php</div><div class="line">[root@localhost ~]# yum -y install gd php-gd gd-devel php-xml php-common php-mbstring php-ldap php-pear php-xmlrpc php-imap</div></pre></td></tr></table></figure>
-<p>其中gd-devel php-mbstring php-imap找不到镜像，要下载rpm包才可以，但是找不到php-imap-5.3.3-26-el6-x86_64的包，所以没装</p>
-<h4 id="重启httpd服务，这一步很重要"><a href="#重启httpd服务，这一步很重要" class="headerlink" title="重启httpd服务，这一步很重要"></a>重启httpd服务，这一步很重要</h4><p>[root@localhost ~]# service httpd restart</p>
-<p>然后，我们提供php页面，测试</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# cd /var/www/html/</div><div class="line">[root@localhost html]# vi index.php</div><div class="line">&lt;?php</div><div class="line">    phpinfo();</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+        <p>如果把windows的主题换一下，那么，按钮的样式就会发生变化了，所以一般按钮都会自己手动添加样式而不会利用button的自定义样式。</p>
+<p>而现在的各大网站很多按钮都是利用a标签加css3的圆角属性制作。</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_3/" data-id="cj1ry5quj000bh4mmjnf52na5" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/input_button/" data-id="cj1ry5qsn0003h4mmgcyqc508" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -110,19 +103,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/04/15/lamp_4/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Récent</strong>
       <div class="article-nav-title">
         
-          lamp环境搭建（四）
+          html meta http-equiv X-UA-Compatible viewport
         
       </div>
     </a>
   
   
-    <a href="/2017/04/15/lamp_2/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/04/21/javascript_global_jubu_bianliang/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Ancien</strong>
-      <div class="article-nav-title">lamp环境搭建（二）</div>
+      <div class="article-nav-title">javascript局部变量与全局变量</div>
     </a>
   
 </nav>

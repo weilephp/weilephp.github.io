@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>CSS_腾讯QQ官网，新浪官网，网易官网，淘宝官网之css初始化代码 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="CSS为什么要初始化？建站老手都知道，这是为了考虑到浏览器的兼容问题，其实不同浏览器对有些标签的默认值是不同的，如果没对CSS初始化往往会出现浏览器之间的页面差异。当然，初始化样式会对SEO有一定的影响，但鱼和熊掌不可兼得，但力求影响最小的情况下初始化。
+最简单的初始化方法就是：  {padding: 0; margin: 0;} 。有很多人也是这样写的。这确实很简单，但有人就会感到疑问：号这样一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS_腾讯QQ官网，新浪官网，网易官网，淘宝官网之css初始化代码">
+<meta property="og:url" content="http://weilephp.github.io/2017/04/21/css_initial/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="CSS为什么要初始化？建站老手都知道，这是为了考虑到浏览器的兼容问题，其实不同浏览器对有些标签的默认值是不同的，如果没对CSS初始化往往会出现浏览器之间的页面差异。当然，初始化样式会对SEO有一定的影响，但鱼和熊掌不可兼得，但力求影响最小的情况下初始化。
+最简单的初始化方法就是：  {padding: 0; margin: 0;} 。有很多人也是这样写的。这确实很简单，但有人就会感到疑问：号这样一">
+<meta property="og:updated_time" content="2017-04-21T14:36:17.153Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS_腾讯QQ官网，新浪官网，网易官网，淘宝官网之css初始化代码">
+<meta name="twitter:description" content="CSS为什么要初始化？建站老手都知道，这是为了考虑到浏览器的兼容问题，其实不同浏览器对有些标签的默认值是不同的，如果没对CSS初始化往往会出现浏览器之间的页面差异。当然，初始化样式会对SEO有一定的影响，但鱼和熊掌不可兼得，但力求影响最小的情况下初始化。
+最简单的初始化方法就是：  {padding: 0; margin: 0;} 。有很多人也是这样写的。这确实很简单，但有人就会感到疑问：号这样一">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-css_initial" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/21/css_initial/" class="article-date">
+  <time datetime="2017-04-21T14:33:33.312Z" itemprop="datePublished">2017-04-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CSS_腾讯QQ官网，新浪官网，网易官网，淘宝官网之css初始化代码
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>CSS为什么要初始化？建站老手都知道，这是为了考虑到浏览器的兼容问题，其实不同浏览器对有些标签的默认值是不同的，如果没对CSS初始化往往会出现浏览器之间的页面差异。当然，初始化样式会对SEO有一定的影响，但鱼和熊掌不可兼得，但力求影响最小的情况下初始化。</p>
+<p>最简单的初始化方法就是： <em> {padding: 0; margin: 0;} 。有很多人也是这样写的。这确实很简单，但有人就会感到疑问：</em>号这样一个通用符在编写代码的时候是快，但如果网站很大，CSS样式表文件很大，这样写的话，他会把所有的标签都初始化一遍，这样就大大的加强了网站运行的负载，会使网站加载的时候需要很长一段时间。</p>
+<p>写过css的都知道每个网页引进的css首先都需要初始化，而出名的css reset有YUI css reset（QQ、淘宝等都出现他的影子），业内用的最多的还有Erik Meyer’s CSS Reset。</p>
+<p>花了点时间，把一些门户及大型网站的样式初始化罗列了下来（仅供参考）</p>
+<h5 id="腾讯QQ官网-http-www-qq-com-样式初始化"><a href="#腾讯QQ官网-http-www-qq-com-样式初始化" class="headerlink" title="腾讯QQ官网(http://www.qq.com)样式初始化"></a>腾讯QQ官网(<a href="http://www.qq.com)样式初始化" target="_blank" rel="external">http://www.qq.com)样式初始化</a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select&#123;margin:0;padding:0&#125;</div><div class="line">body&#123;font:12px&quot;宋体&quot;,&quot;Arial Narrow&quot;,HELVETICA;background:#fff;-webkit-text-size-adjust:100%;&#125;</div><div class="line">a&#123;color:#2d374b;text-decoration:none&#125;</div><div class="line">a:hover&#123;color:#cd0200;text-decoration:underline&#125;</div><div class="line">em&#123;font-style:normal&#125;</div><div class="line">li&#123;list-style:none&#125;</div><div class="line">img&#123;border:0;vertical-align:middle&#125;</div><div class="line">table&#123;border-collapse:collapse;border-spacing:0&#125;</div><div class="line">p&#123;word-wrap:break-word&#125;</div></pre></td></tr></table></figure>
+<h5 id="新浪官网-http-www-sina-com-cn-样式初始化"><a href="#新浪官网-http-www-sina-com-cn-样式初始化" class="headerlink" title="新浪官网(http://www.sina.com.cn/)样式初始化"></a>新浪官网(<a href="http://www.sina.com.cn/)样式初始化" target="_blank" rel="external">http://www.sina.com.cn/)样式初始化</a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div&#123;margin:0;padding:0;border:0;&#125;</div><div class="line">body&#123;background:#fff;color:#333;font-size:12px; margin-top:5px;font-family:&quot;SimSun&quot;,&quot;宋体&quot;,&quot;Arial Narrow&quot;;&#125;</div><div class="line">ul,ol&#123;list-style-type:none;&#125;</div><div class="line">select,input,img,select&#123;vertical-align:middle;&#125;</div><div class="line">a&#123;text-decoration:none;&#125;</div><div class="line">a:link&#123;color:#009;&#125;</div><div class="line">a:visited&#123;color:#800080;&#125;</div><div class="line">a:hover,a:active,a:focus&#123;color:#c00;text-decoration:underline;&#125;</div></pre></td></tr></table></figure>
+<h5 id="淘宝官网-http-www-taobao-com-样式初始化（淘宝的样式是经过压缩的，我自己拷下来格式化过的）"><a href="#淘宝官网-http-www-taobao-com-样式初始化（淘宝的样式是经过压缩的，我自己拷下来格式化过的）" class="headerlink" title="淘宝官网(http://www.taobao.com/)样式初始化（淘宝的样式是经过压缩的，我自己拷下来格式化过的）"></a>淘宝官网(<a href="http://www.taobao.com/)样式初始化（淘宝的样式是经过压缩的，我自己拷下来格式化过的）" target="_blank" rel="external">http://www.taobao.com/)样式初始化（淘宝的样式是经过压缩的，我自己拷下来格式化过的）</a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td &#123; margin:0; padding:0; &#125;</div><div class="line">body, button, input, select, textarea &#123; font:12px/1.5tahoma, arial, \5b8b\4f53; &#125;</div><div class="line">h1, h2, h3, h4, h5, h6&#123; font-size:100%; &#125;</div><div class="line">address, cite, dfn, em, var &#123; font-style:normal; &#125;</div><div class="line">code, kbd, pre, samp &#123; font-family:couriernew, courier, monospace; &#125;</div><div class="line">small&#123; font-size:12px; &#125;</div><div class="line">ul, ol &#123; list-style:none; &#125;</div><div class="line">a &#123; text-decoration:none; &#125;</div><div class="line">a:hover &#123; text-decoration:underline; &#125;</div><div class="line">sup &#123; vertical-align:text-top; &#125;</div><div class="line">sub&#123; vertical-align:text-bottom; &#125;</div><div class="line">legend &#123; color:#000; &#125;</div><div class="line">fieldset, img &#123; border:0; &#125;</div><div class="line">button, input, select, textarea &#123; font-size:100%; &#125;</div><div class="line">table &#123; border-collapse:collapse; border-spacing:0; &#125;</div></pre></td></tr></table></figure>
+<h5 id="网易官网-http-www-163-com-样式初始化"><a href="#网易官网-http-www-163-com-样式初始化" class="headerlink" title="网易官网(http://www.163.com/)样式初始化"></a>网易官网(<a href="http://www.163.com/)样式初始化" target="_blank" rel="external">http://www.163.com/)样式初始化</a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">html &#123;overflow-y:scroll;&#125;</div><div class="line">body &#123;margin:0; padding:29px00; font:12px&quot;\5B8B\4F53&quot;,sans-serif;background:#ffffff;&#125; &lt;!--&quot;\5B8B\4F53&quot;是unicode编码代表宋体的意思，等同于&quot;宋体&quot;--!&gt;</div><div class="line">div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,blockquote,p&#123;padding:0; margin:0;&#125;</div><div class="line">table,td,tr,th&#123;font-size:12px;&#125;</div><div class="line">li&#123;list-style-type:none;&#125;</div><div class="line">img&#123;vertical-align:top;border:0;&#125;</div><div class="line">ol,ul &#123;list-style:none;&#125;</div><div class="line">h1,h2,h3,h4,h5,h6&#123;font-size:12px; font-weight:normal;&#125;</div><div class="line">address,cite,code,em,th &#123;font-weight:normal; font-style:normal;&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/21/css_initial/" data-id="cj1ry5qs20000h4mmz3m6ifj9" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/21/w3c_media_type/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          W3C媒体类型和媒体特性(CSS3@midia)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/15/lamp_4/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">lamp环境搭建（四）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/04/21/position_absolute/">无依赖的绝对定位position absolute</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/">html meta http-equiv X-UA-Compatible viewport</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/21/input_button/">input button</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/21/javascript_global_jubu_bianliang/">javascript局部变量与全局变量</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/21/w3c_media_type/">W3C媒体类型和媒体特性(CSS3@midia)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

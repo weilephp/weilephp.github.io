@@ -61,6 +61,266 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-catetree" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/14/catetree/" class="article-date">
+  <time datetime="2017-04-14T12:24:40.664Z" itemprop="datePublished">2017-04-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/14/catetree/">无限极分类思路</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>无限极分类是php的一个重要知识点，很多地方都可以用到，例如当前位置信息显示等等很多方面，所以无限极分类是必须掌握的内容。下面来看看如何实现无限极分类</p>
+<p>1.无限极分类是首先依据就是数据表，其内必须有一个父id（pid）字段用来对应栏目分类信息，第一级栏目的父id为0，二级子栏目父id分别对应各自的第一级栏目的id，三级栏目的父id对应二级，以此类推，如下图</p>
+<p><img src="http://on47sru77.bkt.clouddn.com/catetree20170414200756.png" alt="image"></p>
+<p>接下来就要用递归的方法实现无限极分类查找树<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public function catetree()&#123;</div><div class="line">		$data = $this -&gt; order(&apos;cate_id asc&apos;) -&gt; select();</div><div class="line">		return $this -&gt; resort($data);</div><div class="line">&#125;</div><div class="line">	</div><div class="line">	</div><div class="line">private function resort($data,$parentid=0,$level=0)&#123;</div><div class="line">		static $res = array();</div><div class="line">		foreach($data as $key =&gt; $val)&#123;</div><div class="line">			if($val[&apos;parentid&apos;]==$parentid)&#123;</div><div class="line">				$val[&apos;level&apos;] = $level;</div><div class="line">				$res[] = $val;</div><div class="line">				$this -&gt; resort($data,$val[&apos;cate_id&apos;],$level+1);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		return $res;</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<p>看到resort方法，有三个参数，第一个是表的所有数据的数组参数，第二个是父id默认为0，第三个是level，级别，level参数是为了在列表页展示的时候缩进的时候用的。</p>
+<p>首先定义一个静态的空数组，用来存放每次foreach循环的对应的所有内容，即每次循环的顶级栏目以及对应的所有栏目，接下来foreach循环，首先当有栏目的父id=0时就将$level加进数组，并且把该栏目对应的所有信息给了静态数组，然后进行递归调用，把数据，当前栏目id当作父id，已经$level+1当作参数，然后进行下一轮的查找，一直递归，直到找不到子栏目就退出，这就是无限极分类树，核心思想是递归调用。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/14/catetree/" data-id="cj1ry5qsu0004h4mmmvk0xowi" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-twolevel_cate" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/14/twolevel_cate/" class="article-date">
+  <time datetime="2017-04-14T09:04:57.729Z" itemprop="datePublished">2017-04-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/14/twolevel_cate/">thinkphp动态调用二级分类栏目</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.实例化栏目表并将pid为0即最高级祖宗对应的栏目查出来，然后分配给模板<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$cate = D(&apos;Category&apos;);</div><div class="line">$where[&apos;parentid&apos;] = array(&apos;eq&apos;,0);</div><div class="line">$cateres = $cate -&gt; where($where) -&gt; select();</div><div class="line">$this -&gt; assign(&apos;cateres&apos;,$cateres);</div></pre></td></tr></table></figure></p>
+<p>2.分配到模板之后进行volist循环,首先将一级栏目循环显示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;volist name=&quot;cateres&quot; id=&quot;vo&quot;&gt;</div></pre></td></tr></table></figure>
+<p>3.写一个公共函数，此函数获取顶级栏目对应的所有二级子栏目，注意，该函数为公共函数，写在Common目录下的common目录下并命名为function.php。该函数如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function getsub($pid)&#123;</div><div class="line">	$cate = D(&apos;Category&apos;);</div><div class="line">	$where[&apos;parentid&apos;] = array(&apos;eq&apos;,$pid);</div><div class="line">	$cateres = $cate -&gt; where($where) -&gt; select();</div><div class="line">	return $cateres;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>该函数参数为$pid，传入一级顶级栏目的栏目id，然后查找所有父id等于此栏目id的所有栏目，并返回包含信息的数组。</p>
+<p>4.嵌套volist循环，在第二步的volist循环里面再嵌套一个volist循环</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;volist name=&quot;cateres&quot; id=&quot;vo&quot;&gt;</div><div class="line">    &lt;volist name=&quot;:getsub($vo[&apos;cate_id&apos;])&quot; id=&quot;vo&quot;&gt;</div><div class="line">         &lt;a href=&quot;__MODULE__/&lt;if condition=&apos;$vo[cate_type] eq 1&apos;&gt;list&lt;elseif condition=&apos;$vo[cate_type] eq 0&apos;/&gt;page&lt;/if&gt;/index/cate_id/&#123;$vo.cate_id&#125;&quot;&gt;&#123;$vo.cate_name&#125;&lt;/a&gt;</div><div class="line">    &lt;/volist&gt;</div><div class="line">&lt;/volist&gt;</div></pre></td></tr></table></figure>
+<p>向上面以上，第二个嵌套的volist循环调用getsub函数，并把第一个volist循环的$vo[‘cate_id’]传参，这就是把顶级栏目的id当作参数传进去，然后就可以得到此栏目下的所有子栏目，然后把在模板里面显示出来就可以了</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/14/twolevel_cate/" data-id="cj1ry5qvn000eh4mm38ia5l5x" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-thinkphpVariable" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/12/thinkphpVariable/" class="article-date">
+  <time datetime="2017-04-12T15:51:53.916Z" itemprop="datePublished">2017-04-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/12/thinkphpVariable/">thinkphp模板引擎volist标签与php原生代码嵌合的变量用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先看一下代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;volist name=&quot;confres&quot; id=&quot;vo&quot;&gt;</div></pre></td></tr></table></figure></p>
+<p>在这里，我利用volist标签循环。</p>
+<p>然后接下来再看：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">    $arr = array();</div><div class="line">    $arr = explode(&apos;，&apos;,$vo[&apos;cf_values&apos;]);</div><div class="line">    foreach($arr as $k =&gt; $v)&#123;</div><div class="line">?&gt;</div><div class="line">    &lt;input type=&apos;&#123;$vo.cf_type&#125;&apos;name=&apos;&#123;$vo.cf_ename&apos;&lt;if condition=&quot;$vo[&apos;cf_value&apos;] eq $v&quot;&gt;checked=&quot;checked&quot;&lt;/if&gt; value=&apos;&#123;$v&#125;&apos;&gt;&#123;$v&#125;</div><div class="line">&lt;?php</div><div class="line">    &#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>在这里分析一下，看到php原生代码里面第二行explode这一行里面可以用$vo[‘cf_values’]变量，这个变量就是通过volist循环绑定的id：vo来调用的，然后看到第三行通过foreach循环，然后结束php原生代码，这时候，在模版里面，可以通过模版定界符加上变量来调用此变量，注意了，这里一定要加上模版定界符，否则会解析不了,这里还需要注意一下，在if标签里面是不续要加模版定界符就可以解析的,若是加了模版定界符反而会报出错误</p>
+<p>通过上述分析，可以看出volist循环的变量可以用在原生php代码里面，但是要用[]形式引用，而php原生代码的变量可以放在模版里面使用，但要用上定界符解析，if标签除外。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/12/thinkphpVariable/" data-id="cj1ry5qup000ch4mmgfpb85m2" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-form_and_ajax" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/02/form_and_ajax/" class="article-date">
+  <time datetime="2017-04-01T16:23:02.329Z" itemprop="datePublished">2017-04-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/02/form_and_ajax/">ajax传递数据给后台与form表单的冲突</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先form表单<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;form method=&quot;&quot; action=&quot;&quot;&gt;</div><div class="line">    &lt;input type=&quot;submit&quot; name=&quot;submit&quot; id=&quot;register&quot; /&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
+<p>form表单默认的method方法是get传递，而action默认是当前的url，也就是当按提交按钮时会将数据提交到当前url。</p>
+<p>那么，这样的一个特性和ajax又有什么冲突呢？很明显，这一特性与submit按钮点击调用ajax方法有冲突了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$(&quot;#register&quot;).click(function()&#123;</div><div class="line">    $.ajax(&#123;</div><div class="line">        url:&quot;./reg.php&quot;,</div><div class="line">        type:&quot;post&quot;,</div><div class="line">    	data:&#123;&apos;username&apos;:username,&apos;password&apos;:pass1,&apos;email&apos;:email&#125;,</div><div class="line">    	dataType:&quot;json&quot;,</div><div class="line">    	success:function(data)&#123;</div><div class="line">    		alert(data.msg);</div><div class="line">    	&#125;,</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>其中register是submit提交按钮的id。像这样的一段代码，我们发现了什么，没错，ajax传递数据的url为reg.php，但是，这个按钮在form表单里面，那么，这个时候按下提交按钮是提交到当前的html页面还是reg.php后台页面呢，经过测试，它有时会提交到reg.php，有时会提交到当前url，但是提交到当前url的次数较多，我个人认为这种情况可能是提交到当前页面所用的时间和耗费的资源较少，浏览器就比较喜欢这种页面，所以优先提交给静态的当前页面，置于有时候会偶尔提交给reg.php页面，可能是某种原因，暂时还不知道</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/02/form_and_ajax/" data-id="cj1ry5qtp0005h4mmenz71llk" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-fileupload" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/30/fileupload/" class="article-date">
+  <time datetime="2017-03-30T09:07:30.169Z" itemprop="datePublished">2017-03-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/30/fileupload/">文件上传</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="文件上传操作"><a href="#文件上传操作" class="headerlink" title="文件上传操作"></a>文件上传操作</h1><h2 id="1-判断错误号"><a href="#1-判断错误号" class="headerlink" title="1. 判断错误号"></a>1. 判断错误号</h2><p>0：文件上传成功。</p>
+<p>1：文件上传的大小超过php.ini里面的upload_max_filesize配置选项的大小。</p>
+<p>2：文件上传的大小超过HTML表单的MAX_FILE_SIZE设置的大小。</p>
+<p>3：文件部分被上传。</p>
+<p>4：文件没有上传。</p>
+<p>6：找不到临时文件夹。</p>
+<p>7：文件写入失败。</p>
+<p>8：上传的文件被PHP扩展程序中断。</p>
+<h2 id="2-判断上传文件夹是否存在，不存在则创建，若创建失败，则返回false。"><a href="#2-判断上传文件夹是否存在，不存在则创建，若创建失败，则返回false。" class="headerlink" title="2.判断上传文件夹是否存在，不存在则创建，若创建失败，则返回false。"></a>2.判断上传文件夹是否存在，不存在则创建，若创建失败，则返回false。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">if(!file_exists($this-&gt;uploadPath))&#123;</div><div class="line">	if(!@mkdir($this-&gt;uploadPath,0777))&#123;</div><div class="line">		$this -&gt; errorNum  = -2;</div><div class="line">		return false;</div><div class="line">	&#125;</div><div class="line">	return true;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="3-判断文件大小"><a href="#3-判断文件大小" class="headerlink" title="3.判断文件大小"></a>3.判断文件大小</h2><h2 id="4-判断文件的类型是否允许上传的类型"><a href="#4-判断文件的类型是否允许上传的类型" class="headerlink" title="4.判断文件的类型是否允许上传的类型"></a>4.判断文件的类型是否允许上传的类型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public function checkFileType()&#123;</div><div class="line">		$this -&gt; fileExt = strtolower(pathinfo($this-&gt;fileName,PATH_EXTENSION));</div><div class="line">		if(in_array($this-&gt;fileExt,$this-&gt;allowType))&#123;</div><div class="line">			return true;</div><div class="line">		&#125;else&#123;</div><div class="line">			$this-&gt;errorNum = -4;</div><div class="line">			return false;</div><div class="line">		&#125;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<h2 id="5-若是图片类型，检测是否真是的图片，利用getImageSize-函数检测"><a href="#5-若是图片类型，检测是否真是的图片，利用getImageSize-函数检测" class="headerlink" title="5.若是图片类型，检测是否真是的图片，利用getImageSize()函数检测"></a>5.若是图片类型，检测是否真是的图片，利用getImageSize()函数检测</h2><h2 id="6-检测文件是否通过HTTP-POST上传的，可通过is-uploaded-file-函数检测。"><a href="#6-检测文件是否通过HTTP-POST上传的，可通过is-uploaded-file-函数检测。" class="headerlink" title="6.检测文件是否通过HTTP POST上传的，可通过is_uploaded_file()函数检测。"></a>6.检测文件是否通过HTTP POST上传的，可通过is_uploaded_file()函数检测。</h2><h2 id="7-上传文件后的名字必须设置唯一性防止名字重复导致，可以用一下方法设置"><a href="#7-上传文件后的名字必须设置唯一性防止名字重复导致，可以用一下方法设置" class="headerlink" title="7.上传文件后的名字必须设置唯一性防止名字重复导致，可以用一下方法设置"></a>7.上传文件后的名字必须设置唯一性防止名字重复导致，可以用一下方法设置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">uniqid(microtime(true),true).&apos;_&apos;.rand(10,1000);</div></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/03/30/fileupload/" data-id="cj1ry5qsd0001h4mm1prmxylg" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-thinkphp" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/22/thinkphp/" class="article-date">
+  <time datetime="2017-03-22T14:44:09.930Z" itemprop="datePublished">2017-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/22/thinkphp/">thinkphp笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="thinkphp-SHOW-PAGE-TRACE和upload文件上传"><a href="#thinkphp-SHOW-PAGE-TRACE和upload文件上传" class="headerlink" title="thinkphp SHOW_PAGE_TRACE和upload文件上传"></a>thinkphp SHOW_PAGE_TRACE和upload文件上传</h1><p>thinkphp的show_page_trace设置后只有display()的页面才能显示出来。</p>
+<p>还有upload文件长传，$upload-&gt;savePath的目录是以index.php同一级开始的，应该说是thinkphp中除了模版文件定义之外，所有的地方定义目录同级目录下都是以index.php入口文件为标准。</p>
+<h1 id="自动验证"><a href="#自动验证" class="headerlink" title="自动验证"></a>自动验证</h1><p>自动验证，设置自动验证后会根据create方法创造的数据验证。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public function add()&#123;</div><div class="line">		$admin = D(&quot;Admin&quot;);</div><div class="line">		$data[&apos;username&apos;] = I(&apos;username&apos;);</div><div class="line">		$data[&apos;password&apos;] = md5(I(&apos;password&apos;));</div><div class="line">		if(IS_POST)&#123;</div><div class="line">			if(!$admin-&gt;create($data))&#123;</div><div class="line">				$this -&gt; error($admin-&gt;getError());</div><div class="line">			&#125;else&#123;</div><div class="line">				if($admin-&gt;add())&#123;</div><div class="line">					$this -&gt; success(&quot;栏目添加成功！&quot;,U(&quot;Admin/Admin/lst&quot;));</div><div class="line">				&#125;else&#123;</div><div class="line">					$this -&gt; error(&quot;栏目添加失败！&quot;);</div><div class="line">				&#125;</div><div class="line">				return;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		$this -&gt; display();</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<p>自动验证代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">array(&apos;password&apos;,&apos;checkPassword&apos;,&apos;管理员密码必须！&apos;,1,&apos;callback&apos;,1),</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public function checkPassword($password)&#123;</div><div class="line">		if($password == md5(&apos;&apos;))&#123;</div><div class="line">			return false;</div><div class="line">		&#125;else&#123;</div><div class="line">			return true;</div><div class="line">		&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>像这里，我要是直接用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">array(&apos;password&apos;,&apos;require&apos;,&apos;管理员密码必须！&apos;,1,&apos;regex&apos;,1),</div></pre></td></tr></table></figure>
+<p>这样验证是不行的，因为我将表单提交过来的数据进行md5加密后才进行了数据创建create()，所以会根据数据创建的数据来验证，即使传入为空，但进行md5加密后会不为空，这是就不能进行空验证了，这是可以自定义一个验证方法，传入参数是创建要创建数据集的数据，像上面的checkPassword方法一样可以进行密码不为空验证</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/03/22/thinkphp/" data-id="cj1ry5qw4000fh4mmwua0kopv" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ueditor" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/03/20/ueditor/" class="article-date">
@@ -101,7 +361,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/20/ueditor/" data-id="cj1i350kd0009zgmm9oyghbpy" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/03/20/ueditor/" data-id="cj1ry5qw8000gh4mmc5revn07" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -145,23 +405,23 @@
       <ul>
         
           <li>
-            <a href="/2017/04/15/lamp_4/">lamp环境搭建（四）</a>
+            <a href="/2017/04/21/position_absolute/">无依赖的绝对定位position absolute</a>
           </li>
         
           <li>
-            <a href="/2017/04/15/lamp_3/">lamp环境搭建（三）</a>
+            <a href="/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/">html meta http-equiv X-UA-Compatible viewport</a>
           </li>
         
           <li>
-            <a href="/2017/04/15/lamp_2/">lamp环境搭建（二）</a>
+            <a href="/2017/04/21/input_button/">input button</a>
           </li>
         
           <li>
-            <a href="/2017/04/15/lamp_1/">lamp环境搭建（一）</a>
+            <a href="/2017/04/21/javascript_global_jubu_bianliang/">javascript局部变量与全局变量</a>
           </li>
         
           <li>
-            <a href="/2017/04/14/catetree/">无限极分类思路</a>
+            <a href="/2017/04/21/w3c_media_type/">W3C媒体类型和媒体特性(CSS3@midia)</a>
           </li>
         
       </ul>

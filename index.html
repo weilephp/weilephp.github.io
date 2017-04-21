@@ -61,6 +61,458 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-position_absolute" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/21/position_absolute/" class="article-date">
+  <time datetime="2017-04-21T14:42:10.361Z" itemprop="datePublished">2017-04-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/21/position_absolute/">无依赖的绝对定位position absolute</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>无依赖的绝对定位，就是不依赖于父元素的绝对定位。什么是不依赖父元素的绝对定位呢？</p>
+<p>这里首先点名一点：absolute不一定非与relative绑定在一起；二者是分离的、对立的；不是兄弟元素；absolute越独立越强大；</p>
+<p>我们知道，一般子元素相对父元素的绝对定位都会在父元素那里加个absolute:position;例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;box&quot;&gt;</div><div class="line">	&lt;div class=&quot;sub&quot;&gt;&lt;/div&gt;</div><div class="line">	&lt;div class=&quot;sub1&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>例如，上述代码，要实现如图所示的效果：</p>
+<p><img src="http://on47sru77.bkt.clouddn.com/20170421221431.png" alt="image"><br>一般都会用如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">.box&#123;</div><div class="line">	background: red;</div><div class="line">	width:300px;</div><div class="line">	height:200px;</div><div class="line">	margin:50px auto;</div><div class="line">	position:relative;</div><div class="line">&#125;</div><div class="line">.sub&#123;</div><div class="line">	position:absolute;</div><div class="line">	width:20px;</div><div class="line">	height:20px;</div><div class="line">	left:-20px;</div><div class="line">	background: #000;</div><div class="line">&#125;</div><div class="line">.sub1&#123;</div><div class="line">	width:200px;</div><div class="line">	height:150px;</div><div class="line">	background: #ff7f50;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是依赖于父元素的relative;而用无依赖的绝对定位，即不依赖与父元素的relative怎么实现呢，是利用绝对定位加margin实现的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">.box&#123;</div><div class="line">	background: red;</div><div class="line">	width:300px;</div><div class="line">	height:200px;</div><div class="line">	margin:50px auto;</div><div class="line">	//这里少了position:relative;</div><div class="line">&#125;</div><div class="line">.sub&#123;</div><div class="line">	position:absolute;</div><div class="line">	width:20px;</div><div class="line">	height:20px;</div><div class="line">	margin-left: -20px;//这里利用margin-left</div><div class="line">	background: #000;</div><div class="line">&#125;</div><div class="line">.sub1&#123;</div><div class="line">	width:200px;</div><div class="line">	height:150px;</div><div class="line">	background: #ff7f50;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样同让会实现上述效果，这就是无依赖的绝对定位。<br>此外，要多多利用absolute的跟随性和无依赖，绝对定位的跟随性，就是原来出现在什么位置，绝对定位后就出现在什么位置，只不过这时它已经脱离了文档流而已，这就是跟随性，利用这种特性，可以实现图片居中。</p>
+<p>思路就是利用父元素给个text-align，然后父元素包裹一个空格，后面紧跟&lt;img&gt;图片，这是因为absolute不能继承text-align，所以给个空格继承，然后利用跟随性和无依赖就可以实现居中了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/21/position_absolute/" data-id="cj1ry5qtx0007h4mmuz5n0odc" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-meta_http-equiv_X-UA-Compatible_viewport" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/" class="article-date">
+  <time datetime="2017-04-21T14:40:36.977Z" itemprop="datePublished">2017-04-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/">html meta http-equiv X-UA-Compatible viewport</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="X-UA-Compatible是自从IE8新加的一个设置，对于IE8以下的浏览器是不识别的。通过在meta中设置X-UA-Compatible的值，可以指定网页的兼容性模式设置。"><a href="#X-UA-Compatible是自从IE8新加的一个设置，对于IE8以下的浏览器是不识别的。通过在meta中设置X-UA-Compatible的值，可以指定网页的兼容性模式设置。" class="headerlink" title="X-UA-Compatible是自从IE8新加的一个设置，对于IE8以下的浏览器是不识别的。通过在meta中设置X-UA-Compatible的值，可以指定网页的兼容性模式设置。"></a>X-UA-Compatible是自从IE8新加的一个设置，对于IE8以下的浏览器是不识别的。通过在meta中设置X-UA-Compatible的值，可以指定网页的兼容性模式设置。</h4><p>在网页中指定的模式优先权高于服务器中(通过HTTP Header)所指定的模式。 兼容性模式设置优先级：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">meta tag &gt; http header</div><div class="line">meta tag &gt; http header</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=7&quot;&gt;  </div><div class="line">#以上代码告诉IE浏览器，无论是否用DTD声明文档标准，IE8/9都会以IE7引擎来渲染页面。  </div><div class="line">&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=8&quot;&gt;  </div><div class="line">#以上代码告诉IE浏览器，IE8/9都会以IE8引擎来渲染页面。  </div><div class="line">&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;  </div><div class="line">#以上代码告诉IE浏览器，IE8/9及以后的版本都会以最高版本IE来渲染页面。  </div><div class="line">&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=7,IE=9&quot;&gt;  </div><div class="line">&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=7,9&quot;&gt;  </div><div class="line">&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=Edge,chrome=1&quot;&gt;</div><div class="line">#以上代码IE=edge告诉IE使用最新的引擎渲染网页，chrome=1则可以激活Chrome Frame.</div></pre></td></tr></table></figure>
+<h4 id="此外meta标签name属性的viewport值也是一个重要的参数"><a href="#此外meta标签name属性的viewport值也是一个重要的参数" class="headerlink" title="此外meta标签name属性的viewport值也是一个重要的参数"></a>此外meta标签name属性的viewport值也是一个重要的参数</h4><h5 id="首先什么是Viewport"><a href="#首先什么是Viewport" class="headerlink" title="首先什么是Viewport"></a>首先什么是Viewport</h5><p>手机浏览器是把页面放在一个虚拟的“窗口”（viewport）中，通常这个虚拟的“窗口”（viewport）比屏幕宽，这样就不用把每个网页挤到很小的窗口中（这样会破坏没有针对手机浏览器优化的网页的布局），用户可以通过平移和缩放来看网页的不同部分。移动版的 Safari 浏览器最新引进了 viewport 这个 meta tag，让网页开发者来控制 viewport 的大小和缩放，其他手机浏览器也基本支持</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;</div></pre></td></tr></table></figure>
+<p>这段代码的意思是，让viewport的宽度等于物理设备上的真实分辨率，初始所放倍数1.0</p>
+<p>content的其他参数分别为</p>
+<p>width：控制 viewport 的大小，可以指定的一个值，如果 600，或者特殊的值，如 device-width 为设备的宽度（单位为缩放为 100% 时的 CSS 的像素）。</p>
+<p>height：和 width 相对应，指定高度。</p>
+<p>initial-scale：初始缩放比例，也即是当页面第一次 load 的时候缩放比例。</p>
+<p>maximum-scale：允许用户缩放到的最大比例。</p>
+<p>minimum-scale：允许用户缩放到的最小比例。</p>
+<p>user-scalable：用户是否可以手动缩放</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/" data-id="cj1ry5qts0006h4mmxvx4m409" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-input_button" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/21/input_button/" class="article-date">
+  <time datetime="2017-04-21T14:39:13.877Z" itemprop="datePublished">2017-04-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/21/input_button/">input button</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>如果把windows的主题换一下，那么，按钮的样式就会发生变化了，所以一般按钮都会自己手动添加样式而不会利用button的自定义样式。</p>
+<p>而现在的各大网站很多按钮都是利用a标签加css3的圆角属性制作。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/21/input_button/" data-id="cj1ry5qsn0003h4mmgcyqc508" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-javascript_global_jubu_bianliang" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/21/javascript_global_jubu_bianliang/" class="article-date">
+  <time datetime="2017-04-21T14:37:15.622Z" itemprop="datePublished">2017-04-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/21/javascript_global_jubu_bianliang/">javascript局部变量与全局变量</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近看到很多前端的面试题有js的全局变量还有局部变量的考题，以前以为懂了，但是看了题之后发现还没完全懂，所以就反复测试，百度，得到了一些总结。</p>
+<p>首先看代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">    var a = 1;</div><div class="line">    function test()&#123;</div><div class="line">        alert(a); //弹出1</div><div class="line">        a++;</div><div class="line">        alert(a); //弹出2</div><div class="line">    &#125;</div><div class="line">    test();</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>毫无疑问，上述会弹出先后弹出1和2。这是全局变量用在函数里面。</p>
+<p>再来看代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">    var a = 1;</div><div class="line">	function test()&#123;</div><div class="line">		alert(a); //1</div><div class="line">		a++;</div><div class="line">		alert(a); //2</div><div class="line">	&#125;</div><div class="line">	test();</div><div class="line">	alert(a); //2</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>这次会弹出1，2，2。也就是说全局变量放在函数里面调用，并改掉其值，这会影响到全局变量的值，也就是在函数里面能够改变全局变量的值。</p>
+<p>接下来到了最激动的时刻，看代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">	var a = 1;</div><div class="line">	function test()&#123;</div><div class="line">		alert(a); //1</div><div class="line">		a++;</div><div class="line">		alert(a); //2</div><div class="line">	&#125;</div><div class="line">	function test1()&#123;</div><div class="line">		alert(a); //undefined</div><div class="line">		var a;</div><div class="line">		a=4;</div><div class="line">		alert(a); //4</div><div class="line">	&#125;</div><div class="line">	test();</div><div class="line">	alert(a); //2</div><div class="line">	test1();</div><div class="line">	alert(a); //2</div><div class="line">	&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>你们觉得会输出什么，这里就有了惊天的变化，先后居然弹出1,2,2,undefined,4,2。本来一切都很顺利，但是这里居然弹了个undefined。原来，这是在test1()里面又定义了重名的局部变量a，把全局变量给冲刷掉，但是这个a只是定义了，并未赋值，所以先弹出undefined,然后给a赋值4，再弹出4，但是这个局部变量并没有影响到全局变量，这时全局变量还是2。而且这个局部变量a的定义是函数执行先优先进行的，执行test1()函数的时候，会首先浏览全体，首先知道a定义了，所以即使你的var a;和a=4;着两行互换，输出的结果还是一样的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/21/javascript_global_jubu_bianliang/" data-id="cj1ry5qsj0002h4mmqe42re41" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-w3c_media_type" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/21/w3c_media_type/" class="article-date">
+  <time datetime="2017-04-21T14:35:41.700Z" itemprop="datePublished">2017-04-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/21/w3c_media_type/">W3C媒体类型和媒体特性(CSS3@midia)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="10种媒体类型"><a href="#10种媒体类型" class="headerlink" title="10种媒体类型"></a>10种媒体类型</h4><table>
+<thead>
+<tr>
+<th>值</th>
+<th>设备类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All</td>
+<td>所有设备</td>
+</tr>
+<tr>
+<td>Braille</td>
+<td>盲人用点字法触觉回馈设备</td>
+</tr>
+<tr>
+<td>Embossed</td>
+<td>盲文打印机</td>
+</tr>
+<tr>
+<td>Handheld</td>
+<td>便携设备</td>
+</tr>
+<tr>
+<td>Print</td>
+<td>打印用纸或打印预览视图</td>
+</tr>
+<tr>
+<td>Projection</td>
+<td>各种投影设备</td>
+</tr>
+<tr>
+<td>Screen</td>
+<td>电脑显示器</td>
+</tr>
+<tr>
+<td>Speech</td>
+<td>语音或音频合成器</td>
+</tr>
+<tr>
+<td>Tv</td>
+<td>电视机类型设备</td>
+</tr>
+<tr>
+<td>Tty</td>
+<td>使用固定密度字母栅格的媒介，比如电传打字机和终端</td>
+</tr>
+</tbody>
+</table>
+<p>其中Screen、All和Print为最常见的三种媒体类型。</p>
+<h4 id="媒体特性"><a href="#媒体特性" class="headerlink" title="媒体特性"></a>媒体特性</h4><table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>aspect-ratio</td>
+<td>定义输出设备中的页面可见区域宽度与高度的比率</td>
+</tr>
+<tr>
+<td>color</td>
+<td>定义输出设备每一组彩色原件的个数。如果不是彩色设备，则值等于0</td>
+</tr>
+<tr>
+<td>color-index</td>
+<td>定义在输出设备的彩色查询表中的条目数。如果没有使用彩色查询表，则值等于0</td>
+</tr>
+<tr>
+<td>device-aspect-ratio</td>
+<td>定义输出设备的屏幕可见宽度与高度的比率。</td>
+</tr>
+<tr>
+<td>device-height</td>
+<td>定义输出设备的屏幕可见高度。</td>
+</tr>
+<tr>
+<td>device-width</td>
+<td>定义输出设备的屏幕可见宽度。</td>
+</tr>
+<tr>
+<td>grid</td>
+<td>用来查询输出设备是否使用栅格或点阵。</td>
+</tr>
+<tr>
+<td>height</td>
+<td>定义输出设备中的页面可见区域高度。</td>
+</tr>
+<tr>
+<td>max-aspect-ratio</td>
+<td>定义输出设备的屏幕可见宽度与高度的最大比率。</td>
+</tr>
+<tr>
+<td>max-color</td>
+<td>定义输出设备每一组彩色原件的最大个数。</td>
+</tr>
+<tr>
+<td>max-color-index</td>
+<td>定义在输出设备的彩色查询表中的最大条目数。</td>
+</tr>
+<tr>
+<td>max-device-aspect-ratio</td>
+<td>定义输出设备的屏幕可见宽度与高度的最大比率。</td>
+</tr>
+<tr>
+<td>max-device-height</td>
+<td>定义输出设备的屏幕可见的最大高度。</td>
+</tr>
+<tr>
+<td>max-device-width</td>
+<td>定义输出设备的屏幕最大可见宽度。</td>
+</tr>
+<tr>
+<td>max-height</td>
+<td>定义输出设备中的页面最大可见区域高度。</td>
+</tr>
+<tr>
+<td>max-monochrome</td>
+<td>定义在一个单色框架缓冲区中每像素包含的最大单色原件个数。</td>
+</tr>
+<tr>
+<td>max-resolution</td>
+<td>定义设备的最大分辨率。</td>
+</tr>
+<tr>
+<td>max-width</td>
+<td>定义输出设备中的页面最大可见区域宽度。</td>
+</tr>
+<tr>
+<td>min-aspect-ratio</td>
+<td>定义输出设备中的页面可见区域宽度与高度的最小比率。</td>
+</tr>
+<tr>
+<td>min-color</td>
+<td>定义输出设备每一组彩色原件的最小个数。</td>
+</tr>
+<tr>
+<td>min-color-index</td>
+<td>定义在输出设备的彩色查询表中的最小条目数。</td>
+</tr>
+<tr>
+<td>min-device-aspect-ratio</td>
+<td>定义输出设备的屏幕可见宽度与高度的最小比率。</td>
+</tr>
+<tr>
+<td>min-device-width</td>
+<td>定义输出设备的屏幕最小可见宽度。</td>
+</tr>
+<tr>
+<td>min-device-height</td>
+<td>定义输出设备的屏幕的最小可见高度。</td>
+</tr>
+<tr>
+<td>min-height</td>
+<td>定义输出设备中的页面最小可见区域高度。</td>
+</tr>
+<tr>
+<td>min-monochrome</td>
+<td>定义在一个单色框架缓冲区中每像素包含的最小单色原件个数</td>
+</tr>
+<tr>
+<td>min-resolution</td>
+<td>定义设备的最小分辨率。</td>
+</tr>
+<tr>
+<td>min-width</td>
+<td>定义输出设备中的页面最小可见区域宽度。</td>
+</tr>
+<tr>
+<td>monochrome</td>
+<td>定义在一个单色框架缓冲区中每像素包含的单色原件个数。如果不是单色设备，则值等于0</td>
+</tr>
+<tr>
+<td>orientation</td>
+<td>定义输出设备中的页面可见区域高度是否大于或等于宽度。</td>
+</tr>
+<tr>
+<td>resolution</td>
+<td>定义设备的分辨率。如：96dpi, 300dpi, 118dpcm</td>
+</tr>
+<tr>
+<td>scan</td>
+<td>定义电视类设备的扫描工序。</td>
+</tr>
+<tr>
+<td>width</td>
+<td>定义输出设备中的页面可见区域宽度。</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/21/w3c_media_type/" data-id="cj1ry5quu000dh4mmmnym5olm" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-css_initial" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/21/css_initial/" class="article-date">
+  <time datetime="2017-04-21T14:33:33.312Z" itemprop="datePublished">2017-04-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/21/css_initial/">CSS_腾讯QQ官网，新浪官网，网易官网，淘宝官网之css初始化代码</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>CSS为什么要初始化？建站老手都知道，这是为了考虑到浏览器的兼容问题，其实不同浏览器对有些标签的默认值是不同的，如果没对CSS初始化往往会出现浏览器之间的页面差异。当然，初始化样式会对SEO有一定的影响，但鱼和熊掌不可兼得，但力求影响最小的情况下初始化。</p>
+<p>最简单的初始化方法就是： <em> {padding: 0; margin: 0;} 。有很多人也是这样写的。这确实很简单，但有人就会感到疑问：</em>号这样一个通用符在编写代码的时候是快，但如果网站很大，CSS样式表文件很大，这样写的话，他会把所有的标签都初始化一遍，这样就大大的加强了网站运行的负载，会使网站加载的时候需要很长一段时间。</p>
+<p>写过css的都知道每个网页引进的css首先都需要初始化，而出名的css reset有YUI css reset（QQ、淘宝等都出现他的影子），业内用的最多的还有Erik Meyer’s CSS Reset。</p>
+<p>花了点时间，把一些门户及大型网站的样式初始化罗列了下来（仅供参考）</p>
+<h5 id="腾讯QQ官网-http-www-qq-com-样式初始化"><a href="#腾讯QQ官网-http-www-qq-com-样式初始化" class="headerlink" title="腾讯QQ官网(http://www.qq.com)样式初始化"></a>腾讯QQ官网(<a href="http://www.qq.com)样式初始化" target="_blank" rel="external">http://www.qq.com)样式初始化</a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select&#123;margin:0;padding:0&#125;</div><div class="line">body&#123;font:12px&quot;宋体&quot;,&quot;Arial Narrow&quot;,HELVETICA;background:#fff;-webkit-text-size-adjust:100%;&#125;</div><div class="line">a&#123;color:#2d374b;text-decoration:none&#125;</div><div class="line">a:hover&#123;color:#cd0200;text-decoration:underline&#125;</div><div class="line">em&#123;font-style:normal&#125;</div><div class="line">li&#123;list-style:none&#125;</div><div class="line">img&#123;border:0;vertical-align:middle&#125;</div><div class="line">table&#123;border-collapse:collapse;border-spacing:0&#125;</div><div class="line">p&#123;word-wrap:break-word&#125;</div></pre></td></tr></table></figure>
+<h5 id="新浪官网-http-www-sina-com-cn-样式初始化"><a href="#新浪官网-http-www-sina-com-cn-样式初始化" class="headerlink" title="新浪官网(http://www.sina.com.cn/)样式初始化"></a>新浪官网(<a href="http://www.sina.com.cn/)样式初始化" target="_blank" rel="external">http://www.sina.com.cn/)样式初始化</a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div&#123;margin:0;padding:0;border:0;&#125;</div><div class="line">body&#123;background:#fff;color:#333;font-size:12px; margin-top:5px;font-family:&quot;SimSun&quot;,&quot;宋体&quot;,&quot;Arial Narrow&quot;;&#125;</div><div class="line">ul,ol&#123;list-style-type:none;&#125;</div><div class="line">select,input,img,select&#123;vertical-align:middle;&#125;</div><div class="line">a&#123;text-decoration:none;&#125;</div><div class="line">a:link&#123;color:#009;&#125;</div><div class="line">a:visited&#123;color:#800080;&#125;</div><div class="line">a:hover,a:active,a:focus&#123;color:#c00;text-decoration:underline;&#125;</div></pre></td></tr></table></figure>
+<h5 id="淘宝官网-http-www-taobao-com-样式初始化（淘宝的样式是经过压缩的，我自己拷下来格式化过的）"><a href="#淘宝官网-http-www-taobao-com-样式初始化（淘宝的样式是经过压缩的，我自己拷下来格式化过的）" class="headerlink" title="淘宝官网(http://www.taobao.com/)样式初始化（淘宝的样式是经过压缩的，我自己拷下来格式化过的）"></a>淘宝官网(<a href="http://www.taobao.com/)样式初始化（淘宝的样式是经过压缩的，我自己拷下来格式化过的）" target="_blank" rel="external">http://www.taobao.com/)样式初始化（淘宝的样式是经过压缩的，我自己拷下来格式化过的）</a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td &#123; margin:0; padding:0; &#125;</div><div class="line">body, button, input, select, textarea &#123; font:12px/1.5tahoma, arial, \5b8b\4f53; &#125;</div><div class="line">h1, h2, h3, h4, h5, h6&#123; font-size:100%; &#125;</div><div class="line">address, cite, dfn, em, var &#123; font-style:normal; &#125;</div><div class="line">code, kbd, pre, samp &#123; font-family:couriernew, courier, monospace; &#125;</div><div class="line">small&#123; font-size:12px; &#125;</div><div class="line">ul, ol &#123; list-style:none; &#125;</div><div class="line">a &#123; text-decoration:none; &#125;</div><div class="line">a:hover &#123; text-decoration:underline; &#125;</div><div class="line">sup &#123; vertical-align:text-top; &#125;</div><div class="line">sub&#123; vertical-align:text-bottom; &#125;</div><div class="line">legend &#123; color:#000; &#125;</div><div class="line">fieldset, img &#123; border:0; &#125;</div><div class="line">button, input, select, textarea &#123; font-size:100%; &#125;</div><div class="line">table &#123; border-collapse:collapse; border-spacing:0; &#125;</div></pre></td></tr></table></figure>
+<h5 id="网易官网-http-www-163-com-样式初始化"><a href="#网易官网-http-www-163-com-样式初始化" class="headerlink" title="网易官网(http://www.163.com/)样式初始化"></a>网易官网(<a href="http://www.163.com/)样式初始化" target="_blank" rel="external">http://www.163.com/)样式初始化</a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">html &#123;overflow-y:scroll;&#125;</div><div class="line">body &#123;margin:0; padding:29px00; font:12px&quot;\5B8B\4F53&quot;,sans-serif;background:#ffffff;&#125; &lt;!--&quot;\5B8B\4F53&quot;是unicode编码代表宋体的意思，等同于&quot;宋体&quot;--!&gt;</div><div class="line">div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,blockquote,p&#123;padding:0; margin:0;&#125;</div><div class="line">table,td,tr,th&#123;font-size:12px;&#125;</div><div class="line">li&#123;list-style-type:none;&#125;</div><div class="line">img&#123;vertical-align:top;border:0;&#125;</div><div class="line">ol,ul &#123;list-style:none;&#125;</div><div class="line">h1,h2,h3,h4,h5,h6&#123;font-size:12px; font-weight:normal;&#125;</div><div class="line">address,cite,code,em,th &#123;font-weight:normal; font-style:normal;&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/21/css_initial/" data-id="cj1ry5qs20000h4mmz3m6ifj9" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-lamp_4" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/04/15/lamp_4/" class="article-date">
@@ -102,7 +554,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_4/" data-id="cj1i350iy0002zgmm2eo06br0" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_4/" data-id="cj1ry5qu80008h4mmdu82kf2h" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -144,7 +596,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_3/" data-id="cj1i350j30003zgmmjx8qtz2k" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_3/" data-id="cj1ry5quj000bh4mmjnf52na5" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -199,7 +651,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_2/" data-id="cj1i350ig0000zgmmjgifnffi" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_2/" data-id="cj1ry5quf000ah4mm4r7umjrf" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -265,267 +717,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_1/" data-id="cj1i350is0001zgmm10y532ib" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-catetree" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/14/catetree/" class="article-date">
-  <time datetime="2017-04-14T12:24:40.664Z" itemprop="datePublished">2017-04-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/14/catetree/">无限极分类思路</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>无限极分类是php的一个重要知识点，很多地方都可以用到，例如当前位置信息显示等等很多方面，所以无限极分类是必须掌握的内容。下面来看看如何实现无限极分类</p>
-<p>1.无限极分类是首先依据就是数据表，其内必须有一个父id（pid）字段用来对应栏目分类信息，第一级栏目的父id为0，二级子栏目父id分别对应各自的第一级栏目的id，三级栏目的父id对应二级，以此类推，如下图</p>
-<p><img src="http://on47sru77.bkt.clouddn.com/catetree20170414200756.png" alt="image"></p>
-<p>接下来就要用递归的方法实现无限极分类查找树<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public function catetree()&#123;</div><div class="line">		$data = $this -&gt; order(&apos;cate_id asc&apos;) -&gt; select();</div><div class="line">		return $this -&gt; resort($data);</div><div class="line">&#125;</div><div class="line">	</div><div class="line">	</div><div class="line">private function resort($data,$parentid=0,$level=0)&#123;</div><div class="line">		static $res = array();</div><div class="line">		foreach($data as $key =&gt; $val)&#123;</div><div class="line">			if($val[&apos;parentid&apos;]==$parentid)&#123;</div><div class="line">				$val[&apos;level&apos;] = $level;</div><div class="line">				$res[] = $val;</div><div class="line">				$this -&gt; resort($data,$val[&apos;cate_id&apos;],$level+1);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		return $res;</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
-<p>看到resort方法，有三个参数，第一个是表的所有数据的数组参数，第二个是父id默认为0，第三个是level，级别，level参数是为了在列表页展示的时候缩进的时候用的。</p>
-<p>首先定义一个静态的空数组，用来存放每次foreach循环的对应的所有内容，即每次循环的顶级栏目以及对应的所有栏目，接下来foreach循环，首先当有栏目的父id=0时就将$level加进数组，并且把该栏目对应的所有信息给了静态数组，然后进行递归调用，把数据，当前栏目id当作父id，已经$level+1当作参数，然后进行下一轮的查找，一直递归，直到找不到子栏目就退出，这就是无限极分类树，核心思想是递归调用。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/14/catetree/" data-id="cj1i350j70004zgmmx6qt740u" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-twolevel_cate" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/14/twolevel_cate/" class="article-date">
-  <time datetime="2017-04-14T09:04:57.729Z" itemprop="datePublished">2017-04-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/14/twolevel_cate/">thinkphp动态调用二级分类栏目</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1.实例化栏目表并将pid为0即最高级祖宗对应的栏目查出来，然后分配给模板<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$cate = D(&apos;Category&apos;);</div><div class="line">$where[&apos;parentid&apos;] = array(&apos;eq&apos;,0);</div><div class="line">$cateres = $cate -&gt; where($where) -&gt; select();</div><div class="line">$this -&gt; assign(&apos;cateres&apos;,$cateres);</div></pre></td></tr></table></figure></p>
-<p>2.分配到模板之后进行volist循环,首先将一级栏目循环显示</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;volist name=&quot;cateres&quot; id=&quot;vo&quot;&gt;</div></pre></td></tr></table></figure>
-<p>3.写一个公共函数，此函数获取顶级栏目对应的所有二级子栏目，注意，该函数为公共函数，写在Common目录下的common目录下并命名为function.php。该函数如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function getsub($pid)&#123;</div><div class="line">	$cate = D(&apos;Category&apos;);</div><div class="line">	$where[&apos;parentid&apos;] = array(&apos;eq&apos;,$pid);</div><div class="line">	$cateres = $cate -&gt; where($where) -&gt; select();</div><div class="line">	return $cateres;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>该函数参数为$pid，传入一级顶级栏目的栏目id，然后查找所有父id等于此栏目id的所有栏目，并返回包含信息的数组。</p>
-<p>4.嵌套volist循环，在第二步的volist循环里面再嵌套一个volist循环</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;volist name=&quot;cateres&quot; id=&quot;vo&quot;&gt;</div><div class="line">    &lt;volist name=&quot;:getsub($vo[&apos;cate_id&apos;])&quot; id=&quot;vo&quot;&gt;</div><div class="line">         &lt;a href=&quot;__MODULE__/&lt;if condition=&apos;$vo[cate_type] eq 1&apos;&gt;list&lt;elseif condition=&apos;$vo[cate_type] eq 0&apos;/&gt;page&lt;/if&gt;/index/cate_id/&#123;$vo.cate_id&#125;&quot;&gt;&#123;$vo.cate_name&#125;&lt;/a&gt;</div><div class="line">    &lt;/volist&gt;</div><div class="line">&lt;/volist&gt;</div></pre></td></tr></table></figure>
-<p>向上面以上，第二个嵌套的volist循环调用getsub函数，并把第一个volist循环的$vo[‘cate_id’]传参，这就是把顶级栏目的id当作参数传进去，然后就可以得到此栏目下的所有子栏目，然后把在模板里面显示出来就可以了</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/14/twolevel_cate/" data-id="cj1i350jx0008zgmmh2atsk35" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-thinkphpVariable" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/12/thinkphpVariable/" class="article-date">
-  <time datetime="2017-04-12T15:51:53.916Z" itemprop="datePublished">2017-04-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/12/thinkphpVariable/">thinkphp模板引擎volist标签与php原生代码嵌合的变量用法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>首先看一下代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;volist name=&quot;confres&quot; id=&quot;vo&quot;&gt;</div></pre></td></tr></table></figure></p>
-<p>在这里，我利用volist标签循环。</p>
-<p>然后接下来再看：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">    $arr = array();</div><div class="line">    $arr = explode(&apos;，&apos;,$vo[&apos;cf_values&apos;]);</div><div class="line">    foreach($arr as $k =&gt; $v)&#123;</div><div class="line">?&gt;</div><div class="line">    &lt;input type=&apos;&#123;$vo.cf_type&#125;&apos;name=&apos;&#123;$vo.cf_ename&apos;&lt;if condition=&quot;$vo[&apos;cf_value&apos;] eq $v&quot;&gt;checked=&quot;checked&quot;&lt;/if&gt; value=&apos;&#123;$v&#125;&apos;&gt;&#123;$v&#125;</div><div class="line">&lt;?php</div><div class="line">    &#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p>在这里分析一下，看到php原生代码里面第二行explode这一行里面可以用$vo[‘cf_values’]变量，这个变量就是通过volist循环绑定的id：vo来调用的，然后看到第三行通过foreach循环，然后结束php原生代码，这时候，在模版里面，可以通过模版定界符加上变量来调用此变量，注意了，这里一定要加上模版定界符，否则会解析不了,这里还需要注意一下，在if标签里面是不续要加模版定界符就可以解析的,若是加了模版定界符反而会报出错误</p>
-<p>通过上述分析，可以看出volist循环的变量可以用在原生php代码里面，但是要用[]形式引用，而php原生代码的变量可以放在模版里面使用，但要用上定界符解析，if标签除外。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/12/thinkphpVariable/" data-id="cj1i350l2000azgmm50yqa9b0" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-form_and_ajax" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/02/form_and_ajax/" class="article-date">
-  <time datetime="2017-04-01T16:23:02.329Z" itemprop="datePublished">2017-04-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/02/form_and_ajax/">ajax传递数据给后台与form表单的冲突</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>首先form表单<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;form method=&quot;&quot; action=&quot;&quot;&gt;</div><div class="line">    &lt;input type=&quot;submit&quot; name=&quot;submit&quot; id=&quot;register&quot; /&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
-<p>form表单默认的method方法是get传递，而action默认是当前的url，也就是当按提交按钮时会将数据提交到当前url。</p>
-<p>那么，这样的一个特性和ajax又有什么冲突呢？很明显，这一特性与submit按钮点击调用ajax方法有冲突了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$(&quot;#register&quot;).click(function()&#123;</div><div class="line">    $.ajax(&#123;</div><div class="line">        url:&quot;./reg.php&quot;,</div><div class="line">        type:&quot;post&quot;,</div><div class="line">    	data:&#123;&apos;username&apos;:username,&apos;password&apos;:pass1,&apos;email&apos;:email&#125;,</div><div class="line">    	dataType:&quot;json&quot;,</div><div class="line">    	success:function(data)&#123;</div><div class="line">    		alert(data.msg);</div><div class="line">    	&#125;,</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>其中register是submit提交按钮的id。像这样的一段代码，我们发现了什么，没错，ajax传递数据的url为reg.php，但是，这个按钮在form表单里面，那么，这个时候按下提交按钮是提交到当前的html页面还是reg.php后台页面呢，经过测试，它有时会提交到reg.php，有时会提交到当前url，但是提交到当前url的次数较多，我个人认为这种情况可能是提交到当前页面所用的时间和耗费的资源较少，浏览器就比较喜欢这种页面，所以优先提交给静态的当前页面，置于有时候会偶尔提交给reg.php页面，可能是某种原因，暂时还不知道</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/02/form_and_ajax/" data-id="cj1i350jd0005zgmmyf1hjsuh" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-fileupload" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/30/fileupload/" class="article-date">
-  <time datetime="2017-03-30T09:07:30.169Z" itemprop="datePublished">2017-03-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/30/fileupload/">文件上传</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="文件上传操作"><a href="#文件上传操作" class="headerlink" title="文件上传操作"></a>文件上传操作</h1><h2 id="1-判断错误号"><a href="#1-判断错误号" class="headerlink" title="1. 判断错误号"></a>1. 判断错误号</h2><p>0：文件上传成功。</p>
-<p>1：文件上传的大小超过php.ini里面的upload_max_filesize配置选项的大小。</p>
-<p>2：文件上传的大小超过HTML表单的MAX_FILE_SIZE设置的大小。</p>
-<p>3：文件部分被上传。</p>
-<p>4：文件没有上传。</p>
-<p>6：找不到临时文件夹。</p>
-<p>7：文件写入失败。</p>
-<p>8：上传的文件被PHP扩展程序中断。</p>
-<h2 id="2-判断上传文件夹是否存在，不存在则创建，若创建失败，则返回false。"><a href="#2-判断上传文件夹是否存在，不存在则创建，若创建失败，则返回false。" class="headerlink" title="2.判断上传文件夹是否存在，不存在则创建，若创建失败，则返回false。"></a>2.判断上传文件夹是否存在，不存在则创建，若创建失败，则返回false。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">if(!file_exists($this-&gt;uploadPath))&#123;</div><div class="line">	if(!@mkdir($this-&gt;uploadPath,0777))&#123;</div><div class="line">		$this -&gt; errorNum  = -2;</div><div class="line">		return false;</div><div class="line">	&#125;</div><div class="line">	return true;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="3-判断文件大小"><a href="#3-判断文件大小" class="headerlink" title="3.判断文件大小"></a>3.判断文件大小</h2><h2 id="4-判断文件的类型是否允许上传的类型"><a href="#4-判断文件的类型是否允许上传的类型" class="headerlink" title="4.判断文件的类型是否允许上传的类型"></a>4.判断文件的类型是否允许上传的类型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public function checkFileType()&#123;</div><div class="line">		$this -&gt; fileExt = strtolower(pathinfo($this-&gt;fileName,PATH_EXTENSION));</div><div class="line">		if(in_array($this-&gt;fileExt,$this-&gt;allowType))&#123;</div><div class="line">			return true;</div><div class="line">		&#125;else&#123;</div><div class="line">			$this-&gt;errorNum = -4;</div><div class="line">			return false;</div><div class="line">		&#125;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
-<h2 id="5-若是图片类型，检测是否真是的图片，利用getImageSize-函数检测"><a href="#5-若是图片类型，检测是否真是的图片，利用getImageSize-函数检测" class="headerlink" title="5.若是图片类型，检测是否真是的图片，利用getImageSize()函数检测"></a>5.若是图片类型，检测是否真是的图片，利用getImageSize()函数检测</h2><h2 id="6-检测文件是否通过HTTP-POST上传的，可通过is-uploaded-file-函数检测。"><a href="#6-检测文件是否通过HTTP-POST上传的，可通过is-uploaded-file-函数检测。" class="headerlink" title="6.检测文件是否通过HTTP POST上传的，可通过is_uploaded_file()函数检测。"></a>6.检测文件是否通过HTTP POST上传的，可通过is_uploaded_file()函数检测。</h2><h2 id="7-上传文件后的名字必须设置唯一性防止名字重复导致，可以用一下方法设置"><a href="#7-上传文件后的名字必须设置唯一性防止名字重复导致，可以用一下方法设置" class="headerlink" title="7.上传文件后的名字必须设置唯一性防止名字重复导致，可以用一下方法设置"></a>7.上传文件后的名字必须设置唯一性防止名字重复导致，可以用一下方法设置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">uniqid(microtime(true),true).&apos;_&apos;.rand(10,1000);</div></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/30/fileupload/" data-id="cj1i350ji0006zgmm4xpwcxmu" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-thinkphp" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/22/thinkphp/" class="article-date">
-  <time datetime="2017-03-22T14:44:09.930Z" itemprop="datePublished">2017-03-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/22/thinkphp/">thinkphp笔记</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="thinkphp-SHOW-PAGE-TRACE和upload文件上传"><a href="#thinkphp-SHOW-PAGE-TRACE和upload文件上传" class="headerlink" title="thinkphp SHOW_PAGE_TRACE和upload文件上传"></a>thinkphp SHOW_PAGE_TRACE和upload文件上传</h1><p>thinkphp的show_page_trace设置后只有display()的页面才能显示出来。</p>
-<p>还有upload文件长传，$upload-&gt;savePath的目录是以index.php同一级开始的，应该说是thinkphp中除了模版文件定义之外，所有的地方定义目录同级目录下都是以index.php入口文件为标准。</p>
-<h1 id="自动验证"><a href="#自动验证" class="headerlink" title="自动验证"></a>自动验证</h1><p>自动验证，设置自动验证后会根据create方法创造的数据验证。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public function add()&#123;</div><div class="line">		$admin = D(&quot;Admin&quot;);</div><div class="line">		$data[&apos;username&apos;] = I(&apos;username&apos;);</div><div class="line">		$data[&apos;password&apos;] = md5(I(&apos;password&apos;));</div><div class="line">		if(IS_POST)&#123;</div><div class="line">			if(!$admin-&gt;create($data))&#123;</div><div class="line">				$this -&gt; error($admin-&gt;getError());</div><div class="line">			&#125;else&#123;</div><div class="line">				if($admin-&gt;add())&#123;</div><div class="line">					$this -&gt; success(&quot;栏目添加成功！&quot;,U(&quot;Admin/Admin/lst&quot;));</div><div class="line">				&#125;else&#123;</div><div class="line">					$this -&gt; error(&quot;栏目添加失败！&quot;);</div><div class="line">				&#125;</div><div class="line">				return;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		$this -&gt; display();</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
-<p>自动验证代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">array(&apos;password&apos;,&apos;checkPassword&apos;,&apos;管理员密码必须！&apos;,1,&apos;callback&apos;,1),</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public function checkPassword($password)&#123;</div><div class="line">		if($password == md5(&apos;&apos;))&#123;</div><div class="line">			return false;</div><div class="line">		&#125;else&#123;</div><div class="line">			return true;</div><div class="line">		&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>像这里，我要是直接用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">array(&apos;password&apos;,&apos;require&apos;,&apos;管理员密码必须！&apos;,1,&apos;regex&apos;,1),</div></pre></td></tr></table></figure>
-<p>这样验证是不行的，因为我将表单提交过来的数据进行md5加密后才进行了数据创建create()，所以会根据数据创建的数据来验证，即使传入为空，但进行md5加密后会不为空，这是就不能进行空验证了，这是可以自定义一个验证方法，传入参数是创建要创建数据集的数据，像上面的checkPassword方法一样可以进行密码不为空验证</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/22/thinkphp/" data-id="cj1i350jo0007zgmmfujs6c03" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_1/" data-id="cj1ry5quc0009h4mmg3s8bqvj" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -569,23 +761,23 @@
       <ul>
         
           <li>
-            <a href="/2017/04/15/lamp_4/">lamp环境搭建（四）</a>
+            <a href="/2017/04/21/position_absolute/">无依赖的绝对定位position absolute</a>
           </li>
         
           <li>
-            <a href="/2017/04/15/lamp_3/">lamp环境搭建（三）</a>
+            <a href="/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/">html meta http-equiv X-UA-Compatible viewport</a>
           </li>
         
           <li>
-            <a href="/2017/04/15/lamp_2/">lamp环境搭建（二）</a>
+            <a href="/2017/04/21/input_button/">input button</a>
           </li>
         
           <li>
-            <a href="/2017/04/15/lamp_1/">lamp环境搭建（一）</a>
+            <a href="/2017/04/21/javascript_global_jubu_bianliang/">javascript局部变量与全局变量</a>
           </li>
         
           <li>
-            <a href="/2017/04/14/catetree/">无限极分类思路</a>
+            <a href="/2017/04/21/w3c_media_type/">W3C媒体类型和媒体特性(CSS3@midia)</a>
           </li>
         
       </ul>
