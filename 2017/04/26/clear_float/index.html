@@ -3,24 +3,33 @@
 <head>
   <meta charset="utf-8">
   
-  <title>lamp环境搭建（三） | Hexo</title>
+  <title>清除浮动 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="PHP篇安装centos6.5自带php
-安装相关模块：为了让PHP支持MySQL，我们可以安装php-mysql软件包；也可使用以下命令搜索可用的php模块[root@localhost ~]# yum -y install php php-mysql
-安装php常用扩展12[root@localhost ~]# yum search php[root@localhost ~]# yum -y">
+  <meta name="description" content="浮动元素脱离文档流，不占据空间。浮动元素碰到包含它的边框或者浮动元素的边框停留。
+1.使用空标签清除浮动。
+   这种方法是在所有浮动标签后面添加一个空标签 定义css clear:both. 弊端就是增加了无意义标签。
+2.使用overflow。
+   给包含浮动元素的父标签添加css属性 overflow:auto; zoom:1; zoom:1用于兼容IE6。
+3.使用after伪对象清除浮">
 <meta property="og:type" content="article">
-<meta property="og:title" content="lamp环境搭建（三）">
-<meta property="og:url" content="http://weilephp.github.io/2017/04/15/lamp_3/index.html">
+<meta property="og:title" content="清除浮动">
+<meta property="og:url" content="http://weilephp.github.io/2017/04/26/clear_float/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="PHP篇安装centos6.5自带php
-安装相关模块：为了让PHP支持MySQL，我们可以安装php-mysql软件包；也可使用以下命令搜索可用的php模块[root@localhost ~]# yum -y install php php-mysql
-安装php常用扩展12[root@localhost ~]# yum search php[root@localhost ~]# yum -y">
-<meta property="og:updated_time" content="2017-04-14T16:55:05.747Z">
+<meta property="og:description" content="浮动元素脱离文档流，不占据空间。浮动元素碰到包含它的边框或者浮动元素的边框停留。
+1.使用空标签清除浮动。
+   这种方法是在所有浮动标签后面添加一个空标签 定义css clear:both. 弊端就是增加了无意义标签。
+2.使用overflow。
+   给包含浮动元素的父标签添加css属性 overflow:auto; zoom:1; zoom:1用于兼容IE6。
+3.使用after伪对象清除浮">
+<meta property="og:updated_time" content="2017-04-26T15:24:32.146Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="lamp环境搭建（三）">
-<meta name="twitter:description" content="PHP篇安装centos6.5自带php
-安装相关模块：为了让PHP支持MySQL，我们可以安装php-mysql软件包；也可使用以下命令搜索可用的php模块[root@localhost ~]# yum -y install php php-mysql
-安装php常用扩展12[root@localhost ~]# yum search php[root@localhost ~]# yum -y">
+<meta name="twitter:title" content="清除浮动">
+<meta name="twitter:description" content="浮动元素脱离文档流，不占据空间。浮动元素碰到包含它的边框或者浮动元素的边框停留。
+1.使用空标签清除浮动。
+   这种方法是在所有浮动标签后面添加一个空标签 定义css clear:both. 弊端就是增加了无意义标签。
+2.使用overflow。
+   给包含浮动元素的父标签添加css属性 overflow:auto; zoom:1; zoom:1用于兼容IE6。
+3.使用after伪对象清除浮">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -69,10 +78,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-lamp_3" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-clear_float" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/04/15/lamp_3/" class="article-date">
-  <time datetime="2017-04-14T16:54:16.514Z" itemprop="datePublished">2017-04-15</time>
+    <a href="/2017/04/26/clear_float/" class="article-date">
+  <time datetime="2017-04-26T15:23:42.795Z" itemprop="datePublished">2017-04-26</time>
 </a>
     
   </div>
@@ -83,7 +92,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      lamp环境搭建（三）
+      清除浮动
     </h1>
   
 
@@ -91,17 +100,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="PHP篇"><a href="#PHP篇" class="headerlink" title="PHP篇"></a>PHP篇</h2><p>安装centos6.5自带php</p>
-<p>安装相关模块：为了让PHP支持MySQL，我们可以安装php-mysql软件包；也可使用以下命令搜索可用的php模块<br>[root@localhost ~]# yum -y install php php-mysql</p>
-<h4 id="安装php常用扩展"><a href="#安装php常用扩展" class="headerlink" title="安装php常用扩展"></a>安装php常用扩展</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# yum search php</div><div class="line">[root@localhost ~]# yum -y install gd php-gd gd-devel php-xml php-common php-mbstring php-ldap php-pear php-xmlrpc php-imap</div></pre></td></tr></table></figure>
-<p>其中gd-devel php-mbstring php-imap找不到镜像，要下载rpm包才可以，但是找不到php-imap-5.3.3-26-el6-x86_64的包，所以没装</p>
-<h4 id="重启httpd服务，这一步很重要"><a href="#重启httpd服务，这一步很重要" class="headerlink" title="重启httpd服务，这一步很重要"></a>重启httpd服务，这一步很重要</h4><p>[root@localhost ~]# service httpd restart</p>
-<p>然后，我们提供php页面，测试</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# cd /var/www/html/</div><div class="line">[root@localhost html]# vi index.php</div><div class="line">&lt;?php</div><div class="line">    phpinfo();</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+        <p>浮动元素脱离文档流，不占据空间。浮动元素碰到包含它的边框或者浮动元素的边框停留。</p>
+<p>1.使用空标签清除浮动。</p>
+<p>   这种方法是在所有浮动标签后面添加一个空标签 定义css clear:both. 弊端就是增加了无意义标签。</p>
+<p>2.使用overflow。</p>
+<p>   给包含浮动元素的父标签添加css属性 overflow:auto; zoom:1; zoom:1用于兼容IE6。</p>
+<p>3.使用after伪对象清除浮动（目前用的最多的浮动清楚方法）。</p>
+<p>   该方法只适用于非IE浏览器。具体写法可参照以下示例。使用中需注意以下几点。一、该方法中必须为需要清除浮动元素的伪对象中设置 height:0，否则该元素会比实际高出若干像素；<br>浮动元素引起的问题和解决办法？</p>
+<p>浮动元素引起的问题：</p>
+<p>（1）父元素的高度无法被撑开，影响与父元素同级的元素</p>
+<p>（2）与浮动元素同级的非浮动元素（内联元素）会跟随其后</p>
+<p>（3）若非第一个元素浮动，则该元素之前的元素也需要浮动，否则会影响页面显示的结构<br>解决方法：</p>
+<p>使用 CSS 中的 clear:both ;属性来清除元素的浮动可解决2、3问题，对于问题1，添加如下样式，给父元素添加 clearfix 样式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.clearfix:after&#123;content: &quot;.&quot;;display: block;height: 0;clear: both;visibility: hidden;&#125;</div><div class="line"></div><div class="line">.clearfix&#123;display:inline-block;zoom:1&#125; /* for IE/Mac */</div></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_3/" data-id="cj1z4ypvm000g4gmmcx8bfhzu" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/26/clear_float/" data-id="cj1z4ypsa00004gmm20kfekij" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -110,19 +126,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/04/15/lamp_4/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/04/26/margin_chongdie/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Récent</strong>
       <div class="article-nav-title">
         
-          lamp环境搭建（四）
+          margin 重叠现象
         
       </div>
     </a>
   
   
-    <a href="/2017/04/15/lamp_2/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/04/21/position_absolute/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Ancien</strong>
-      <div class="article-nav-title">lamp环境搭建（二）</div>
+      <div class="article-nav-title">无依赖的绝对定位position absolute</div>
     </a>
   
 </nav>

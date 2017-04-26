@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>CSS控制之BUG（不兼容问题） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="常见的几种原因：1.没有使用正确的doctype（解决：使用严格doctype声明）
+2.各浏览器对不同的标签的初始值不同，特别是ie和其他浏览器的区别。（解决：css初始化，即*{padding:0px;margin:0px;}）
+3.自身书写不规范引起的（解决：规范代码书写）
+4.浏览器Bug引起的。如下：
+（1）IE之双倍margin BUG：浮动ie产生的双倍距离（IE6双边距问题：在IE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS控制之BUG（不兼容问题）">
+<meta property="og:url" content="http://weilephp.github.io/2017/04/26/css_ie_bug/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="常见的几种原因：1.没有使用正确的doctype（解决：使用严格doctype声明）
+2.各浏览器对不同的标签的初始值不同，特别是ie和其他浏览器的区别。（解决：css初始化，即*{padding:0px;margin:0px;}）
+3.自身书写不规范引起的（解决：规范代码书写）
+4.浏览器Bug引起的。如下：
+（1）IE之双倍margin BUG：浮动ie产生的双倍距离（IE6双边距问题：在IE">
+<meta property="og:updated_time" content="2017-04-26T15:28:40.013Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS控制之BUG（不兼容问题）">
+<meta name="twitter:description" content="常见的几种原因：1.没有使用正确的doctype（解决：使用严格doctype声明）
+2.各浏览器对不同的标签的初始值不同，特别是ie和其他浏览器的区别。（解决：css初始化，即*{padding:0px;margin:0px;}）
+3.自身书写不规范引起的（解决：规范代码书写）
+4.浏览器Bug引起的。如下：
+（1）IE之双倍margin BUG：浮动ie产生的双倍距离（IE6双边距问题：在IE">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-css_ie_bug" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/26/css_ie_bug/" class="article-date">
+  <time datetime="2017-04-26T15:27:15.797Z" itemprop="datePublished">2017-04-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CSS控制之BUG（不兼容问题）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="常见的几种原因："><a href="#常见的几种原因：" class="headerlink" title="常见的几种原因："></a>常见的几种原因：</h4><p>1.没有使用正确的doctype（解决：使用严格doctype声明）</p>
+<p>2.各浏览器对不同的标签的初始值不同，特别是ie和其他浏览器的区别。（解决：css初始化，即*{padding:0px;margin:0px;}）</p>
+<p>3.自身书写不规范引起的（解决：规范代码书写）</p>
+<p>4.浏览器Bug引起的。如下：</p>
+<p>（1）IE之双倍margin BUG：浮动ie产生的双倍距离（IE6双边距问题：在IE6下，如果对元素设置了浮动，同时又设置了margin-left或margin-right，margin值会加倍。）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#box&#123; float:left; width:10px; margin:0 0 0 100px;&#125;</div></pre></td></tr></table></figure></p>
+<p>这种情况之下IE会产生20px的距离，解决方案是在float的标签样式控制中加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">_display:inline;(display:inline;display:table;)</div></pre></td></tr></table></figure>
+<p>将其转化为行内属性。(_这个符号只有ie6会识别)</p>
+<p>（2）3像素nargin BUG：两个相邻DIV，如果只写一个浮动，那么另一个也会跟着浮了，但之间有隔3像素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div style=&quot;margin: 0 auto; background-color: #ccc;&quot;&gt;</div><div class="line">    &lt;div style=&quot;width: 200px; height: 100px; float: left; background-color: #95f49e;&quot;&gt;left&lt;/div&gt;</div><div class="line">    &lt;div style=&quot;background-color: #fff; height: 100px; border: 1px solid #ccc;&quot;&gt;right&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>上面的代码在ie6低下运行时，会发现right前面出现3px的空格。</p>
+<p>　解决方法：a.对另一个元素同时使用float； b.为已经浮动的div添加一条语句：margin-right:-3px; </p>
+<p>（3）设置较小高度标签（一般小于10px），在IE6，IE7，遨游中高度超出自己设置高度，即想要弄一个3像素高的div，在IE6，IE7会出现问题，高度会超出。</p>
+<p>解决方案：给超出高度的标签设置overflow:hidden;或者设置行高line-height 小于你设置的高度。</p>
+<p>(4)图片默认有间距：几个img标签放在一起的时候，有些浏览器会有默认的间距</p>
+<p>解决：使用float属性为img布局</p>
+<p>（5）png24位的图片在iE6浏览器上出现背景，解决方案是做成PNG8.也可以引用一段脚本处理.</p>
+<p>（6）css hack：简单的说，CS Shack的目的就是使你的CSS代码兼容不同的浏览器。当然，我们也可以反过来利用CSS hack为不同版本的浏览器定制编写不同的CSS效果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">.bb&#123;</div><div class="line"></div><div class="line">   background-color:#f1ee18;/*所有识别*/</div><div class="line"></div><div class="line">  .background-color:#00deff\9; /*IE6、7、8识别*/</div><div class="line"></div><div class="line">  +background-color:#a200ff;/*IE6、7识别*/</div><div class="line"></div><div class="line">  _background-color:#1e0bd1;/*IE6识别*/</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/26/css_ie_bug/" data-id="cj1z4ypt100014gmmgm2sr0z7" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/04/26/margin_chongdie/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">margin 重叠现象</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/04/26/css_ie_bug/">CSS控制之BUG（不兼容问题）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/26/margin_chongdie/">margin 重叠现象</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/26/clear_float/">清除浮动</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/21/position_absolute/">无依赖的绝对定位position absolute</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/">html meta http-equiv X-UA-Compatible viewport</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
