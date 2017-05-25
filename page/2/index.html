@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
@@ -60,6 +60,57 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-lamp_4" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/15/lamp_4/" class="article-date">
+  <time datetime="2017-04-14T17:04:36.736Z" itemprop="datePublished">2017-04-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/15/lamp_4/">lamp环境搭建（四）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="安装phpmyadmin"><a href="#安装phpmyadmin" class="headerlink" title="安装phpmyadmin"></a>安装phpmyadmin</h2><p> 安装好MySQL，Apache及PHP后，为了可视化的管理MySQL数据库，我们可以安装phpMyAdmin。到其官网下载最新版本：<a href="http://www.phpmyadmin.net/home_page/" target="_blank" rel="external">http://www.phpmyadmin.net/home_page/</a></p>
+<p>一开始我直接下载最新版本，但是安装后提示版本不符合，于是下载了4.0版本的zip包。</p>
+<h6 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# unzip phpMyAdmin-4.2.6-all-languages.zip</div><div class="line">[root@localhost ~]# mv phpMyAdmin-4.2.6-all-languages /var/www/html/phpmyadmin</div><div class="line">[root@localhost ~]# cd /var/www/html/phpmyadmin</div><div class="line">[root@localhost ~]# cp libraries/config.default.php config.inc.php</div><div class="line"> </div><div class="line">[root@localhost ~]# vi cnfig.inc.php</div><div class="line">$cfg[&apos;PmaAbsoluteUri&apos;] = &apos;&apos;;这里填写 phpMyAdmin 的访问网址。</div><div class="line">$cfg[&apos;Servers&apos;][$i][&apos;host&apos;] = &apos;localhost&apos;; // MySQL hostname or IP address</div><div class="line">$cfg[&apos;Servers&apos;][$i][&apos;port&apos;] = &apos;&apos;; // MySQL port - leave blank for default port</div><div class="line">$cfg[&apos;Servers&apos;][$i][&apos;user&apos;] = &apos;root&apos;; // 填写 MySQL 访问 phpMyAdmin 使用的 MySQL 用户名，默认为 root。</div><div class="line">fg[&apos;Servers&apos;][$i][&apos;password&apos;] = &apos;&apos;; // 填写对应上述 MySQL 用户名的密码</div></pre></td></tr></table></figure>
+<p>。</p>
+<h4 id="然后重启-httpd服务"><a href="#然后重启-httpd服务" class="headerlink" title="然后重启,httpd服务"></a>然后重启,httpd服务</h4><p>[root@localhost ~]# service httpd restart</p>
+<p>在浏览器键入<a href="http://localhost/phpmyadmin" target="_blank" rel="external">http://localhost/phpmyadmin</a> ，但是进去了登录的时候我出现了#2002无法登录的问题，这时把配置文件的<br><img src="http://on47sru77.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720170415005832.png" alt="image"></p>
+<p>改一下，改为127.0.0.1就可以了。</p>
+<h5 id="有时候会遇到下述问题"><a href="#有时候会遇到下述问题" class="headerlink" title="有时候会遇到下述问题"></a>有时候会遇到下述问题</h5><p><img src="http://on47sru77.bkt.clouddn.com/20170415010142.png" alt="image"></p>
+<p>经过查询和尝试发现是SELinux的问题。把目录或文件设成了user_home_t类型，因此apache的进程没有权限，造成无法访问。因为针对 Apache的进程所使用的SELinux target policy规定了apache的进程只能访问httpd_sys_content_t类型的目录或文件。<br>以下为解决办法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># chcon -R -t httpd_sys_content_t /var/www/html/phpmyadmin</div></pre></td></tr></table></figure>
+<p>然后再次访问phpMyAdmin目录得到：<br><img src="http://on47sru77.bkt.clouddn.com/20170415010308.png" alt="image"></p>
+<p>这是由于未安装mbstring扩展。</p>
+<p>执行：#yum install -y php-mbstring</p>
+<p>#service httpd restart</p>
+<p>解决。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_4/" data-id="cj34eko7b000a3kmmvq7cu4by" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-lamp_3" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -93,7 +144,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_3/" data-id="cj1z4ypvm000g4gmmcx8bfhzu" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_3/" data-id="cj34eko8b000i3kmm92gwupsl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -148,7 +199,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_2/" data-id="cj1z4ypu800084gmmcwb2eqd0" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_2/" data-id="cj34eko7700093kmm9kjo4269" class="article-share-link">Share</a>
       
       
     </footer>
@@ -214,7 +265,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_1/" data-id="cj1z4yptv00064gmmq3hx7g3z" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_1/" data-id="cj34eko7400083kmmv8823n06" class="article-share-link">Share</a>
       
       
     </footer>
@@ -256,7 +307,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/14/catetree/" data-id="cj1z4ypt400024gmm2jqyfegc" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/14/catetree/" data-id="cj34eko4v00003kmmdn6byrf7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -301,7 +352,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/14/twolevel_cate/" data-id="cj1z4ypvf000e4gmmws6qevim" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/14/twolevel_cate/" data-id="cj34eko84000g3kmm3phgqzl7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -342,7 +393,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/12/thinkphpVariable/" data-id="cj1z4ypx5000i4gmm38ak3t5j" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/12/thinkphpVariable/" data-id="cj34eko80000f3kmmxxjpvtry" class="article-share-link">Share</a>
       
       
     </footer>
@@ -383,7 +434,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/02/form_and_ajax/" data-id="cj1z4yptl00054gmmigpg4bht" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/02/form_and_ajax/" data-id="cj34eko6q00063kmmejxj4qoc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -429,7 +480,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/30/fileupload/" data-id="cj1z4yptb00044gmmdyhei37v" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/03/30/fileupload/" data-id="cj34eko5700013kmmnh9y2g6z" class="article-share-link">Share</a>
       
       
     </footer>
@@ -474,57 +525,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/22/thinkphp/" data-id="cj1z4ypvc000d4gmmxgkbf1x0" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ueditor" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/20/ueditor/" class="article-date">
-  <time datetime="2017-03-20T14:46:47.655Z" itemprop="datePublished">2017-03-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/20/ueditor/">ueditor的使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="tp下的udeitord的使用"><a href="#tp下的udeitord的使用" class="headerlink" title="tp下的udeitord的使用"></a>tp下的udeitord的使用</h1><ol>
-<li>下载ueditor的扩展包，然后解压在合适的目录下</li>
-<li>引入ueditor文件里面的js文件</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ueditor.config.js</div><div class="line">ueditor.all.min.js</div><div class="line">lang/zh-cn/zh-cn.js</div></pre></td></tr></table></figure>
-<p>上面三个文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">3. 编辑器处像&lt;textarea&gt;标签引入id=&quot;content&quot;</div></pre></td></tr></table></figure>
-<ol>
-<li>底部</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//实例化编辑器</div><div class="line">    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor(&apos;editor&apos;)就能拿到相关的实例</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">UE.getEditor(&apos;content&apos;,&#123;initialFrameWidth:1500,initialFrameHeight:400,&#125;);</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/20/ueditor/" data-id="cj1z4ypvs000h4gmm6xzdliuu" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/03/22/thinkphp/" data-id="cj34eko88000h3kmmhwvk890t" class="article-share-link">Share</a>
       
       
     </footer>
@@ -537,7 +538,7 @@
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">__('next') &raquo;</a>
   </nav>
 </section>
         
@@ -555,7 +556,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
     </div>
   </div>
 
@@ -563,9 +564,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/05/25/ie_error/">常见的IE错误</a>
+          </li>
         
           <li>
             <a href="/2017/04/26/css_ie_bug/">CSS控制之BUG（不兼容问题）</a>
@@ -583,10 +588,6 @@
             <a href="/2017/04/21/position_absolute/">无依赖的绝对定位position absolute</a>
           </li>
         
-          <li>
-            <a href="/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/">html meta http-equiv X-UA-Compatible viewport</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -600,7 +601,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 John Doe<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

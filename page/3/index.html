@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2017/4 | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://weilephp.github.io/archives/2017/04/page/2/index.html">
+<meta property="og:url" content="http://weilephp.github.io/page/3/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
@@ -61,155 +61,60 @@
       <div class="outer">
         <section id="main">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/04/15/lamp_3/" class="archive-article-date">
-  <time datetime="2017-04-14T16:54:16.514Z" itemprop="datePublished">Apr 15</time>
+    <article id="post-ueditor" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/20/ueditor/" class="article-date">
+  <time datetime="2017-03-20T14:46:47.655Z" itemprop="datePublished">2017-03-20</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/15/lamp_3/">lamp环境搭建（三）</a>
+      <a class="article-title" href="/2017/03/20/ueditor/">ueditor的使用</a>
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/04/15/lamp_2/" class="archive-article-date">
-  <time datetime="2017-04-14T16:50:11.575Z" itemprop="datePublished">Apr 15</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/15/lamp_2/">lamp环境搭建（二）</a>
-    </h1>
-  
+        <h1 id="tp下的udeitord的使用"><a href="#tp下的udeitord的使用" class="headerlink" title="tp下的udeitord的使用"></a>tp下的udeitord的使用</h1><ol>
+<li>下载ueditor的扩展包，然后解压在合适的目录下</li>
+<li>引入ueditor文件里面的js文件</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ueditor.config.js</div><div class="line">ueditor.all.min.js</div><div class="line">lang/zh-cn/zh-cn.js</div></pre></td></tr></table></figure>
+<p>上面三个文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">3. 编辑器处像&lt;textarea&gt;标签引入id=&quot;content&quot;</div></pre></td></tr></table></figure>
+<ol>
+<li>底部</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//实例化编辑器</div><div class="line">    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor(&apos;editor&apos;)就能拿到相关的实例</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">UE.getEditor(&apos;content&apos;,&#123;initialFrameWidth:1500,initialFrameHeight:400,&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/04/15/lamp_1/" class="archive-article-date">
-  <time datetime="2017-04-14T16:32:05.020Z" itemprop="datePublished">Apr 15</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/15/lamp_1/">lamp环境搭建（一）</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/04/14/catetree/" class="archive-article-date">
-  <time datetime="2017-04-14T12:24:40.664Z" itemprop="datePublished">Apr 14</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/03/20/ueditor/" data-id="cj34eko94000k3kmm1mfz7bjz" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/14/catetree/">无限极分类思路</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/04/14/twolevel_cate/" class="archive-article-date">
-  <time datetime="2017-04-14T09:04:57.729Z" itemprop="datePublished">Apr 14</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/14/twolevel_cate/">thinkphp动态调用二级分类栏目</a>
-    </h1>
-  
-
-    </header>
+    </footer>
   </div>
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/04/12/thinkphpVariable/" class="archive-article-date">
-  <time datetime="2017-04-12T15:51:53.916Z" itemprop="datePublished">Apr 12</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/12/thinkphpVariable/">thinkphp模板引擎volist标签与php原生代码嵌合的变量用法</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/04/02/form_and_ajax/" class="archive-article-date">
-  <time datetime="2017-04-01T16:23:02.329Z" itemprop="datePublished">Apr 2</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/02/form_and_ajax/">ajax传递数据给后台与form表单的冲突</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/archives/2017/04/">&laquo; __('prev')</a><a class="page-number" href="/archives/2017/04/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
   </nav>
 </section>
         

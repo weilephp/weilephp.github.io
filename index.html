@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
@@ -60,6 +60,52 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-ie_error" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/25/ie_error/" class="article-date">
+  <time datetime="2017-05-25T12:35:18.431Z" itemprop="datePublished">2017-05-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/25/ie_error/">常见的IE错误</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-操作终止（operation-aborted）"><a href="#1-操作终止（operation-aborted）" class="headerlink" title="1.操作终止（operation aborted）"></a>1.操作终止（operation aborted）</h3><p>当修改尚未加载完成的页面是，就会发生操作终止<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html lang=&quot;en&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">	&lt;title&gt;Operation Aborted Example&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	&lt;p&gt;asfasfsfsfasfsfsfsfsfsf&lt;/p&gt;</div><div class="line">	&lt;div&gt;</div><div class="line">		&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">			document.body.appendChild(document.createElement(&quot;div&quot;));</div><div class="line">		&lt;/script&gt;</div><div class="line">	&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>上述代码，javascript代码位于div块里面，当执行到javascript代码的时候，在body的子元素的后面添加一个div子元素，但此时页面并未执行完成，即并未执行到div块完成，所以会导致错误，只要把script代码放在div块的外面就可以解决问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html lang=&quot;en&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">	&lt;title&gt;Operation Aborted Example&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	&lt;p&gt;asfasfsfsfasfsfsfsfsfsf&lt;/p&gt;</div><div class="line">	&lt;div&gt;&lt;/div&gt;</div><div class="line">	&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">		document.body.appendChild(document.createElement(&quot;div&quot;));</div><div class="line">	&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="2-无效字符（invalid-character）"><a href="#2-无效字符（invalid-character）" class="headerlink" title="2.无效字符（invalid character）"></a>2.无效字符（invalid character）</h3><p>所谓的无效字符，就是指javascript语法未定义的字符，当出现这些字符时会抛出错误</p>
+<h3 id="3-未找到成员（重点）（Member-not-found）"><a href="#3-未找到成员（重点）（Member-not-found）" class="headerlink" title="3.未找到成员（重点）（Member not found）"></a>3.未找到成员（重点）（Member not found）</h3><p>IE中的所有DOM对象都是以COM对象，而非原声JavaScript对象的形式实现的。这会导致一些与垃圾收集相关的非常奇怪的行为。IE中未找到成员错误，就是由于垃圾收集例程配合错误所直接导致的。</p>
+<p>具体来说，如果对象在被销毁之后，又给该对象赋值，就会导致未找到成员错误。而导致这个错误的，一定是COM对象，最常见的情形是使用event对象的时候<br>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">document.onclick = function()&#123;</div><div class="line">	var event = window.event;</div><div class="line">	setTimeout(function()&#123;</div><div class="line">		event.returnValue = false; //这会导致未找到成员错误</div><div class="line">	&#125;,1000);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>原因就是IE中的event对象是window属性，该对象在事件发生时创建，在最后一个事件处理程序执行完毕后销毁，上述代码在闭包中使用了event对象，但是却在1秒后执行，此时事件处理程序已执行完毕，导致event对象被销毁，所以就会发生未找到成员错误</p>
+<h3 id="4-未知运行错误"><a href="#4-未知运行错误" class="headerlink" title="4.未知运行错误"></a>4.未知运行错误</h3><p>当使用innerHTML或outerHTML以下列方式指定HTML时，就会发生未知运行时错误（Unknown runtime error）：一是把块元素插入到行内元素时，二是访问表格任意部分（&lt;table&gt;，&lt;tbody&gt;等）的任意属性时。</p>
+<h3 id="5-语法错误"><a href="#5-语法错误" class="headerlink" title="5.语法错误"></a>5.语法错误</h3><p>需要注意一种情况，当引用了外部的javascript文件时，该文件最终并没有返回javascript代码，就像&lt;script&gt;的src属性指向了HTML文件时。</p>
+<h3 id="6-系统无法找到指定资源"><a href="#6-系统无法找到指定资源" class="headerlink" title="6.系统无法找到指定资源"></a>6.系统无法找到指定资源</h3><p>在使用javacript请求某个url，而该url的长度超过了IE对url最长不能超过2083个字符的限制时，就会发生错误</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/05/25/ie_error/" data-id="cj34eko5g00023kmmutxscvbu" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-css_ie_bug" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -106,7 +152,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/26/css_ie_bug/" data-id="cj1z4ypt100014gmmgm2sr0z7" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/26/css_ie_bug/" data-id="cj34eko6e00043kmmd85eoqrd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -163,7 +209,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/26/margin_chongdie/" data-id="cj1z4ypue00094gmmr2pmvkeq" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/26/margin_chongdie/" data-id="cj34eko7w000e3kmm29f7eufk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -212,7 +258,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/26/clear_float/" data-id="cj1z4ypsa00004gmm20kfekij" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/26/clear_float/" data-id="cj34eko6n00053kmm1t8dec22" class="article-share-link">Share</a>
       
       
     </footer>
@@ -259,7 +305,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/position_absolute/" data-id="cj1z4ypv8000c4gmmf2e2aglq" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/position_absolute/" data-id="cj34eko7r000d3kmmfum66gbq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -308,7 +354,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/" data-id="cj1z4ypvh000f4gmmugsrxynq" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/" data-id="cj34eko7h000b3kmmkloqcklh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -346,7 +392,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/input_button/" data-id="cj1z4ypt900034gmmle6tq94q" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/input_button/" data-id="cj34eko5l00033kmmdimmgm3m" class="article-share-link">Share</a>
       
       
     </footer>
@@ -391,7 +437,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/javascript_global_jubu_bianliang/" data-id="cj1z4ypty00074gmmj73f7tjy" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/javascript_global_jubu_bianliang/" data-id="cj34eko6t00073kmm6mexezxd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -620,7 +666,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/w3c_media_type/" data-id="cj1z4ypxb000j4gmmpngp3gqo" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/w3c_media_type/" data-id="cj34eko8e000j3kmmbe4l7bn6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -664,58 +710,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/css_initial/" data-id="cj1z4ypv2000b4gmmok1m15hq" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-lamp_4" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/15/lamp_4/" class="article-date">
-  <time datetime="2017-04-14T17:04:36.736Z" itemprop="datePublished">2017-04-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/15/lamp_4/">lamp环境搭建（四）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="安装phpmyadmin"><a href="#安装phpmyadmin" class="headerlink" title="安装phpmyadmin"></a>安装phpmyadmin</h2><p> 安装好MySQL，Apache及PHP后，为了可视化的管理MySQL数据库，我们可以安装phpMyAdmin。到其官网下载最新版本：<a href="http://www.phpmyadmin.net/home_page/" target="_blank" rel="external">http://www.phpmyadmin.net/home_page/</a></p>
-<p>一开始我直接下载最新版本，但是安装后提示版本不符合，于是下载了4.0版本的zip包。</p>
-<h6 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# unzip phpMyAdmin-4.2.6-all-languages.zip</div><div class="line">[root@localhost ~]# mv phpMyAdmin-4.2.6-all-languages /var/www/html/phpmyadmin</div><div class="line">[root@localhost ~]# cd /var/www/html/phpmyadmin</div><div class="line">[root@localhost ~]# cp libraries/config.default.php config.inc.php</div><div class="line"> </div><div class="line">[root@localhost ~]# vi cnfig.inc.php</div><div class="line">$cfg[&apos;PmaAbsoluteUri&apos;] = &apos;&apos;;这里填写 phpMyAdmin 的访问网址。</div><div class="line">$cfg[&apos;Servers&apos;][$i][&apos;host&apos;] = &apos;localhost&apos;; // MySQL hostname or IP address</div><div class="line">$cfg[&apos;Servers&apos;][$i][&apos;port&apos;] = &apos;&apos;; // MySQL port - leave blank for default port</div><div class="line">$cfg[&apos;Servers&apos;][$i][&apos;user&apos;] = &apos;root&apos;; // 填写 MySQL 访问 phpMyAdmin 使用的 MySQL 用户名，默认为 root。</div><div class="line">fg[&apos;Servers&apos;][$i][&apos;password&apos;] = &apos;&apos;; // 填写对应上述 MySQL 用户名的密码</div></pre></td></tr></table></figure>
-<p>。</p>
-<h4 id="然后重启-httpd服务"><a href="#然后重启-httpd服务" class="headerlink" title="然后重启,httpd服务"></a>然后重启,httpd服务</h4><p>[root@localhost ~]# service httpd restart</p>
-<p>在浏览器键入<a href="http://localhost/phpmyadmin" target="_blank" rel="external">http://localhost/phpmyadmin</a> ，但是进去了登录的时候我出现了#2002无法登录的问题，这时把配置文件的<br><img src="http://on47sru77.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720170415005832.png" alt="image"></p>
-<p>改一下，改为127.0.0.1就可以了。</p>
-<h5 id="有时候会遇到下述问题"><a href="#有时候会遇到下述问题" class="headerlink" title="有时候会遇到下述问题"></a>有时候会遇到下述问题</h5><p><img src="http://on47sru77.bkt.clouddn.com/20170415010142.png" alt="image"></p>
-<p>经过查询和尝试发现是SELinux的问题。把目录或文件设成了user_home_t类型，因此apache的进程没有权限，造成无法访问。因为针对 Apache的进程所使用的SELinux target policy规定了apache的进程只能访问httpd_sys_content_t类型的目录或文件。<br>以下为解决办法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># chcon -R -t httpd_sys_content_t /var/www/html/phpmyadmin</div></pre></td></tr></table></figure>
-<p>然后再次访问phpMyAdmin目录得到：<br><img src="http://on47sru77.bkt.clouddn.com/20170415010308.png" alt="image"></p>
-<p>这是由于未安装mbstring扩展。</p>
-<p>执行：#yum install -y php-mbstring</p>
-<p>#service httpd restart</p>
-<p>解决。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_4/" data-id="cj1z4ypuj000a4gmmwfp8e885" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/css_initial/" data-id="cj34eko7m000c3kmml8d3mjjf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -728,7 +723,7 @@
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
   </nav>
 </section>
         
@@ -746,7 +741,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
     </div>
   </div>
 
@@ -754,9 +749,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/05/25/ie_error/">常见的IE错误</a>
+          </li>
         
           <li>
             <a href="/2017/04/26/css_ie_bug/">CSS控制之BUG（不兼容问题）</a>
@@ -774,10 +773,6 @@
             <a href="/2017/04/21/position_absolute/">无依赖的绝对定位position absolute</a>
           </li>
         
-          <li>
-            <a href="/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/">html meta http-equiv X-UA-Compatible viewport</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -791,7 +786,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 John Doe<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
