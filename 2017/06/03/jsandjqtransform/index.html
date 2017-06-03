@@ -3,14 +3,33 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2017 | Hexo</title>
+  <title>js对象与jq之间的转换 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://weilephp.github.io/archives/2017/page/3/index.html">
+  <meta name="description" content="jQuery对象转成DOM对象： 
+两种转换方式将一个jQuery对象转换成DOM对象：[index]和.get(index); 
+(1)jQuery对象是一个数据对象，可以通过[index]的方法，来得到相应的DOM对象。 
+如：var $v =$(“#v”) ; //jQuery对象 
+var v=$v[0]; //DOM对象 
+alert(v.checked) //检测这个checkbox是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js对象与jq之间的转换">
+<meta property="og:url" content="http://weilephp.github.io/2017/06/03/jsandjqtransform/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="jQuery对象转成DOM对象： 
+两种转换方式将一个jQuery对象转换成DOM对象：[index]和.get(index); 
+(1)jQuery对象是一个数据对象，可以通过[index]的方法，来得到相应的DOM对象。 
+如：var $v =$(“#v”) ; //jQuery对象 
+var v=$v[0]; //DOM对象 
+alert(v.checked) //检测这个checkbox是">
+<meta property="og:updated_time" content="2017-06-03T01:20:20.941Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="js对象与jq之间的转换">
+<meta name="twitter:description" content="jQuery对象转成DOM对象： 
+两种转换方式将一个jQuery对象转换成DOM对象：[index]和.get(index); 
+(1)jQuery对象是一个数据对象，可以通过[index]的方法，来得到相应的DOM对象。 
+如：var $v =$(“#v”) ; //jQuery对象 
+var v=$v[0]; //DOM对象 
+alert(v.checked) //检测这个checkbox是">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -59,63 +78,67 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/22/thinkphp/" class="archive-article-date">
-  <time datetime="2017-03-22T14:44:09.930Z" itemprop="datePublished">Mar 22</time>
+        <section id="main"><article id="post-jsandjqtransform" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/03/jsandjqtransform/" class="article-date">
+  <time datetime="2017-06-03T01:16:57.326Z" itemprop="datePublished">2017-06-03</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/22/thinkphp/">thinkphp笔记</a>
+    <h1 class="article-title" itemprop="name">
+      js对象与jq之间的转换
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/03/20/ueditor/" class="archive-article-date">
-  <time datetime="2017-03-20T14:46:47.655Z" itemprop="datePublished">Mar 20</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/20/ueditor/">ueditor的使用</a>
-    </h1>
-  
+        <p>jQuery对象转成DOM对象： </p>
+<p>两种转换方式将一个jQuery对象转换成DOM对象：[index]和.get(index); </p>
+<p>(1)jQuery对象是一个数据对象，可以通过[index]的方法，来得到相应的DOM对象。 </p>
+<p>如：var $v =$(“#v”) ; //jQuery对象 </p>
+<p>var v=$v[0]; //DOM对象 </p>
+<p>alert(v.checked) //检测这个checkbox是否被选中 </p>
+<p>(2)jQuery本身提供，通过.get(index)方法，得到相应的DOM对象 </p>
+<p>如：var $v=$(“#v”); //jQuery对象 </p>
+<p>var v=$v.get(0); //DOM对象 </p>
+<p>alert(v.checked) //检测这个checkbox是否被选中</p>
+<p>DOM对象转成jQuery对象: </p>
+<p>对于已经是一个DOM对象，只需要用$()把DOM对象包装起来，就可以获得一个jQuery对象了。$(DOM对象) </p>
+<p>如：var v=document.getElementById(“v”); //DOM对象 </p>
+<p>var $v=$(v); //jQuery对象 </p>
+<p>转换后，就可以任意使用jQuery的方法了。</p>
 
-    </header>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/06/03/jsandjqtransform/" data-id="cj3gleveg0007wwmm0ozft6z4" class="article-share-link">Share</a>
+      
+      
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/05/25/ie_error/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">常见的IE错误</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
-
-  <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/archives/2017/page/2/">&laquo; __('prev')</a><a class="page-number" href="/archives/2017/">1</a><a class="page-number" href="/archives/2017/page/2/">2</a><span class="page-number current">3</span>
-  </nav>
 </section>
         
           <aside id="sidebar">

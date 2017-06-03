@@ -61,6 +61,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-jsandjqtransform" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/03/jsandjqtransform/" class="article-date">
+  <time datetime="2017-06-03T01:16:57.326Z" itemprop="datePublished">2017-06-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/03/jsandjqtransform/">js对象与jq之间的转换</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>jQuery对象转成DOM对象： </p>
+<p>两种转换方式将一个jQuery对象转换成DOM对象：[index]和.get(index); </p>
+<p>(1)jQuery对象是一个数据对象，可以通过[index]的方法，来得到相应的DOM对象。 </p>
+<p>如：var $v =$(“#v”) ; //jQuery对象 </p>
+<p>var v=$v[0]; //DOM对象 </p>
+<p>alert(v.checked) //检测这个checkbox是否被选中 </p>
+<p>(2)jQuery本身提供，通过.get(index)方法，得到相应的DOM对象 </p>
+<p>如：var $v=$(“#v”); //jQuery对象 </p>
+<p>var v=$v.get(0); //DOM对象 </p>
+<p>alert(v.checked) //检测这个checkbox是否被选中</p>
+<p>DOM对象转成jQuery对象: </p>
+<p>对于已经是一个DOM对象，只需要用$()把DOM对象包装起来，就可以获得一个jQuery对象了。$(DOM对象) </p>
+<p>如：var v=document.getElementById(“v”); //DOM对象 </p>
+<p>var $v=$(v); //jQuery对象 </p>
+<p>转换后，就可以任意使用jQuery的方法了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/06/03/jsandjqtransform/" data-id="cj3gleveg0007wwmm0ozft6z4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ie_error" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/05/25/ie_error/" class="article-date">
@@ -97,7 +148,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/05/25/ie_error/" data-id="cj34eko5g00023kmmutxscvbu" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/05/25/ie_error/" data-id="cj3glevej0008wwmmpvsh6bwc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -152,7 +203,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/26/css_ie_bug/" data-id="cj34eko6e00043kmmd85eoqrd" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/26/css_ie_bug/" data-id="cj3glevdy0004wwmmrxnzbbas" class="article-share-link">Share</a>
       
       
     </footer>
@@ -209,7 +260,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/26/margin_chongdie/" data-id="cj34eko7w000e3kmm29f7eufk" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/26/margin_chongdie/" data-id="cj3glevf4000dwwmmgtfcjvrj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -258,7 +309,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/26/clear_float/" data-id="cj34eko6n00053kmm1t8dec22" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/26/clear_float/" data-id="cj3glevdi0001wwmmshu94z6c" class="article-share-link">Share</a>
       
       
     </footer>
@@ -305,7 +356,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/position_absolute/" data-id="cj34eko7r000d3kmmfum66gbq" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/position_absolute/" data-id="cj3glevf7000ewwmmbrxm7mff" class="article-share-link">Share</a>
       
       
     </footer>
@@ -354,7 +405,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/" data-id="cj34eko7h000b3kmmkloqcklh" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/" data-id="cj3glevf0000cwwmmq7sptaqr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -392,7 +443,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/input_button/" data-id="cj34eko5l00033kmmdimmgm3m" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/input_button/" data-id="cj3glevdu0003wwmm5laba2pj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -437,7 +488,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/javascript_global_jubu_bianliang/" data-id="cj34eko6t00073kmm6mexezxd" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/javascript_global_jubu_bianliang/" data-id="cj3gleve50005wwmm890rq5p9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -666,51 +717,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/w3c_media_type/" data-id="cj34eko8e000j3kmmbe4l7bn6" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-css_initial" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/21/css_initial/" class="article-date">
-  <time datetime="2017-04-21T14:33:33.312Z" itemprop="datePublished">2017-04-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/21/css_initial/">CSS_腾讯QQ官网，新浪官网，网易官网，淘宝官网之css初始化代码</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>CSS为什么要初始化？建站老手都知道，这是为了考虑到浏览器的兼容问题，其实不同浏览器对有些标签的默认值是不同的，如果没对CSS初始化往往会出现浏览器之间的页面差异。当然，初始化样式会对SEO有一定的影响，但鱼和熊掌不可兼得，但力求影响最小的情况下初始化。</p>
-<p>最简单的初始化方法就是： <em> {padding: 0; margin: 0;} 。有很多人也是这样写的。这确实很简单，但有人就会感到疑问：</em>号这样一个通用符在编写代码的时候是快，但如果网站很大，CSS样式表文件很大，这样写的话，他会把所有的标签都初始化一遍，这样就大大的加强了网站运行的负载，会使网站加载的时候需要很长一段时间。</p>
-<p>写过css的都知道每个网页引进的css首先都需要初始化，而出名的css reset有YUI css reset（QQ、淘宝等都出现他的影子），业内用的最多的还有Erik Meyer’s CSS Reset。</p>
-<p>花了点时间，把一些门户及大型网站的样式初始化罗列了下来（仅供参考）</p>
-<h5 id="腾讯QQ官网-http-www-qq-com-样式初始化"><a href="#腾讯QQ官网-http-www-qq-com-样式初始化" class="headerlink" title="腾讯QQ官网(http://www.qq.com)样式初始化"></a>腾讯QQ官网(<a href="http://www.qq.com)样式初始化" target="_blank" rel="external">http://www.qq.com)样式初始化</a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select&#123;margin:0;padding:0&#125;</div><div class="line">body&#123;font:12px&quot;宋体&quot;,&quot;Arial Narrow&quot;,HELVETICA;background:#fff;-webkit-text-size-adjust:100%;&#125;</div><div class="line">a&#123;color:#2d374b;text-decoration:none&#125;</div><div class="line">a:hover&#123;color:#cd0200;text-decoration:underline&#125;</div><div class="line">em&#123;font-style:normal&#125;</div><div class="line">li&#123;list-style:none&#125;</div><div class="line">img&#123;border:0;vertical-align:middle&#125;</div><div class="line">table&#123;border-collapse:collapse;border-spacing:0&#125;</div><div class="line">p&#123;word-wrap:break-word&#125;</div></pre></td></tr></table></figure>
-<h5 id="新浪官网-http-www-sina-com-cn-样式初始化"><a href="#新浪官网-http-www-sina-com-cn-样式初始化" class="headerlink" title="新浪官网(http://www.sina.com.cn/)样式初始化"></a>新浪官网(<a href="http://www.sina.com.cn/)样式初始化" target="_blank" rel="external">http://www.sina.com.cn/)样式初始化</a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div&#123;margin:0;padding:0;border:0;&#125;</div><div class="line">body&#123;background:#fff;color:#333;font-size:12px; margin-top:5px;font-family:&quot;SimSun&quot;,&quot;宋体&quot;,&quot;Arial Narrow&quot;;&#125;</div><div class="line">ul,ol&#123;list-style-type:none;&#125;</div><div class="line">select,input,img,select&#123;vertical-align:middle;&#125;</div><div class="line">a&#123;text-decoration:none;&#125;</div><div class="line">a:link&#123;color:#009;&#125;</div><div class="line">a:visited&#123;color:#800080;&#125;</div><div class="line">a:hover,a:active,a:focus&#123;color:#c00;text-decoration:underline;&#125;</div></pre></td></tr></table></figure>
-<h5 id="淘宝官网-http-www-taobao-com-样式初始化（淘宝的样式是经过压缩的，我自己拷下来格式化过的）"><a href="#淘宝官网-http-www-taobao-com-样式初始化（淘宝的样式是经过压缩的，我自己拷下来格式化过的）" class="headerlink" title="淘宝官网(http://www.taobao.com/)样式初始化（淘宝的样式是经过压缩的，我自己拷下来格式化过的）"></a>淘宝官网(<a href="http://www.taobao.com/)样式初始化（淘宝的样式是经过压缩的，我自己拷下来格式化过的）" target="_blank" rel="external">http://www.taobao.com/)样式初始化（淘宝的样式是经过压缩的，我自己拷下来格式化过的）</a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td &#123; margin:0; padding:0; &#125;</div><div class="line">body, button, input, select, textarea &#123; font:12px/1.5tahoma, arial, \5b8b\4f53; &#125;</div><div class="line">h1, h2, h3, h4, h5, h6&#123; font-size:100%; &#125;</div><div class="line">address, cite, dfn, em, var &#123; font-style:normal; &#125;</div><div class="line">code, kbd, pre, samp &#123; font-family:couriernew, courier, monospace; &#125;</div><div class="line">small&#123; font-size:12px; &#125;</div><div class="line">ul, ol &#123; list-style:none; &#125;</div><div class="line">a &#123; text-decoration:none; &#125;</div><div class="line">a:hover &#123; text-decoration:underline; &#125;</div><div class="line">sup &#123; vertical-align:text-top; &#125;</div><div class="line">sub&#123; vertical-align:text-bottom; &#125;</div><div class="line">legend &#123; color:#000; &#125;</div><div class="line">fieldset, img &#123; border:0; &#125;</div><div class="line">button, input, select, textarea &#123; font-size:100%; &#125;</div><div class="line">table &#123; border-collapse:collapse; border-spacing:0; &#125;</div></pre></td></tr></table></figure>
-<h5 id="网易官网-http-www-163-com-样式初始化"><a href="#网易官网-http-www-163-com-样式初始化" class="headerlink" title="网易官网(http://www.163.com/)样式初始化"></a>网易官网(<a href="http://www.163.com/)样式初始化" target="_blank" rel="external">http://www.163.com/)样式初始化</a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">html &#123;overflow-y:scroll;&#125;</div><div class="line">body &#123;margin:0; padding:29px00; font:12px&quot;\5B8B\4F53&quot;,sans-serif;background:#ffffff;&#125; &lt;!--&quot;\5B8B\4F53&quot;是unicode编码代表宋体的意思，等同于&quot;宋体&quot;--!&gt;</div><div class="line">div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,blockquote,p&#123;padding:0; margin:0;&#125;</div><div class="line">table,td,tr,th&#123;font-size:12px;&#125;</div><div class="line">li&#123;list-style-type:none;&#125;</div><div class="line">img&#123;vertical-align:top;border:0;&#125;</div><div class="line">ol,ul &#123;list-style:none;&#125;</div><div class="line">h1,h2,h3,h4,h5,h6&#123;font-size:12px; font-weight:normal;&#125;</div><div class="line">address,cite,code,em,th &#123;font-weight:normal; font-style:normal;&#125;</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/css_initial/" data-id="cj34eko7m000c3kmml8d3mjjf" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/w3c_media_type/" data-id="cj3glevfl000jwwmmtj976iko" class="article-share-link">Share</a>
       
       
     </footer>
@@ -741,7 +748,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
     </div>
   </div>
 
@@ -752,6 +759,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/06/03/jsandjqtransform/">js对象与jq之间的转换</a>
+          </li>
         
           <li>
             <a href="/2017/05/25/ie_error/">常见的IE错误</a>
@@ -767,10 +778,6 @@
         
           <li>
             <a href="/2017/04/26/clear_float/">清除浮动</a>
-          </li>
-        
-          <li>
-            <a href="/2017/04/21/position_absolute/">无依赖的绝对定位position absolute</a>
           </li>
         
       </ul>
