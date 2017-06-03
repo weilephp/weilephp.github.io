@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
@@ -60,6 +60,48 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-sidescroll" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/03/sidescroll/" class="article-date">
+  <time datetime="2017-06-03T03:21:09.735Z" itemprop="datePublished">2017-06-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/03/sidescroll/">固定边栏滚动效果</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="思路：（通过滚动事件触发）"><a href="#思路：（通过滚动事件触发）" class="headerlink" title="思路：（通过滚动事件触发）"></a>思路：（通过滚动事件触发）</h3><p>三个重要元素：可见屏幕高度，边栏的高度，滚动高度。</p>
+<p>判断条件：当可见屏幕高度+滚动的高度&gt;边栏的高度时改变css样式。</p>
+<p>注意position的top的高度：-(边栏高度-屏幕高度)，这样才能完美衔接固定</p>
+<h3 id="html代码"><a href="#html代码" class="headerlink" title="html代码"></a>html代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;title&gt;固定边栏滚动特效&lt;/title&gt;</div><div class="line">	&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">		.left&#123;</div><div class="line">			width:70%;</div><div class="line">			height:2000px;</div><div class="line">			background: red;</div><div class="line">			float:left;</div><div class="line">		&#125;</div><div class="line">		.right&#123;</div><div class="line">			width:30%;</div><div class="line">			height:1000px;</div><div class="line">			background: yellow;</div><div class="line">			float:right;</div><div class="line">		&#125;</div><div class="line">	&lt;/style&gt;</div><div class="line">	&lt;script type=&quot;text/javascript&quot; src=&quot;http://code.jquery.com/jquery.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	&lt;div class=&quot;left&quot; id=&quot;left&quot;&gt;&lt;/div&gt;</div><div class="line">	&lt;div class=&quot;right&quot; id=&quot;right&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h3 id="1、js代码实现"><a href="#1、js代码实现" class="headerlink" title="1、js代码实现"></a>1、js代码实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">var $ = function(id)&#123;</div><div class="line">	return document.getElementById(id);</div><div class="line">&#125;</div><div class="line">var addEvent = function(element,type,handler)&#123;</div><div class="line">	if(element.addEventListener)&#123;</div><div class="line">		element.addEventListener(type,handler,false);</div><div class="line">	&#125;else if(element.attachEvent)&#123;</div><div class="line">		element.attachEvent(&quot;on&quot;+type,handler);</div><div class="line">	&#125;else&#123;</div><div class="line">		element[&quot;on&quot;+type] = handler;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">var scrollEvent = function()&#123;</div><div class="line">	var screenHeight = document.documentElement.clientHeight||document.body.clientHeight;</div><div class="line">	var sideHeight = $(&quot;right&quot;).offsetHeight;</div><div class="line">	var scrollHeight = document.documentElement.scrollTop||document.body.scrollTop;</div><div class="line">	if(scrollHeight+screenHeight&gt;sideHeight)&#123;</div><div class="line">		$(&quot;right&quot;).style.cssText = &quot;position:fixed;right:0px;top:&quot;+(-(sideHeight-screenHeight))+&quot;px&quot;;</div><div class="line">	&#125;else&#123;</div><div class="line">		$(&quot;right&quot;).style.cssText = &quot;position:static&quot;;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">addEvent(window,&quot;scroll&quot;,scrollEvent);</div><div class="line">addEvent(window,&quot;resize&quot;,scrollEvent);</div></pre></td></tr></table></figure>
+<p>2、jq代码实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">$(window).scroll(function()&#123;</div><div class="line">	var screenHeight = $(window).height();</div><div class="line">	var sideHeight = $(&quot;.right&quot;).height();</div><div class="line">	var scrollHeight = $(window).scrollTop();</div><div class="line">	if(screenHeight+scrollHeight&gt;sideHeight)&#123;</div><div class="line">		$(&quot;.right&quot;).css(&#123;</div><div class="line">			&apos;position&apos;:&apos;fixed&apos;,</div><div class="line">			right:&apos;0px&apos;,</div><div class="line">			top:-(sideHeight-screenHeight)</div><div class="line">		&#125;);</div><div class="line">	&#125;else&#123;</div><div class="line">		$(&quot;.right&quot;).css(&#123;</div><div class="line">			&apos;position&apos;:&apos;static&apos;</div><div class="line">		&#125;);</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/06/03/sidescroll/" data-id="cj3gpr3p5000geommio5xotcl" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-jsandjqtransform" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -102,7 +144,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/06/03/jsandjqtransform/" data-id="cj3gleveg0007wwmm0ozft6z4" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/06/03/jsandjqtransform/" data-id="cj3gpr3oh0009eommfqp3v7qc" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -148,7 +190,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/05/25/ie_error/" data-id="cj3glevej0008wwmmpvsh6bwc" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/05/25/ie_error/" data-id="cj3gpr3ny0006eommvkzvaml8" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -203,7 +245,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/26/css_ie_bug/" data-id="cj3glevdy0004wwmmrxnzbbas" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/26/css_ie_bug/" data-id="cj3gpr3nd0002eomm60q1cps9" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -260,7 +302,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/26/margin_chongdie/" data-id="cj3glevf4000dwwmmgtfcjvrj" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/26/margin_chongdie/" data-id="cj3gpr3ox000eeomm10xuplyz" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -309,7 +351,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/26/clear_float/" data-id="cj3glevdi0001wwmmshu94z6c" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/26/clear_float/" data-id="cj3gpr3n70001eommsbylxmdh" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -356,7 +398,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/position_absolute/" data-id="cj3glevf7000ewwmmbrxm7mff" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/position_absolute/" data-id="cj3gpr3pa000ieomm9i8gep2k" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -405,7 +447,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/" data-id="cj3glevf0000cwwmmq7sptaqr" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/" data-id="cj3gpr3p1000feommiavjqt80" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -443,7 +485,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/input_button/" data-id="cj3glevdu0003wwmm5laba2pj" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/input_button/" data-id="cj3gpr3od0008eomm93se2192" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -488,236 +530,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/javascript_global_jubu_bianliang/" data-id="cj3gleve50005wwmm890rq5p9" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-w3c_media_type" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/21/w3c_media_type/" class="article-date">
-  <time datetime="2017-04-21T14:35:41.700Z" itemprop="datePublished">2017-04-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/21/w3c_media_type/">W3C媒体类型和媒体特性(CSS3@midia)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="10种媒体类型"><a href="#10种媒体类型" class="headerlink" title="10种媒体类型"></a>10种媒体类型</h4><table>
-<thead>
-<tr>
-<th>值</th>
-<th>设备类型</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>All</td>
-<td>所有设备</td>
-</tr>
-<tr>
-<td>Braille</td>
-<td>盲人用点字法触觉回馈设备</td>
-</tr>
-<tr>
-<td>Embossed</td>
-<td>盲文打印机</td>
-</tr>
-<tr>
-<td>Handheld</td>
-<td>便携设备</td>
-</tr>
-<tr>
-<td>Print</td>
-<td>打印用纸或打印预览视图</td>
-</tr>
-<tr>
-<td>Projection</td>
-<td>各种投影设备</td>
-</tr>
-<tr>
-<td>Screen</td>
-<td>电脑显示器</td>
-</tr>
-<tr>
-<td>Speech</td>
-<td>语音或音频合成器</td>
-</tr>
-<tr>
-<td>Tv</td>
-<td>电视机类型设备</td>
-</tr>
-<tr>
-<td>Tty</td>
-<td>使用固定密度字母栅格的媒介，比如电传打字机和终端</td>
-</tr>
-</tbody>
-</table>
-<p>其中Screen、All和Print为最常见的三种媒体类型。</p>
-<h4 id="媒体特性"><a href="#媒体特性" class="headerlink" title="媒体特性"></a>媒体特性</h4><table>
-<thead>
-<tr>
-<th>值</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>aspect-ratio</td>
-<td>定义输出设备中的页面可见区域宽度与高度的比率</td>
-</tr>
-<tr>
-<td>color</td>
-<td>定义输出设备每一组彩色原件的个数。如果不是彩色设备，则值等于0</td>
-</tr>
-<tr>
-<td>color-index</td>
-<td>定义在输出设备的彩色查询表中的条目数。如果没有使用彩色查询表，则值等于0</td>
-</tr>
-<tr>
-<td>device-aspect-ratio</td>
-<td>定义输出设备的屏幕可见宽度与高度的比率。</td>
-</tr>
-<tr>
-<td>device-height</td>
-<td>定义输出设备的屏幕可见高度。</td>
-</tr>
-<tr>
-<td>device-width</td>
-<td>定义输出设备的屏幕可见宽度。</td>
-</tr>
-<tr>
-<td>grid</td>
-<td>用来查询输出设备是否使用栅格或点阵。</td>
-</tr>
-<tr>
-<td>height</td>
-<td>定义输出设备中的页面可见区域高度。</td>
-</tr>
-<tr>
-<td>max-aspect-ratio</td>
-<td>定义输出设备的屏幕可见宽度与高度的最大比率。</td>
-</tr>
-<tr>
-<td>max-color</td>
-<td>定义输出设备每一组彩色原件的最大个数。</td>
-</tr>
-<tr>
-<td>max-color-index</td>
-<td>定义在输出设备的彩色查询表中的最大条目数。</td>
-</tr>
-<tr>
-<td>max-device-aspect-ratio</td>
-<td>定义输出设备的屏幕可见宽度与高度的最大比率。</td>
-</tr>
-<tr>
-<td>max-device-height</td>
-<td>定义输出设备的屏幕可见的最大高度。</td>
-</tr>
-<tr>
-<td>max-device-width</td>
-<td>定义输出设备的屏幕最大可见宽度。</td>
-</tr>
-<tr>
-<td>max-height</td>
-<td>定义输出设备中的页面最大可见区域高度。</td>
-</tr>
-<tr>
-<td>max-monochrome</td>
-<td>定义在一个单色框架缓冲区中每像素包含的最大单色原件个数。</td>
-</tr>
-<tr>
-<td>max-resolution</td>
-<td>定义设备的最大分辨率。</td>
-</tr>
-<tr>
-<td>max-width</td>
-<td>定义输出设备中的页面最大可见区域宽度。</td>
-</tr>
-<tr>
-<td>min-aspect-ratio</td>
-<td>定义输出设备中的页面可见区域宽度与高度的最小比率。</td>
-</tr>
-<tr>
-<td>min-color</td>
-<td>定义输出设备每一组彩色原件的最小个数。</td>
-</tr>
-<tr>
-<td>min-color-index</td>
-<td>定义在输出设备的彩色查询表中的最小条目数。</td>
-</tr>
-<tr>
-<td>min-device-aspect-ratio</td>
-<td>定义输出设备的屏幕可见宽度与高度的最小比率。</td>
-</tr>
-<tr>
-<td>min-device-width</td>
-<td>定义输出设备的屏幕最小可见宽度。</td>
-</tr>
-<tr>
-<td>min-device-height</td>
-<td>定义输出设备的屏幕的最小可见高度。</td>
-</tr>
-<tr>
-<td>min-height</td>
-<td>定义输出设备中的页面最小可见区域高度。</td>
-</tr>
-<tr>
-<td>min-monochrome</td>
-<td>定义在一个单色框架缓冲区中每像素包含的最小单色原件个数</td>
-</tr>
-<tr>
-<td>min-resolution</td>
-<td>定义设备的最小分辨率。</td>
-</tr>
-<tr>
-<td>min-width</td>
-<td>定义输出设备中的页面最小可见区域宽度。</td>
-</tr>
-<tr>
-<td>monochrome</td>
-<td>定义在一个单色框架缓冲区中每像素包含的单色原件个数。如果不是单色设备，则值等于0</td>
-</tr>
-<tr>
-<td>orientation</td>
-<td>定义输出设备中的页面可见区域高度是否大于或等于宽度。</td>
-</tr>
-<tr>
-<td>resolution</td>
-<td>定义设备的分辨率。如：96dpi, 300dpi, 118dpcm</td>
-</tr>
-<tr>
-<td>scan</td>
-<td>定义电视类设备的扫描工序。</td>
-</tr>
-<tr>
-<td>width</td>
-<td>定义输出设备中的页面可见区域宽度。</td>
-</tr>
-</tbody>
-</table>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/w3c_media_type/" data-id="cj3glevfl000jwwmmtj976iko" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/javascript_global_jubu_bianliang/" data-id="cj3gpr3o00007eomm76t9wrzq" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -756,9 +569,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/06/03/sidescroll/">固定边栏滚动效果</a>
+          </li>
         
           <li>
             <a href="/2017/06/03/jsandjqtransform/">js对象与jq之间的转换</a>
@@ -776,10 +593,6 @@
             <a href="/2017/04/26/margin_chongdie/">margin 重叠现象</a>
           </li>
         
-          <li>
-            <a href="/2017/04/26/clear_float/">清除浮动</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -793,7 +606,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

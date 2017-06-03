@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>固定边栏滚动效果 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="思路：（通过滚动事件触发）三个重要元素：可见屏幕高度，边栏的高度，滚动高度。
+判断条件：当可见屏幕高度+滚动的高度&amp;gt;边栏的高度时改变css样式。
+注意position的top的高度：-(边栏高度-屏幕高度)，这样才能完美衔接固定
+html代码12345678910111213141516171819202122232425&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;&amp;l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="固定边栏滚动效果">
+<meta property="og:url" content="http://weilephp.github.io/2017/06/03/sidescroll/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="思路：（通过滚动事件触发）三个重要元素：可见屏幕高度，边栏的高度，滚动高度。
+判断条件：当可见屏幕高度+滚动的高度&amp;gt;边栏的高度时改变css样式。
+注意position的top的高度：-(边栏高度-屏幕高度)，这样才能完美衔接固定
+html代码12345678910111213141516171819202122232425&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;&amp;l">
+<meta property="og:updated_time" content="2017-06-03T03:22:28.835Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="固定边栏滚动效果">
+<meta name="twitter:description" content="思路：（通过滚动事件触发）三个重要元素：可见屏幕高度，边栏的高度，滚动高度。
+判断条件：当可见屏幕高度+滚动的高度&amp;gt;边栏的高度时改变css样式。
+注意position的top的高度：-(边栏高度-屏幕高度)，这样才能完美衔接固定
+html代码12345678910111213141516171819202122232425&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;&amp;l">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-sidescroll" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/03/sidescroll/" class="article-date">
+  <time datetime="2017-06-03T03:21:09.735Z" itemprop="datePublished">2017-06-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      固定边栏滚动效果
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="思路：（通过滚动事件触发）"><a href="#思路：（通过滚动事件触发）" class="headerlink" title="思路：（通过滚动事件触发）"></a>思路：（通过滚动事件触发）</h3><p>三个重要元素：可见屏幕高度，边栏的高度，滚动高度。</p>
+<p>判断条件：当可见屏幕高度+滚动的高度&gt;边栏的高度时改变css样式。</p>
+<p>注意position的top的高度：-(边栏高度-屏幕高度)，这样才能完美衔接固定</p>
+<h3 id="html代码"><a href="#html代码" class="headerlink" title="html代码"></a>html代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;title&gt;固定边栏滚动特效&lt;/title&gt;</div><div class="line">	&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">		.left&#123;</div><div class="line">			width:70%;</div><div class="line">			height:2000px;</div><div class="line">			background: red;</div><div class="line">			float:left;</div><div class="line">		&#125;</div><div class="line">		.right&#123;</div><div class="line">			width:30%;</div><div class="line">			height:1000px;</div><div class="line">			background: yellow;</div><div class="line">			float:right;</div><div class="line">		&#125;</div><div class="line">	&lt;/style&gt;</div><div class="line">	&lt;script type=&quot;text/javascript&quot; src=&quot;http://code.jquery.com/jquery.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	&lt;div class=&quot;left&quot; id=&quot;left&quot;&gt;&lt;/div&gt;</div><div class="line">	&lt;div class=&quot;right&quot; id=&quot;right&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h3 id="1、js代码实现"><a href="#1、js代码实现" class="headerlink" title="1、js代码实现"></a>1、js代码实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">var $ = function(id)&#123;</div><div class="line">	return document.getElementById(id);</div><div class="line">&#125;</div><div class="line">var addEvent = function(element,type,handler)&#123;</div><div class="line">	if(element.addEventListener)&#123;</div><div class="line">		element.addEventListener(type,handler,false);</div><div class="line">	&#125;else if(element.attachEvent)&#123;</div><div class="line">		element.attachEvent(&quot;on&quot;+type,handler);</div><div class="line">	&#125;else&#123;</div><div class="line">		element[&quot;on&quot;+type] = handler;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">var scrollEvent = function()&#123;</div><div class="line">	var screenHeight = document.documentElement.clientHeight||document.body.clientHeight;</div><div class="line">	var sideHeight = $(&quot;right&quot;).offsetHeight;</div><div class="line">	var scrollHeight = document.documentElement.scrollTop||document.body.scrollTop;</div><div class="line">	if(scrollHeight+screenHeight&gt;sideHeight)&#123;</div><div class="line">		$(&quot;right&quot;).style.cssText = &quot;position:fixed;right:0px;top:&quot;+(-(sideHeight-screenHeight))+&quot;px&quot;;</div><div class="line">	&#125;else&#123;</div><div class="line">		$(&quot;right&quot;).style.cssText = &quot;position:static&quot;;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">addEvent(window,&quot;scroll&quot;,scrollEvent);</div><div class="line">addEvent(window,&quot;resize&quot;,scrollEvent);</div></pre></td></tr></table></figure>
+<p>2、jq代码实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">$(window).scroll(function()&#123;</div><div class="line">	var screenHeight = $(window).height();</div><div class="line">	var sideHeight = $(&quot;.right&quot;).height();</div><div class="line">	var scrollHeight = $(window).scrollTop();</div><div class="line">	if(screenHeight+scrollHeight&gt;sideHeight)&#123;</div><div class="line">		$(&quot;.right&quot;).css(&#123;</div><div class="line">			&apos;position&apos;:&apos;fixed&apos;,</div><div class="line">			right:&apos;0px&apos;,</div><div class="line">			top:-(sideHeight-screenHeight)</div><div class="line">		&#125;);</div><div class="line">	&#125;else&#123;</div><div class="line">		$(&quot;.right&quot;).css(&#123;</div><div class="line">			&apos;position&apos;:&apos;static&apos;</div><div class="line">		&#125;);</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/06/03/sidescroll/" data-id="cj3gpr3p5000geommio5xotcl" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/06/03/jsandjqtransform/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">js对象与jq之间的转换</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/06/03/sidescroll/">固定边栏滚动效果</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/03/jsandjqtransform/">js对象与jq之间的转换</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/25/ie_error/">常见的IE错误</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/26/css_ie_bug/">CSS控制之BUG（不兼容问题）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/26/margin_chongdie/">margin 重叠现象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
@@ -60,6 +60,235 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-w3c_media_type" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/21/w3c_media_type/" class="article-date">
+  <time datetime="2017-04-21T14:35:41.700Z" itemprop="datePublished">2017-04-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/21/w3c_media_type/">W3C媒体类型和媒体特性(CSS3@midia)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="10种媒体类型"><a href="#10种媒体类型" class="headerlink" title="10种媒体类型"></a>10种媒体类型</h4><table>
+<thead>
+<tr>
+<th>值</th>
+<th>设备类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All</td>
+<td>所有设备</td>
+</tr>
+<tr>
+<td>Braille</td>
+<td>盲人用点字法触觉回馈设备</td>
+</tr>
+<tr>
+<td>Embossed</td>
+<td>盲文打印机</td>
+</tr>
+<tr>
+<td>Handheld</td>
+<td>便携设备</td>
+</tr>
+<tr>
+<td>Print</td>
+<td>打印用纸或打印预览视图</td>
+</tr>
+<tr>
+<td>Projection</td>
+<td>各种投影设备</td>
+</tr>
+<tr>
+<td>Screen</td>
+<td>电脑显示器</td>
+</tr>
+<tr>
+<td>Speech</td>
+<td>语音或音频合成器</td>
+</tr>
+<tr>
+<td>Tv</td>
+<td>电视机类型设备</td>
+</tr>
+<tr>
+<td>Tty</td>
+<td>使用固定密度字母栅格的媒介，比如电传打字机和终端</td>
+</tr>
+</tbody>
+</table>
+<p>其中Screen、All和Print为最常见的三种媒体类型。</p>
+<h4 id="媒体特性"><a href="#媒体特性" class="headerlink" title="媒体特性"></a>媒体特性</h4><table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>aspect-ratio</td>
+<td>定义输出设备中的页面可见区域宽度与高度的比率</td>
+</tr>
+<tr>
+<td>color</td>
+<td>定义输出设备每一组彩色原件的个数。如果不是彩色设备，则值等于0</td>
+</tr>
+<tr>
+<td>color-index</td>
+<td>定义在输出设备的彩色查询表中的条目数。如果没有使用彩色查询表，则值等于0</td>
+</tr>
+<tr>
+<td>device-aspect-ratio</td>
+<td>定义输出设备的屏幕可见宽度与高度的比率。</td>
+</tr>
+<tr>
+<td>device-height</td>
+<td>定义输出设备的屏幕可见高度。</td>
+</tr>
+<tr>
+<td>device-width</td>
+<td>定义输出设备的屏幕可见宽度。</td>
+</tr>
+<tr>
+<td>grid</td>
+<td>用来查询输出设备是否使用栅格或点阵。</td>
+</tr>
+<tr>
+<td>height</td>
+<td>定义输出设备中的页面可见区域高度。</td>
+</tr>
+<tr>
+<td>max-aspect-ratio</td>
+<td>定义输出设备的屏幕可见宽度与高度的最大比率。</td>
+</tr>
+<tr>
+<td>max-color</td>
+<td>定义输出设备每一组彩色原件的最大个数。</td>
+</tr>
+<tr>
+<td>max-color-index</td>
+<td>定义在输出设备的彩色查询表中的最大条目数。</td>
+</tr>
+<tr>
+<td>max-device-aspect-ratio</td>
+<td>定义输出设备的屏幕可见宽度与高度的最大比率。</td>
+</tr>
+<tr>
+<td>max-device-height</td>
+<td>定义输出设备的屏幕可见的最大高度。</td>
+</tr>
+<tr>
+<td>max-device-width</td>
+<td>定义输出设备的屏幕最大可见宽度。</td>
+</tr>
+<tr>
+<td>max-height</td>
+<td>定义输出设备中的页面最大可见区域高度。</td>
+</tr>
+<tr>
+<td>max-monochrome</td>
+<td>定义在一个单色框架缓冲区中每像素包含的最大单色原件个数。</td>
+</tr>
+<tr>
+<td>max-resolution</td>
+<td>定义设备的最大分辨率。</td>
+</tr>
+<tr>
+<td>max-width</td>
+<td>定义输出设备中的页面最大可见区域宽度。</td>
+</tr>
+<tr>
+<td>min-aspect-ratio</td>
+<td>定义输出设备中的页面可见区域宽度与高度的最小比率。</td>
+</tr>
+<tr>
+<td>min-color</td>
+<td>定义输出设备每一组彩色原件的最小个数。</td>
+</tr>
+<tr>
+<td>min-color-index</td>
+<td>定义在输出设备的彩色查询表中的最小条目数。</td>
+</tr>
+<tr>
+<td>min-device-aspect-ratio</td>
+<td>定义输出设备的屏幕可见宽度与高度的最小比率。</td>
+</tr>
+<tr>
+<td>min-device-width</td>
+<td>定义输出设备的屏幕最小可见宽度。</td>
+</tr>
+<tr>
+<td>min-device-height</td>
+<td>定义输出设备的屏幕的最小可见高度。</td>
+</tr>
+<tr>
+<td>min-height</td>
+<td>定义输出设备中的页面最小可见区域高度。</td>
+</tr>
+<tr>
+<td>min-monochrome</td>
+<td>定义在一个单色框架缓冲区中每像素包含的最小单色原件个数</td>
+</tr>
+<tr>
+<td>min-resolution</td>
+<td>定义设备的最小分辨率。</td>
+</tr>
+<tr>
+<td>min-width</td>
+<td>定义输出设备中的页面最小可见区域宽度。</td>
+</tr>
+<tr>
+<td>monochrome</td>
+<td>定义在一个单色框架缓冲区中每像素包含的单色原件个数。如果不是单色设备，则值等于0</td>
+</tr>
+<tr>
+<td>orientation</td>
+<td>定义输出设备中的页面可见区域高度是否大于或等于宽度。</td>
+</tr>
+<tr>
+<td>resolution</td>
+<td>定义设备的分辨率。如：96dpi, 300dpi, 118dpcm</td>
+</tr>
+<tr>
+<td>scan</td>
+<td>定义电视类设备的扫描工序。</td>
+</tr>
+<tr>
+<td>width</td>
+<td>定义输出设备中的页面可见区域宽度。</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/21/w3c_media_type/" data-id="cj3gpr3po000meommumfqhlfs" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-css_initial" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -95,7 +324,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/css_initial/" data-id="cj3glevfi000iwwmms7jep7wx" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/css_initial/" data-id="cj3gpr3nn0004eomm4jmqz460" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -146,7 +375,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_4/" data-id="cj3glevew000bwwmm42xpuayr" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_4/" data-id="cj3gpr3os000ceommv68ijxaq" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -188,7 +417,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_3/" data-id="cj3glevfu000lwwmmuvswbgvb" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_3/" data-id="cj3gpr3ou000deomma42vostw" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -243,7 +472,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_2/" data-id="cj3glevet000awwmmefcm9o87" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_2/" data-id="cj3gpr3on000beommgmmj9sv0" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -309,7 +538,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_1/" data-id="cj3glevem0009wwmm6dq1o5lk" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_1/" data-id="cj3gpr3ok000aeommwz4xnvxo" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -351,7 +580,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/14/catetree/" data-id="cj3glevd60000wwmmjetm06xn" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/14/catetree/" data-id="cj3gpr3mx0000eommx5uw5wlz" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -396,7 +625,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/14/twolevel_cate/" data-id="cj3glevfe000gwwmmvbthhvoj" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/14/twolevel_cate/" data-id="cj3gpr3pl000leommo64wo2m9" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -437,7 +666,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/12/thinkphpVariable/" data-id="cj3glevfb000fwwmmxm3js78r" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/12/thinkphpVariable/" data-id="cj3gpr3pd000jeomm4w174z8h" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -478,53 +707,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/02/form_and_ajax/" data-id="cj3gleveb0006wwmm8mhh1ve6" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-fileupload" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/30/fileupload/" class="article-date">
-  <time datetime="2017-03-30T09:07:30.169Z" itemprop="datePublished">2017-03-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/30/fileupload/">文件上传</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="文件上传操作"><a href="#文件上传操作" class="headerlink" title="文件上传操作"></a>文件上传操作</h1><h2 id="1-判断错误号"><a href="#1-判断错误号" class="headerlink" title="1. 判断错误号"></a>1. 判断错误号</h2><p>0：文件上传成功。</p>
-<p>1：文件上传的大小超过php.ini里面的upload_max_filesize配置选项的大小。</p>
-<p>2：文件上传的大小超过HTML表单的MAX_FILE_SIZE设置的大小。</p>
-<p>3：文件部分被上传。</p>
-<p>4：文件没有上传。</p>
-<p>6：找不到临时文件夹。</p>
-<p>7：文件写入失败。</p>
-<p>8：上传的文件被PHP扩展程序中断。</p>
-<h2 id="2-判断上传文件夹是否存在，不存在则创建，若创建失败，则返回false。"><a href="#2-判断上传文件夹是否存在，不存在则创建，若创建失败，则返回false。" class="headerlink" title="2.判断上传文件夹是否存在，不存在则创建，若创建失败，则返回false。"></a>2.判断上传文件夹是否存在，不存在则创建，若创建失败，则返回false。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">if(!file_exists($this-&gt;uploadPath))&#123;</div><div class="line">	if(!@mkdir($this-&gt;uploadPath,0777))&#123;</div><div class="line">		$this -&gt; errorNum  = -2;</div><div class="line">		return false;</div><div class="line">	&#125;</div><div class="line">	return true;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="3-判断文件大小"><a href="#3-判断文件大小" class="headerlink" title="3.判断文件大小"></a>3.判断文件大小</h2><h2 id="4-判断文件的类型是否允许上传的类型"><a href="#4-判断文件的类型是否允许上传的类型" class="headerlink" title="4.判断文件的类型是否允许上传的类型"></a>4.判断文件的类型是否允许上传的类型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public function checkFileType()&#123;</div><div class="line">		$this -&gt; fileExt = strtolower(pathinfo($this-&gt;fileName,PATH_EXTENSION));</div><div class="line">		if(in_array($this-&gt;fileExt,$this-&gt;allowType))&#123;</div><div class="line">			return true;</div><div class="line">		&#125;else&#123;</div><div class="line">			$this-&gt;errorNum = -4;</div><div class="line">			return false;</div><div class="line">		&#125;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
-<h2 id="5-若是图片类型，检测是否真是的图片，利用getImageSize-函数检测"><a href="#5-若是图片类型，检测是否真是的图片，利用getImageSize-函数检测" class="headerlink" title="5.若是图片类型，检测是否真是的图片，利用getImageSize()函数检测"></a>5.若是图片类型，检测是否真是的图片，利用getImageSize()函数检测</h2><h2 id="6-检测文件是否通过HTTP-POST上传的，可通过is-uploaded-file-函数检测。"><a href="#6-检测文件是否通过HTTP-POST上传的，可通过is-uploaded-file-函数检测。" class="headerlink" title="6.检测文件是否通过HTTP POST上传的，可通过is_uploaded_file()函数检测。"></a>6.检测文件是否通过HTTP POST上传的，可通过is_uploaded_file()函数检测。</h2><h2 id="7-上传文件后的名字必须设置唯一性防止名字重复导致，可以用一下方法设置"><a href="#7-上传文件后的名字必须设置唯一性防止名字重复导致，可以用一下方法设置" class="headerlink" title="7.上传文件后的名字必须设置唯一性防止名字重复导致，可以用一下方法设置"></a>7.上传文件后的名字必须设置唯一性防止名字重复导致，可以用一下方法设置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">uniqid(microtime(true),true).&apos;_&apos;.rand(10,1000);</div></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/30/fileupload/" data-id="cj3glevdo0002wwmmgy7mi5ip" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/02/form_and_ajax/" data-id="cj3gpr3ns0005eommmqitc9ub" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -563,9 +746,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/06/03/sidescroll/">固定边栏滚动效果</a>
+          </li>
         
           <li>
             <a href="/2017/06/03/jsandjqtransform/">js对象与jq之间的转换</a>
@@ -583,10 +770,6 @@
             <a href="/2017/04/26/margin_chongdie/">margin 重叠现象</a>
           </li>
         
-          <li>
-            <a href="/2017/04/26/clear_float/">清除浮动</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -600,7 +783,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

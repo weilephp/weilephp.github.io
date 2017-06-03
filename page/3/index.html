@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
@@ -60,6 +60,52 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-fileupload" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/30/fileupload/" class="article-date">
+  <time datetime="2017-03-30T09:07:30.169Z" itemprop="datePublished">2017-03-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/30/fileupload/">文件上传</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="文件上传操作"><a href="#文件上传操作" class="headerlink" title="文件上传操作"></a>文件上传操作</h1><h2 id="1-判断错误号"><a href="#1-判断错误号" class="headerlink" title="1. 判断错误号"></a>1. 判断错误号</h2><p>0：文件上传成功。</p>
+<p>1：文件上传的大小超过php.ini里面的upload_max_filesize配置选项的大小。</p>
+<p>2：文件上传的大小超过HTML表单的MAX_FILE_SIZE设置的大小。</p>
+<p>3：文件部分被上传。</p>
+<p>4：文件没有上传。</p>
+<p>6：找不到临时文件夹。</p>
+<p>7：文件写入失败。</p>
+<p>8：上传的文件被PHP扩展程序中断。</p>
+<h2 id="2-判断上传文件夹是否存在，不存在则创建，若创建失败，则返回false。"><a href="#2-判断上传文件夹是否存在，不存在则创建，若创建失败，则返回false。" class="headerlink" title="2.判断上传文件夹是否存在，不存在则创建，若创建失败，则返回false。"></a>2.判断上传文件夹是否存在，不存在则创建，若创建失败，则返回false。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">if(!file_exists($this-&gt;uploadPath))&#123;</div><div class="line">	if(!@mkdir($this-&gt;uploadPath,0777))&#123;</div><div class="line">		$this -&gt; errorNum  = -2;</div><div class="line">		return false;</div><div class="line">	&#125;</div><div class="line">	return true;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="3-判断文件大小"><a href="#3-判断文件大小" class="headerlink" title="3.判断文件大小"></a>3.判断文件大小</h2><h2 id="4-判断文件的类型是否允许上传的类型"><a href="#4-判断文件的类型是否允许上传的类型" class="headerlink" title="4.判断文件的类型是否允许上传的类型"></a>4.判断文件的类型是否允许上传的类型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public function checkFileType()&#123;</div><div class="line">		$this -&gt; fileExt = strtolower(pathinfo($this-&gt;fileName,PATH_EXTENSION));</div><div class="line">		if(in_array($this-&gt;fileExt,$this-&gt;allowType))&#123;</div><div class="line">			return true;</div><div class="line">		&#125;else&#123;</div><div class="line">			$this-&gt;errorNum = -4;</div><div class="line">			return false;</div><div class="line">		&#125;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<h2 id="5-若是图片类型，检测是否真是的图片，利用getImageSize-函数检测"><a href="#5-若是图片类型，检测是否真是的图片，利用getImageSize-函数检测" class="headerlink" title="5.若是图片类型，检测是否真是的图片，利用getImageSize()函数检测"></a>5.若是图片类型，检测是否真是的图片，利用getImageSize()函数检测</h2><h2 id="6-检测文件是否通过HTTP-POST上传的，可通过is-uploaded-file-函数检测。"><a href="#6-检测文件是否通过HTTP-POST上传的，可通过is-uploaded-file-函数检测。" class="headerlink" title="6.检测文件是否通过HTTP POST上传的，可通过is_uploaded_file()函数检测。"></a>6.检测文件是否通过HTTP POST上传的，可通过is_uploaded_file()函数检测。</h2><h2 id="7-上传文件后的名字必须设置唯一性防止名字重复导致，可以用一下方法设置"><a href="#7-上传文件后的名字必须设置唯一性防止名字重复导致，可以用一下方法设置" class="headerlink" title="7.上传文件后的名字必须设置唯一性防止名字重复导致，可以用一下方法设置"></a>7.上传文件后的名字必须设置唯一性防止名字重复导致，可以用一下方法设置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">uniqid(microtime(true),true).&apos;_&apos;.rand(10,1000);</div></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/03/30/fileupload/" data-id="cj3gpr3nk0003eommy3mhoh3b" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-thinkphp" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -96,7 +142,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/22/thinkphp/" data-id="cj3glevfg000hwwmmhh0funx0" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/03/22/thinkphp/" data-id="cj3gpr3p8000heommtgwggmyd" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -146,7 +192,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/20/ueditor/" data-id="cj3glevfq000kwwmm3y210r0c" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/03/20/ueditor/" data-id="cj3gpr3ph000keomm6kbyag1s" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -185,9 +231,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/06/03/sidescroll/">固定边栏滚动效果</a>
+          </li>
         
           <li>
             <a href="/2017/06/03/jsandjqtransform/">js对象与jq之间的转换</a>
@@ -205,10 +255,6 @@
             <a href="/2017/04/26/margin_chongdie/">margin 重叠现象</a>
           </li>
         
-          <li>
-            <a href="/2017/04/26/clear_float/">清除浮动</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -222,7 +268,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
