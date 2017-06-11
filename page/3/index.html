@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
@@ -60,6 +60,47 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-form_and_ajax" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/02/form_and_ajax/" class="article-date">
+  <time datetime="2017-04-01T16:23:02.329Z" itemprop="datePublished">2017-04-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/02/form_and_ajax/">ajax传递数据给后台与form表单的冲突</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先form表单<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;form method=&quot;&quot; action=&quot;&quot;&gt;</div><div class="line">    &lt;input type=&quot;submit&quot; name=&quot;submit&quot; id=&quot;register&quot; /&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
+<p>form表单默认的method方法是get传递，而action默认是当前的url，也就是当按提交按钮时会将数据提交到当前url。</p>
+<p>那么，这样的一个特性和ajax又有什么冲突呢？很明显，这一特性与submit按钮点击调用ajax方法有冲突了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$(&quot;#register&quot;).click(function()&#123;</div><div class="line">    $.ajax(&#123;</div><div class="line">        url:&quot;./reg.php&quot;,</div><div class="line">        type:&quot;post&quot;,</div><div class="line">    	data:&#123;&apos;username&apos;:username,&apos;password&apos;:pass1,&apos;email&apos;:email&#125;,</div><div class="line">    	dataType:&quot;json&quot;,</div><div class="line">    	success:function(data)&#123;</div><div class="line">    		alert(data.msg);</div><div class="line">    	&#125;,</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>其中register是submit提交按钮的id。像这样的一段代码，我们发现了什么，没错，ajax传递数据的url为reg.php，但是，这个按钮在form表单里面，那么，这个时候按下提交按钮是提交到当前的html页面还是reg.php后台页面呢，经过测试，它有时会提交到reg.php，有时会提交到当前url，但是提交到当前url的次数较多，我个人认为这种情况可能是提交到当前页面所用的时间和耗费的资源较少，浏览器就比较喜欢这种页面，所以优先提交给静态的当前页面，置于有时候会偶尔提交给reg.php页面，可能是某种原因，暂时还不知道</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/02/form_and_ajax/" data-id="cj3sfgs9g00061cmmxlv0ynmv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-fileupload" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -97,7 +138,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/30/fileupload/" data-id="cj3gpr3nk0003eommy3mhoh3b" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/03/30/fileupload/" data-id="cj3sfgs7j00011cmmzujncf8e" class="article-share-link">Share</a>
       
       
     </footer>
@@ -142,7 +183,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/22/thinkphp/" data-id="cj3gpr3p8000heommtgwggmyd" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/03/22/thinkphp/" data-id="cj3sfgsby000m1cmm3lq704kb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -192,7 +233,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/20/ueditor/" data-id="cj3gpr3ph000keomm6kbyag1s" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/03/20/ueditor/" data-id="cj3sfgsbf000j1cmmbbo9s3v3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -231,9 +272,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/06/11/li_jianju/">css中li之间的空白符</a>
+          </li>
         
           <li>
             <a href="/2017/06/03/sidescroll/">固定边栏滚动效果</a>
@@ -251,10 +296,6 @@
             <a href="/2017/04/26/css_ie_bug/">CSS控制之BUG（不兼容问题）</a>
           </li>
         
-          <li>
-            <a href="/2017/04/26/margin_chongdie/">margin 重叠现象</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -268,7 +309,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 John Doe<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

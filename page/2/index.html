@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
@@ -60,6 +60,51 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-javascript_global_jubu_bianliang" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/21/javascript_global_jubu_bianliang/" class="article-date">
+  <time datetime="2017-04-21T14:37:15.622Z" itemprop="datePublished">2017-04-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/21/javascript_global_jubu_bianliang/">javascript局部变量与全局变量</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近看到很多前端的面试题有js的全局变量还有局部变量的考题，以前以为懂了，但是看了题之后发现还没完全懂，所以就反复测试，百度，得到了一些总结。</p>
+<p>首先看代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">    var a = 1;</div><div class="line">    function test()&#123;</div><div class="line">        alert(a); //弹出1</div><div class="line">        a++;</div><div class="line">        alert(a); //弹出2</div><div class="line">    &#125;</div><div class="line">    test();</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>毫无疑问，上述会弹出先后弹出1和2。这是全局变量用在函数里面。</p>
+<p>再来看代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">    var a = 1;</div><div class="line">	function test()&#123;</div><div class="line">		alert(a); //1</div><div class="line">		a++;</div><div class="line">		alert(a); //2</div><div class="line">	&#125;</div><div class="line">	test();</div><div class="line">	alert(a); //2</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>这次会弹出1，2，2。也就是说全局变量放在函数里面调用，并改掉其值，这会影响到全局变量的值，也就是在函数里面能够改变全局变量的值。</p>
+<p>接下来到了最激动的时刻，看代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">	var a = 1;</div><div class="line">	function test()&#123;</div><div class="line">		alert(a); //1</div><div class="line">		a++;</div><div class="line">		alert(a); //2</div><div class="line">	&#125;</div><div class="line">	function test1()&#123;</div><div class="line">		alert(a); //undefined</div><div class="line">		var a;</div><div class="line">		a=4;</div><div class="line">		alert(a); //4</div><div class="line">	&#125;</div><div class="line">	test();</div><div class="line">	alert(a); //2</div><div class="line">	test1();</div><div class="line">	alert(a); //2</div><div class="line">	&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>你们觉得会输出什么，这里就有了惊天的变化，先后居然弹出1,2,2,undefined,4,2。本来一切都很顺利，但是这里居然弹了个undefined。原来，这是在test1()里面又定义了重名的局部变量a，把全局变量给冲刷掉，但是这个a只是定义了，并未赋值，所以先弹出undefined,然后给a赋值4，再弹出4，但是这个局部变量并没有影响到全局变量，这时全局变量还是2。而且这个局部变量a的定义是函数执行先优先进行的，执行test1()函数的时候，会首先浏览全体，首先知道a定义了，所以即使你的var a;和a=4;着两行互换，输出的结果还是一样的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/21/javascript_global_jubu_bianliang/" data-id="cj3sfgs9b00051cmmt4ts5zl4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-w3c_media_type" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -280,7 +325,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/w3c_media_type/" data-id="cj3gpr3po000meommumfqhlfs" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/w3c_media_type/" data-id="cj3sfgsdy000n1cmmin1cwv5p" class="article-share-link">Share</a>
       
       
     </footer>
@@ -324,7 +369,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/css_initial/" data-id="cj3gpr3nn0004eomm4jmqz460" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/css_initial/" data-id="cj3sfgsaj000f1cmmjjhc09w9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -375,7 +420,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_4/" data-id="cj3gpr3os000ceommv68ijxaq" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_4/" data-id="cj3sfgsa3000a1cmmsvsdw36y" class="article-share-link">Share</a>
       
       
     </footer>
@@ -417,7 +462,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_3/" data-id="cj3gpr3ou000deomma42vostw" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_3/" data-id="cj3sfgsbi000k1cmmu83vgldj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -472,7 +517,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_2/" data-id="cj3gpr3on000beommgmmj9sv0" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_2/" data-id="cj3sfgsa7000b1cmmoajr9lb3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -538,7 +583,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_1/" data-id="cj3gpr3ok000aeommwz4xnvxo" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_1/" data-id="cj3sfgs9z00091cmmff3lfah0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -580,7 +625,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/14/catetree/" data-id="cj3gpr3mx0000eommx5uw5wlz" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/14/catetree/" data-id="cj3sfgs6b00001cmmdjuhi04t" class="article-share-link">Share</a>
       
       
     </footer>
@@ -625,7 +670,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/14/twolevel_cate/" data-id="cj3gpr3pl000leommo64wo2m9" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/14/twolevel_cate/" data-id="cj3sfgsbb000i1cmmik602jg0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -666,48 +711,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/12/thinkphpVariable/" data-id="cj3gpr3pd000jeomm4w174z8h" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-form_and_ajax" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/02/form_and_ajax/" class="article-date">
-  <time datetime="2017-04-01T16:23:02.329Z" itemprop="datePublished">2017-04-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/02/form_and_ajax/">ajax传递数据给后台与form表单的冲突</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>首先form表单<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;form method=&quot;&quot; action=&quot;&quot;&gt;</div><div class="line">    &lt;input type=&quot;submit&quot; name=&quot;submit&quot; id=&quot;register&quot; /&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
-<p>form表单默认的method方法是get传递，而action默认是当前的url，也就是当按提交按钮时会将数据提交到当前url。</p>
-<p>那么，这样的一个特性和ajax又有什么冲突呢？很明显，这一特性与submit按钮点击调用ajax方法有冲突了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$(&quot;#register&quot;).click(function()&#123;</div><div class="line">    $.ajax(&#123;</div><div class="line">        url:&quot;./reg.php&quot;,</div><div class="line">        type:&quot;post&quot;,</div><div class="line">    	data:&#123;&apos;username&apos;:username,&apos;password&apos;:pass1,&apos;email&apos;:email&#125;,</div><div class="line">    	dataType:&quot;json&quot;,</div><div class="line">    	success:function(data)&#123;</div><div class="line">    		alert(data.msg);</div><div class="line">    	&#125;,</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>其中register是submit提交按钮的id。像这样的一段代码，我们发现了什么，没错，ajax传递数据的url为reg.php，但是，这个按钮在form表单里面，那么，这个时候按下提交按钮是提交到当前的html页面还是reg.php后台页面呢，经过测试，它有时会提交到reg.php，有时会提交到当前url，但是提交到当前url的次数较多，我个人认为这种情况可能是提交到当前页面所用的时间和耗费的资源较少，浏览器就比较喜欢这种页面，所以优先提交给静态的当前页面，置于有时候会偶尔提交给reg.php页面，可能是某种原因，暂时还不知道</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/02/form_and_ajax/" data-id="cj3gpr3ns0005eommmqitc9ub" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/12/thinkphpVariable/" data-id="cj3sfgsbq000l1cmmfufeh3oj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -746,9 +750,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/06/11/li_jianju/">css中li之间的空白符</a>
+          </li>
         
           <li>
             <a href="/2017/06/03/sidescroll/">固定边栏滚动效果</a>
@@ -766,10 +774,6 @@
             <a href="/2017/04/26/css_ie_bug/">CSS控制之BUG（不兼容问题）</a>
           </li>
         
-          <li>
-            <a href="/2017/04/26/margin_chongdie/">margin 重叠现象</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -783,7 +787,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 John Doe<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
