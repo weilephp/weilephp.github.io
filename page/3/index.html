@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
@@ -60,6 +60,92 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-twolevel_cate" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/14/twolevel_cate/" class="article-date">
+  <time datetime="2017-04-14T09:04:57.729Z" itemprop="datePublished">2017-04-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/14/twolevel_cate/">thinkphp动态调用二级分类栏目</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.实例化栏目表并将pid为0即最高级祖宗对应的栏目查出来，然后分配给模板<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$cate = D(&apos;Category&apos;);</div><div class="line">$where[&apos;parentid&apos;] = array(&apos;eq&apos;,0);</div><div class="line">$cateres = $cate -&gt; where($where) -&gt; select();</div><div class="line">$this -&gt; assign(&apos;cateres&apos;,$cateres);</div></pre></td></tr></table></figure></p>
+<p>2.分配到模板之后进行volist循环,首先将一级栏目循环显示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;volist name=&quot;cateres&quot; id=&quot;vo&quot;&gt;</div></pre></td></tr></table></figure>
+<p>3.写一个公共函数，此函数获取顶级栏目对应的所有二级子栏目，注意，该函数为公共函数，写在Common目录下的common目录下并命名为function.php。该函数如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function getsub($pid)&#123;</div><div class="line">	$cate = D(&apos;Category&apos;);</div><div class="line">	$where[&apos;parentid&apos;] = array(&apos;eq&apos;,$pid);</div><div class="line">	$cateres = $cate -&gt; where($where) -&gt; select();</div><div class="line">	return $cateres;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>该函数参数为$pid，传入一级顶级栏目的栏目id，然后查找所有父id等于此栏目id的所有栏目，并返回包含信息的数组。</p>
+<p>4.嵌套volist循环，在第二步的volist循环里面再嵌套一个volist循环</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;volist name=&quot;cateres&quot; id=&quot;vo&quot;&gt;</div><div class="line">    &lt;volist name=&quot;:getsub($vo[&apos;cate_id&apos;])&quot; id=&quot;vo&quot;&gt;</div><div class="line">         &lt;a href=&quot;__MODULE__/&lt;if condition=&apos;$vo[cate_type] eq 1&apos;&gt;list&lt;elseif condition=&apos;$vo[cate_type] eq 0&apos;/&gt;page&lt;/if&gt;/index/cate_id/&#123;$vo.cate_id&#125;&quot;&gt;&#123;$vo.cate_name&#125;&lt;/a&gt;</div><div class="line">    &lt;/volist&gt;</div><div class="line">&lt;/volist&gt;</div></pre></td></tr></table></figure>
+<p>向上面以上，第二个嵌套的volist循环调用getsub函数，并把第一个volist循环的$vo[‘cate_id’]传参，这就是把顶级栏目的id当作参数传进去，然后就可以得到此栏目下的所有子栏目，然后把在模板里面显示出来就可以了</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/14/twolevel_cate/" data-id="cj4h7n3st000jwgmm0jhn7x8j" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-thinkphpVariable" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/12/thinkphpVariable/" class="article-date">
+  <time datetime="2017-04-12T15:51:53.916Z" itemprop="datePublished">2017-04-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/12/thinkphpVariable/">thinkphp模板引擎volist标签与php原生代码嵌合的变量用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先看一下代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;volist name=&quot;confres&quot; id=&quot;vo&quot;&gt;</div></pre></td></tr></table></figure></p>
+<p>在这里，我利用volist标签循环。</p>
+<p>然后接下来再看：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">    $arr = array();</div><div class="line">    $arr = explode(&apos;，&apos;,$vo[&apos;cf_values&apos;]);</div><div class="line">    foreach($arr as $k =&gt; $v)&#123;</div><div class="line">?&gt;</div><div class="line">    &lt;input type=&apos;&#123;$vo.cf_type&#125;&apos;name=&apos;&#123;$vo.cf_ename&apos;&lt;if condition=&quot;$vo[&apos;cf_value&apos;] eq $v&quot;&gt;checked=&quot;checked&quot;&lt;/if&gt; value=&apos;&#123;$v&#125;&apos;&gt;&#123;$v&#125;</div><div class="line">&lt;?php</div><div class="line">    &#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>在这里分析一下，看到php原生代码里面第二行explode这一行里面可以用$vo[‘cf_values’]变量，这个变量就是通过volist循环绑定的id：vo来调用的，然后看到第三行通过foreach循环，然后结束php原生代码，这时候，在模版里面，可以通过模版定界符加上变量来调用此变量，注意了，这里一定要加上模版定界符，否则会解析不了,这里还需要注意一下，在if标签里面是不续要加模版定界符就可以解析的,若是加了模版定界符反而会报出错误</p>
+<p>通过上述分析，可以看出volist循环的变量可以用在原生php代码里面，但是要用[]形式引用，而php原生代码的变量可以放在模版里面使用，但要用上定界符解析，if标签除外。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/12/thinkphpVariable/" data-id="cj4h7n3ut000pwgmmzaywkaa8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-form_and_ajax" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -92,7 +178,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/02/form_and_ajax/" data-id="cj3sflu0g0004lkmmf5lksckr" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/02/form_and_ajax/" data-id="cj4h7n3rb0007wgmmhsa31s40" class="article-share-link">Share</a>
       
       
     </footer>
@@ -138,7 +224,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/30/fileupload/" data-id="cj3sflu0z0007lkmm8oopnnl5" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/03/30/fileupload/" data-id="cj4h7n3qi0003wgmmqb7l8dtr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -183,7 +269,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/22/thinkphp/" data-id="cj3sflu1x000jlkmmdq1f8g3v" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/03/22/thinkphp/" data-id="cj4h7n3t3000lwgmm1o3ontme" class="article-share-link">Share</a>
       
       
     </footer>
@@ -233,7 +319,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/20/ueditor/" data-id="cj3sflu2c000nlkmmuhwzmkks" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/03/20/ueditor/" data-id="cj4h7n3t8000mwgmmf3el45zj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -272,9 +358,17 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/06/29/wuziqi_AI/">javascirpt加canvas实现人机大战五子棋AI篇</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/28/wuziqi_UI/">javascirpt加canvas实现人机大战五子棋UI篇</a>
+          </li>
         
           <li>
             <a href="/2017/06/11/li_jianju/">css中li之间的空白符</a>
@@ -286,14 +380,6 @@
         
           <li>
             <a href="/2017/06/03/jsandjqtransform/">js对象与jq之间的转换</a>
-          </li>
-        
-          <li>
-            <a href="/2017/05/25/ie_error/">常见的IE错误</a>
-          </li>
-        
-          <li>
-            <a href="/2017/04/26/css_ie_bug/">CSS控制之BUG（不兼容问题）</a>
           </li>
         
       </ul>
@@ -309,7 +395,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 John Doe<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

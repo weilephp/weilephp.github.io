@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
@@ -60,6 +60,94 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-wuziqi_AI" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/29/wuziqi_AI/" class="article-date">
+  <time datetime="2017-06-28T16:21:32.886Z" itemprop="datePublished">2017-06-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/29/wuziqi_AI/">javascirpt加canvas实现人机大战五子棋AI篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="AI赢法分析"><a href="#AI赢法分析" class="headerlink" title="AI赢法分析"></a>AI赢法分析</h4><p>主要点是3个数组，赢法数组，赢法统计数组，得分统计数组，这三个数组是整个AI算法的核心。</p>
+<p>首先是赢法数组wins[]，这个数组是一个三维数组，用来存储有多少种赢法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">var wins = [];</div><div class="line">var count = 0;</div><div class="line"></div><div class="line">//先将wins数组初始化为3维数组</div><div class="line">for(var i=0;i&lt;15;i++)&#123;</div><div class="line">	wins[i] = [];</div><div class="line">	for(var j=0;j&lt;15;j++)&#123;</div><div class="line">		wins[i][j] = [];</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//首先打横一排连赢5个赢法</div><div class="line">for(var i=0;i&lt;15;i++)&#123;</div><div class="line">	for(var j=0;j&lt;11;j++)&#123;</div><div class="line">		for(var k=0;k&lt;5;k++)&#123;</div><div class="line">			wins[i][j+k][count] = true;</div><div class="line">		&#125;</div><div class="line">		count++;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//竖直方向连赢5个赢法</div><div class="line">for(var i=0;i&lt;11;i++)&#123;</div><div class="line">	for(var j=0;j&lt;15;j++)&#123;</div><div class="line">		for(var k=0;k&lt;5;k++)&#123;</div><div class="line">			wins[i+k][j][count] = true;</div><div class="line">		&#125;</div><div class="line">		count++;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//斜线连赢5个赢法</div><div class="line">for(var i=0;i&lt;11;i++)&#123;</div><div class="line">	for(var j=0;j&lt;11;j++)&#123;</div><div class="line">		for(var k=0;k&lt;5;k++)&#123;</div><div class="line">			wins[i+k][j+k][count] = true;</div><div class="line">		&#125;</div><div class="line">		count++;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//反斜线连赢5个赢法</div><div class="line">for(var i=0;i&lt;11;i++)&#123;</div><div class="line">	for(var j=14;j&gt;3;j--)&#123;</div><div class="line">		for(var k=0;k&lt;5;k++)&#123;</div><div class="line">			wins[i+k][j-k][count] = true;</div><div class="line">		&#125;</div><div class="line">		count++;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>例如，打横一排连赢5个分析，首先count是0，count是用来统计多少种赢法的，循环第一次的时候，有win[0][0][0]，win[0][1][0]，win[0][2][0]，win[0][3][0]，win[0][4][0]变为true，当这五个都为真的时候就是连下5个，于是这就是第1种赢法，然后继续循环，依次类推。竖线连赢5个，斜线和反斜线的赢法都差不多。</p>
+<p>然后，赢法统计数组分为我方赢法和计算机方赢法的统计，赢法统计的算法就是统计下落的棋子在属于哪种赢法，当某种赢法（第k种）即myWin[k]==5时，说明这种赢法实现了，即5个棋子连在一起了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">var myWin = [];</div><div class="line">var computerWin = [];</div><div class="line"></div><div class="line">//赢法统计数组初始化</div><div class="line">for(var i=0;i&lt;count;i++)&#123;</div><div class="line">	myWin[i] = 0;</div><div class="line">	computerWin[i] = 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">赢法统计部分代码</div><div class="line">//赢法统计</div><div class="line">for(var k=0;k&lt;count;k++)&#123;</div><div class="line">	if(wins[i][j][k])&#123;</div><div class="line">		myWin[k]++;</div><div class="line">		computerWin[k] = 6;//到了这里计算机就不可能赢了</div><div class="line"></div><div class="line">		//如果这种赢法统计到了5，说明这种赢法5个子，则赢了</div><div class="line">		if(myWin[k] == 5)&#123;</div><div class="line">			setTimeout(function()&#123;</div><div class="line">				alert(&quot;你赢了！&quot;);</div><div class="line">			&#125;,300);</div><div class="line">			over = true;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后，得分统计数组，用来统计哪种棋盘上的落子点的得分，得分最高的就在这里落子，是计算机方的落子，根据赢法统计数组来判断</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">//设计得分统计数组，根据得分来确定计算机走哪一步</div><div class="line">	var myScore = [];</div><div class="line">	var computerScore = [];</div><div class="line">	var max = 0,u = 0, v = 0;</div><div class="line">	for(var i=0;i&lt;15;i++)&#123;</div><div class="line">		myScore[i] = [];</div><div class="line">		computerScore[i] = [];</div><div class="line">		for(var j=0;j&lt;15;j++)&#123;</div><div class="line">			myScore[i][j] = 0;</div><div class="line">			computerScore[i][j] = 0;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	for(var i=0;i&lt;15;i++)&#123;</div><div class="line">		for(var j=0;j&lt;15;j++)&#123;</div><div class="line">			if(chessArr[i][j] == 0)&#123;</div><div class="line"></div><div class="line">				//根据赢法统计数组，判断哪一步得分最高，包括对己方和计算机方的得分进行统计，判断出走哪</div><div class="line">				//一步最好</div><div class="line">				for(var k=0;k&lt;count;k++)&#123;</div><div class="line">					if(wins[i][j][k])&#123;</div><div class="line">						if(myWin[k] == 1)&#123;</div><div class="line">							myScore[i][j] += 200;</div><div class="line">						&#125;else if(myWin[k] == 2)&#123;</div><div class="line">							myScore[i][j] += 400;</div><div class="line">						&#125;else if(myWin[k] == 3)&#123;</div><div class="line">							myScore[i][j] += 2000;</div><div class="line">						&#125;else if(myWin[k] == 4)&#123;</div><div class="line">							myScore[i][j] += 10000;</div><div class="line">						&#125;</div><div class="line"></div><div class="line">						if(computerWin[k] == 1)&#123;</div><div class="line">							computerScore[i][j] += 220;</div><div class="line">						&#125;else if(computerWin[k] == 2)&#123;</div><div class="line">							computerScore[i][j] += 420;</div><div class="line">						&#125;else if(computerWin[k] == 3)&#123;</div><div class="line">							computerScore[i][j] += 2200;</div><div class="line">						&#125;else if(computerWin[k] == 4)&#123;</div><div class="line">							computerScore[i][j] += 20000;</div><div class="line">						&#125;</div><div class="line">					&#125;</div><div class="line">				&#125;</div></pre></td></tr></table></figure>
+<h2 id="完整AI算法-UI代码"><a href="#完整AI算法-UI代码" class="headerlink" title="完整AI算法+UI代码"></a>完整AI算法+UI代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div><div class="line">271</div><div class="line">272</div><div class="line">273</div><div class="line">274</div><div class="line">275</div><div class="line">276</div><div class="line">277</div></pre></td><td class="code"><pre><div class="line">	</div><div class="line">var chess = document.getElementById(&quot;chess&quot;);</div><div class="line">var reset = document.getElementById(&quot;reset&quot;);</div><div class="line">var context = chess.getContext(&quot;2d&quot;);</div><div class="line">chessPan();</div><div class="line"></div><div class="line">var flag = true;</div><div class="line"></div><div class="line">//创建一个over标识，表示对局是否结束</div><div class="line">var over = false;</div><div class="line"></div><div class="line">//创建一个二维数组存储已经下过棋的位置，防止重复下棋</div><div class="line">var chessArr = init();</div><div class="line">/*for(var i = 0;i&lt;15;i++)&#123;</div><div class="line">	chessArr[i] = [];</div><div class="line">	for(var j = 0;j&lt;15;j++)&#123;</div><div class="line">		chessArr[i][j] = 0;</div><div class="line">	&#125;</div><div class="line">&#125;*/</div><div class="line"></div><div class="line">//设计赢法数组</div><div class="line">var wins = [];</div><div class="line"></div><div class="line">var myWin = [];</div><div class="line">var computerWin = [];</div><div class="line">var count = 0;</div><div class="line"></div><div class="line">//先将wins数组初始化为3维数组</div><div class="line">for(var i=0;i&lt;15;i++)&#123;</div><div class="line">	wins[i] = [];</div><div class="line">	for(var j=0;j&lt;15;j++)&#123;</div><div class="line">		wins[i][j] = [];</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//首先打横一排连赢5个赢法</div><div class="line">for(var i=0;i&lt;15;i++)&#123;</div><div class="line">	for(var j=0;j&lt;11;j++)&#123;</div><div class="line">		for(var k=0;k&lt;5;k++)&#123;</div><div class="line">			wins[i][j+k][count] = true;</div><div class="line">		&#125;</div><div class="line">		count++;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//竖直方向连赢5个赢法</div><div class="line">for(var i=0;i&lt;11;i++)&#123;</div><div class="line">	for(var j=0;j&lt;15;j++)&#123;</div><div class="line">		for(var k=0;k&lt;5;k++)&#123;</div><div class="line">			wins[i+k][j][count] = true;</div><div class="line">		&#125;</div><div class="line">		count++;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//斜线连赢5个赢法</div><div class="line">for(var i=0;i&lt;11;i++)&#123;</div><div class="line">	for(var j=0;j&lt;11;j++)&#123;</div><div class="line">		for(var k=0;k&lt;5;k++)&#123;</div><div class="line">			wins[i+k][j+k][count] = true;</div><div class="line">		&#125;</div><div class="line">		count++;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//反斜线连赢5个赢法</div><div class="line">for(var i=0;i&lt;11;i++)&#123;</div><div class="line">	for(var j=14;j&gt;3;j--)&#123;</div><div class="line">		for(var k=0;k&lt;5;k++)&#123;</div><div class="line">			wins[i+k][j-k][count] = true;</div><div class="line">		&#125;</div><div class="line">		count++;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//赢法统计数组初始化</div><div class="line">for(var i=0;i&lt;count;i++)&#123;</div><div class="line">	myWin[i] = 0;</div><div class="line">	computerWin[i] = 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//棋盘点击事件，点击棋盘开始落子</div><div class="line">chess.onclick = function(e)&#123;</div><div class="line">	//如果over，即棋局结束，则返回。</div><div class="line">	if(over)&#123;</div><div class="line">		return;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	//如果不是我方落子，则返回，即单击事件只针对我方的落子</div><div class="line">	if(!flag)&#123;</div><div class="line">		return;</div><div class="line">	&#125;</div><div class="line">	var x = e.offsetX;</div><div class="line">	var y = e.offsetY;</div><div class="line">	var i = Math.floor(x/30);</div><div class="line">	var j = Math.floor(y/30);</div><div class="line">	if(chessArr[i][j] == 0)&#123;</div><div class="line">		playChess(i,j,flag);</div><div class="line">	&#125;</div><div class="line">	chessArr[i][j] = 1;</div><div class="line"></div><div class="line">	//赢法统计</div><div class="line">	for(var k=0;k&lt;count;k++)&#123;</div><div class="line">		if(wins[i][j][k])&#123;</div><div class="line">			myWin[k]++;</div><div class="line">			computerWin[k] = 6;//到了这里计算机就不可能赢了</div><div class="line"></div><div class="line">			//如果这种赢法统计到了5，说明这种赢法5个子，则赢了</div><div class="line">			if(myWin[k] == 5)&#123;</div><div class="line">				setTimeout(function()&#123;</div><div class="line">					alert(&quot;你赢了！&quot;);</div><div class="line">				&#125;,300);</div><div class="line">				over = true;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	//若没有结束，则计算机执行AI算法下棋</div><div class="line">	if(!over)&#123;</div><div class="line">		flag = !flag;</div><div class="line">		computerAI();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//重新开始对局</div><div class="line">reset.onclick = function(event)&#123;</div><div class="line">	/*context.clearRect(0,0,450,450);</div><div class="line"></div><div class="line">	//需要用beginPath()开始一个新的路径，使得棋子的路径也被清除，</div><div class="line">	//不然擦出矩形画布之后画的棋盘会有棋子的边也描绘出来</div><div class="line">	context.beginPath();</div><div class="line">	chessArr = init();</div><div class="line">	flag = true;</div><div class="line">	chessPan();*/</div><div class="line">	location.reload();</div><div class="line">&#125;</div><div class="line"></div><div class="line">//描绘棋盘的函数</div><div class="line">function chessPan()&#123;</div><div class="line">	context.fillStyle = &quot;#b8860b&quot;;</div><div class="line">	context.fillRect(0,0,450,450);</div><div class="line">	for(var i = 0;i&lt;=15;i++)&#123;</div><div class="line">		context.moveTo(15,15+i*30);</div><div class="line">		context.lineTo(435,15+i*30);</div><div class="line">		context.stroke();</div><div class="line">		context.moveTo(15+i*30,15);</div><div class="line">		context.lineTo(15+i*30,435);</div><div class="line">		context.stroke();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//描绘棋子的函数，根据索引和flag来描绘，flag为真代表我方棋子（黑子），为false代表计算机方棋子（白子）</div><div class="line">function playChess(i,j,flag)&#123;</div><div class="line">		context.beginPath();</div><div class="line">		var gradient = context.createRadialGradient(15+i*30,15+j*30,13,15+i*30,15+j*30,0);</div><div class="line">		if(flag)&#123;</div><div class="line">			gradient.addColorStop(0,&quot;#0A0A0A&quot;);</div><div class="line">			gradient.addColorStop(1,&quot;#696966&quot;);</div><div class="line">		&#125;else&#123;</div><div class="line">			gradient.addColorStop(0,&quot;#D1D1E1&quot;);</div><div class="line">			gradient.addColorStop(1,&quot;#f9f9f9&quot;);</div><div class="line">		&#125;</div><div class="line">		context.fillStyle = gradient;</div><div class="line">		context.arc(15+i*30,15+j*30,13,0,2*Math.PI);</div><div class="line">		context.closePath();</div><div class="line">		context.fill();</div><div class="line">&#125;</div><div class="line"></div><div class="line">//初始化函数，初始化chessArr数组，这个数组用来存储索引是否已经有棋。</div><div class="line">function init()&#123;</div><div class="line">	var chessArray = [];</div><div class="line">	for(var i = 0;i&lt;15;i++)&#123;</div><div class="line">		chessArray[i] = [];</div><div class="line">		for(var j = 0;j&lt;15;j++)&#123;</div><div class="line">			chessArray[i][j] = 0;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	return chessArray;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//计算机AI落子算法函数</div><div class="line">function computerAI()&#123;</div><div class="line"></div><div class="line">	//设计得分统计数组，根据得分来确定计算机走哪一步</div><div class="line">	var myScore = [];</div><div class="line">	var computerScore = [];</div><div class="line">	var max = 0,u = 0, v = 0;</div><div class="line">	for(var i=0;i&lt;15;i++)&#123;</div><div class="line">		myScore[i] = [];</div><div class="line">		computerScore[i] = [];</div><div class="line">		for(var j=0;j&lt;15;j++)&#123;</div><div class="line">			myScore[i][j] = 0;</div><div class="line">			computerScore[i][j] = 0;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	for(var i=0;i&lt;15;i++)&#123;</div><div class="line">		for(var j=0;j&lt;15;j++)&#123;</div><div class="line">			if(chessArr[i][j] == 0)&#123;</div><div class="line"></div><div class="line">				//根据赢法统计数组，判断哪一步得分最高，包括对己方和计算机方的得分进行统计，判断出走哪</div><div class="line">				//一步最好</div><div class="line">				for(var k=0;k&lt;count;k++)&#123;</div><div class="line">					if(wins[i][j][k])&#123;</div><div class="line">						if(myWin[k] == 1)&#123;</div><div class="line">							myScore[i][j] += 200;</div><div class="line">						&#125;else if(myWin[k] == 2)&#123;</div><div class="line">							myScore[i][j] += 400;</div><div class="line">						&#125;else if(myWin[k] == 3)&#123;</div><div class="line">							myScore[i][j] += 2000;</div><div class="line">						&#125;else if(myWin[k] == 4)&#123;</div><div class="line">							myScore[i][j] += 10000;</div><div class="line">						&#125;</div><div class="line"></div><div class="line">						if(computerWin[k] == 1)&#123;</div><div class="line">							computerScore[i][j] += 220;</div><div class="line">						&#125;else if(computerWin[k] == 2)&#123;</div><div class="line">							computerScore[i][j] += 420;</div><div class="line">						&#125;else if(computerWin[k] == 3)&#123;</div><div class="line">							computerScore[i][j] += 2200;</div><div class="line">						&#125;else if(computerWin[k] == 4)&#123;</div><div class="line">							computerScore[i][j] += 20000;</div><div class="line">						&#125;</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line"></div><div class="line">				//通过一个max变量来存储15*15棋盘的得分，然后和它进行比较，</div><div class="line">				//取得最高得分，取得分最高的那个索引进行落子</div><div class="line">				if(myScore[i][j]&gt;max)&#123;</div><div class="line">					max = myScore[i][j];</div><div class="line">					u = i;</div><div class="line">					v = j;</div><div class="line">				&#125;else if(myScore[i][j] == max)&#123;</div><div class="line">					if(computerScore[i][j] &gt; computerScore[u][v])&#123;</div><div class="line">						u = i;</div><div class="line">						v = j;</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line"></div><div class="line">				if(computerScore[i][j]&gt;max)&#123;</div><div class="line">					max = computerScore[i][j];</div><div class="line">					u = i;</div><div class="line">					v = j;</div><div class="line">				&#125;else if(computerScore[i][j] == max)&#123;</div><div class="line">					if(myScore[i][j] &gt; myScore[u][v])&#123;</div><div class="line">						u = i;</div><div class="line">						v = j;</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	playChess(u,v,false);</div><div class="line">	chessArr[u][v] = 2;</div><div class="line"></div><div class="line">	//赢法统计</div><div class="line">	for(var k=0;k&lt;count;k++)&#123;</div><div class="line">		if(wins[u][v][k])&#123;</div><div class="line">			computerWin[k]++;</div><div class="line">			myWin[k] = 6;//到了这里我方就不可能赢了</div><div class="line"></div><div class="line">			//如果这种赢法统计到了5，说明这种赢法5个子，则赢了</div><div class="line">			if(computerWin[k] == 5)&#123;</div><div class="line">				setTimeout(function()&#123;</div><div class="line">					alert(&quot;恭喜你输了！&quot;);</div><div class="line">				&#125;,300);</div><div class="line">				over = true;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	if(!over)&#123;</div><div class="line">		flag = !flag;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/06/29/wuziqi_AI/" data-id="cj4h7n3sp000iwgmm4k92b09u" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-wuziqi_UI" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/28/wuziqi_UI/" class="article-date">
+  <time datetime="2017-06-28T03:23:53.444Z" itemprop="datePublished">2017-06-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/28/wuziqi_UI/">javascirpt加canvas实现人机大战五子棋UI篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="首先HTML代码"><a href="#首先HTML代码" class="headerlink" title="首先HTML代码"></a>首先HTML代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;title&gt;五子棋&lt;/title&gt;</div><div class="line">	&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/index.css&quot; /&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	&lt;canvas id=&quot;chess&quot; width=&quot;450px&quot; height=&quot;450px&quot;&gt;&lt;/canvas&gt;</div><div class="line">	&lt;input type=&quot;button&quot; name=&quot;button&quot; id=&quot;reset&quot; value=&quot;重新开始棋局&quot;&gt;</div><div class="line">	&lt;script type=&quot;text/javascript&quot; src=&quot;js/script.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h4 id="CSS代码"><a href="#CSS代码" class="headerlink" title="CSS代码"></a>CSS代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">canvas&#123;</div><div class="line">	margin: 50px auto;</div><div class="line">	display: block;</div><div class="line">	box-shadow: -2px -2px 2px #E8E8E8,5px 5px 5px #898989;</div><div class="line">&#125;</div><div class="line">#reset&#123;</div><div class="line">	width:150px;</div><div class="line">	height:25px;</div><div class="line">	line-height: 25px;</div><div class="line">	text-align: center;</div><div class="line">	background: #6495ed;</div><div class="line">	border:none;</div><div class="line">	border-radius:10px;</div><div class="line">	color:#fff;</div><div class="line">	cursor:pointer;</div><div class="line">	margin-left:600px;</div><div class="line">&#125;</div><div class="line">#reset:hover&#123;</div><div class="line">	background:#fff;</div><div class="line">	border:1px solid #6495ed;</div><div class="line">	color:#6495ed;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="canvas画图"><a href="#canvas画图" class="headerlink" title="canvas画图"></a>canvas画图</h4><p>1、首先绘制棋盘，绘制15*15格子的棋盘，利用for循环绘制横线和纵线，两线交叉就可以实现棋盘，棋盘四周空15px，然后每个格子的大小为30px像素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//描绘棋盘的函数</div><div class="line">function chessPan()&#123;</div><div class="line">	context.fillStyle = &quot;#b8860b&quot;;</div><div class="line">	context.fillRect(0,0,450,450);</div><div class="line">	for(var i = 0;i&lt;=15;i++)&#123;</div><div class="line">		context.moveTo(15,15+i*30);</div><div class="line">		context.lineTo(435,15+i*30);</div><div class="line">		context.stroke();</div><div class="line">		context.moveTo(15+i*30,15);</div><div class="line">		context.lineTo(15+i*30,435);</div><div class="line">		context.stroke();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>2、描绘棋子，利用canvas画圆函数填充棋子，每个棋子半径为13px，i和j代表棋盘的各自的索引，棋盘最左上角为（0，0），以此类推棋子圆心坐标为“索引*30+15”，然后根据flag判断是白子还是黑子来进行颜色的填充选择。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">//描绘棋子的函数，根据索引和flag来描绘，flag为真代表我方棋子（黑子），为false代表计算机方棋子（白子）</div><div class="line">function playChess(i,j,flag)&#123;</div><div class="line">	context.beginPath();</div><div class="line">	var gradient = context.createRadialGradient(15+i*30,15+j*30,13,15+i*30,15+j*30,0);</div><div class="line">	if(flag)&#123;</div><div class="line">		gradient.addColorStop(0,&quot;#0A0A0A&quot;);</div><div class="line">		gradient.addColorStop(1,&quot;#696966&quot;);</div><div class="line">	&#125;else&#123;</div><div class="line">		gradient.addColorStop(0,&quot;#D1D1E1&quot;);</div><div class="line">		gradient.addColorStop(1,&quot;#f9f9f9&quot;);</div><div class="line">	&#125;</div><div class="line">	context.fillStyle = gradient;</div><div class="line">	context.arc(15+i*30,15+j*30,13,0,2*Math.PI);</div><div class="line">	context.closePath();</div><div class="line">	context.fill();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://on47sru77.bkt.clouddn.com/chesspan.png" alt="image"></p>
+<p>到此UI篇结束</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/06/28/wuziqi_UI/" data-id="cj4h7n3um000owgmmtle4h7ud" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-li_jianju" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -95,7 +183,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/06/11/li_jianju/" data-id="cj3sflu1i000elkmmudf4bht3" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/06/11/li_jianju/" data-id="cj4h7n3ru000bwgmm20w75n1i" class="article-share-link">Share</a>
       
       
     </footer>
@@ -137,7 +225,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/06/03/sidescroll/" data-id="cj3sflu1v000ilkmm8udxlxv1" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/06/03/sidescroll/" data-id="cj4h7n3td000nwgmm0ebjgplq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -188,7 +276,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/06/03/jsandjqtransform/" data-id="cj3sflu140009lkmmoxvxgs4r" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/06/03/jsandjqtransform/" data-id="cj4h7n3r70005wgmm2u3ujjsd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -234,7 +322,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/05/25/ie_error/" data-id="cj3sflu0l0005lkmm2ifathks" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/05/25/ie_error/" data-id="cj4h7n3s5000ewgmm2wx7v8h2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -289,7 +377,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/26/css_ie_bug/" data-id="cj3sflu010001lkmm83f85e4u" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/26/css_ie_bug/" data-id="cj4h7n3pw0001wgmmdskprllb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -346,7 +434,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/26/margin_chongdie/" data-id="cj3sflu1l000flkmmgk27033l" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/26/margin_chongdie/" data-id="cj4h7n3sa000gwgmm39h5vqee" class="article-share-link">Share</a>
       
       
     </footer>
@@ -395,7 +483,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/26/clear_float/" data-id="cj3sflu090002lkmm15lua8ct" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/26/clear_float/" data-id="cj4h7n3oz0000wgmm3ures4ab" class="article-share-link">Share</a>
       
       
     </footer>
@@ -442,94 +530,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/position_absolute/" data-id="cj3sflu1o000glkmm7zj3e76x" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-meta_http-equiv_X-UA-Compatible_viewport" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/" class="article-date">
-  <time datetime="2017-04-21T14:40:36.977Z" itemprop="datePublished">2017-04-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/">html meta http-equiv X-UA-Compatible viewport</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="X-UA-Compatible是自从IE8新加的一个设置，对于IE8以下的浏览器是不识别的。通过在meta中设置X-UA-Compatible的值，可以指定网页的兼容性模式设置。"><a href="#X-UA-Compatible是自从IE8新加的一个设置，对于IE8以下的浏览器是不识别的。通过在meta中设置X-UA-Compatible的值，可以指定网页的兼容性模式设置。" class="headerlink" title="X-UA-Compatible是自从IE8新加的一个设置，对于IE8以下的浏览器是不识别的。通过在meta中设置X-UA-Compatible的值，可以指定网页的兼容性模式设置。"></a>X-UA-Compatible是自从IE8新加的一个设置，对于IE8以下的浏览器是不识别的。通过在meta中设置X-UA-Compatible的值，可以指定网页的兼容性模式设置。</h4><p>在网页中指定的模式优先权高于服务器中(通过HTTP Header)所指定的模式。 兼容性模式设置优先级：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">meta tag &gt; http header</div><div class="line">meta tag &gt; http header</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=7&quot;&gt;  </div><div class="line">#以上代码告诉IE浏览器，无论是否用DTD声明文档标准，IE8/9都会以IE7引擎来渲染页面。  </div><div class="line">&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=8&quot;&gt;  </div><div class="line">#以上代码告诉IE浏览器，IE8/9都会以IE8引擎来渲染页面。  </div><div class="line">&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;  </div><div class="line">#以上代码告诉IE浏览器，IE8/9及以后的版本都会以最高版本IE来渲染页面。  </div><div class="line">&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=7,IE=9&quot;&gt;  </div><div class="line">&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=7,9&quot;&gt;  </div><div class="line">&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=Edge,chrome=1&quot;&gt;</div><div class="line">#以上代码IE=edge告诉IE使用最新的引擎渲染网页，chrome=1则可以激活Chrome Frame.</div></pre></td></tr></table></figure>
-<h4 id="此外meta标签name属性的viewport值也是一个重要的参数"><a href="#此外meta标签name属性的viewport值也是一个重要的参数" class="headerlink" title="此外meta标签name属性的viewport值也是一个重要的参数"></a>此外meta标签name属性的viewport值也是一个重要的参数</h4><h5 id="首先什么是Viewport"><a href="#首先什么是Viewport" class="headerlink" title="首先什么是Viewport"></a>首先什么是Viewport</h5><p>手机浏览器是把页面放在一个虚拟的“窗口”（viewport）中，通常这个虚拟的“窗口”（viewport）比屏幕宽，这样就不用把每个网页挤到很小的窗口中（这样会破坏没有针对手机浏览器优化的网页的布局），用户可以通过平移和缩放来看网页的不同部分。移动版的 Safari 浏览器最新引进了 viewport 这个 meta tag，让网页开发者来控制 viewport 的大小和缩放，其他手机浏览器也基本支持</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;</div></pre></td></tr></table></figure>
-<p>这段代码的意思是，让viewport的宽度等于物理设备上的真实分辨率，初始所放倍数1.0</p>
-<p>content的其他参数分别为</p>
-<p>width：控制 viewport 的大小，可以指定的一个值，如果 600，或者特殊的值，如 device-width 为设备的宽度（单位为缩放为 100% 时的 CSS 的像素）。</p>
-<p>height：和 width 相对应，指定高度。</p>
-<p>initial-scale：初始缩放比例，也即是当页面第一次 load 的时候缩放比例。</p>
-<p>maximum-scale：允许用户缩放到的最大比例。</p>
-<p>minimum-scale：允许用户缩放到的最小比例。</p>
-<p>user-scalable：用户是否可以手动缩放</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/" data-id="cj3sflu1t000hlkmmk1ydupr9" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-input_button" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/21/input_button/" class="article-date">
-  <time datetime="2017-04-21T14:39:13.877Z" itemprop="datePublished">2017-04-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/21/input_button/">input button</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>如果把windows的主题换一下，那么，按钮的样式就会发生变化了，所以一般按钮都会自己手动添加样式而不会利用button的自定义样式。</p>
-<p>而现在的各大网站很多按钮都是利用a标签加css3的圆角属性制作。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/input_button/" data-id="cj3sflu0s0006lkmmh0h1jce7" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/position_absolute/" data-id="cj4h7n3s7000fwgmm1ai7luhf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -568,9 +569,17 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/06/29/wuziqi_AI/">javascirpt加canvas实现人机大战五子棋AI篇</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/28/wuziqi_UI/">javascirpt加canvas实现人机大战五子棋UI篇</a>
+          </li>
         
           <li>
             <a href="/2017/06/11/li_jianju/">css中li之间的空白符</a>
@@ -582,14 +591,6 @@
         
           <li>
             <a href="/2017/06/03/jsandjqtransform/">js对象与jq之间的转换</a>
-          </li>
-        
-          <li>
-            <a href="/2017/05/25/ie_error/">常见的IE错误</a>
-          </li>
-        
-          <li>
-            <a href="/2017/04/26/css_ie_bug/">CSS控制之BUG（不兼容问题）</a>
           </li>
         
       </ul>
@@ -605,7 +606,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 John Doe<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

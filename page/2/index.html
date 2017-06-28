@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
@@ -60,6 +60,93 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-meta_http-equiv_X-UA-Compatible_viewport" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/" class="article-date">
+  <time datetime="2017-04-21T14:40:36.977Z" itemprop="datePublished">2017-04-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/">html meta http-equiv X-UA-Compatible viewport</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="X-UA-Compatible是自从IE8新加的一个设置，对于IE8以下的浏览器是不识别的。通过在meta中设置X-UA-Compatible的值，可以指定网页的兼容性模式设置。"><a href="#X-UA-Compatible是自从IE8新加的一个设置，对于IE8以下的浏览器是不识别的。通过在meta中设置X-UA-Compatible的值，可以指定网页的兼容性模式设置。" class="headerlink" title="X-UA-Compatible是自从IE8新加的一个设置，对于IE8以下的浏览器是不识别的。通过在meta中设置X-UA-Compatible的值，可以指定网页的兼容性模式设置。"></a>X-UA-Compatible是自从IE8新加的一个设置，对于IE8以下的浏览器是不识别的。通过在meta中设置X-UA-Compatible的值，可以指定网页的兼容性模式设置。</h4><p>在网页中指定的模式优先权高于服务器中(通过HTTP Header)所指定的模式。 兼容性模式设置优先级：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">meta tag &gt; http header</div><div class="line">meta tag &gt; http header</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=7&quot;&gt;  </div><div class="line">#以上代码告诉IE浏览器，无论是否用DTD声明文档标准，IE8/9都会以IE7引擎来渲染页面。  </div><div class="line">&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=8&quot;&gt;  </div><div class="line">#以上代码告诉IE浏览器，IE8/9都会以IE8引擎来渲染页面。  </div><div class="line">&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;  </div><div class="line">#以上代码告诉IE浏览器，IE8/9及以后的版本都会以最高版本IE来渲染页面。  </div><div class="line">&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=7,IE=9&quot;&gt;  </div><div class="line">&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=7,9&quot;&gt;  </div><div class="line">&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=Edge,chrome=1&quot;&gt;</div><div class="line">#以上代码IE=edge告诉IE使用最新的引擎渲染网页，chrome=1则可以激活Chrome Frame.</div></pre></td></tr></table></figure>
+<h4 id="此外meta标签name属性的viewport值也是一个重要的参数"><a href="#此外meta标签name属性的viewport值也是一个重要的参数" class="headerlink" title="此外meta标签name属性的viewport值也是一个重要的参数"></a>此外meta标签name属性的viewport值也是一个重要的参数</h4><h5 id="首先什么是Viewport"><a href="#首先什么是Viewport" class="headerlink" title="首先什么是Viewport"></a>首先什么是Viewport</h5><p>手机浏览器是把页面放在一个虚拟的“窗口”（viewport）中，通常这个虚拟的“窗口”（viewport）比屏幕宽，这样就不用把每个网页挤到很小的窗口中（这样会破坏没有针对手机浏览器优化的网页的布局），用户可以通过平移和缩放来看网页的不同部分。移动版的 Safari 浏览器最新引进了 viewport 这个 meta tag，让网页开发者来控制 viewport 的大小和缩放，其他手机浏览器也基本支持</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;</div></pre></td></tr></table></figure>
+<p>这段代码的意思是，让viewport的宽度等于物理设备上的真实分辨率，初始所放倍数1.0</p>
+<p>content的其他参数分别为</p>
+<p>width：控制 viewport 的大小，可以指定的一个值，如果 600，或者特殊的值，如 device-width 为设备的宽度（单位为缩放为 100% 时的 CSS 的像素）。</p>
+<p>height：和 width 相对应，指定高度。</p>
+<p>initial-scale：初始缩放比例，也即是当页面第一次 load 的时候缩放比例。</p>
+<p>maximum-scale：允许用户缩放到的最大比例。</p>
+<p>minimum-scale：允许用户缩放到的最小比例。</p>
+<p>user-scalable：用户是否可以手动缩放</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/" data-id="cj4h7n3s0000cwgmmlbenpcvf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-input_button" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/21/input_button/" class="article-date">
+  <time datetime="2017-04-21T14:39:13.877Z" itemprop="datePublished">2017-04-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/21/input_button/">input button</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>如果把windows的主题换一下，那么，按钮的样式就会发生变化了，所以一般按钮都会自己手动添加样式而不会利用button的自定义样式。</p>
+<p>而现在的各大网站很多按钮都是利用a标签加css3的圆角属性制作。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/21/input_button/" data-id="cj4h7n3qa0002wgmmd2atvvrm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-javascript_global_jubu_bianliang" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -96,7 +183,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/javascript_global_jubu_bianliang/" data-id="cj3sflu120008lkmmye08eo7u" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/javascript_global_jubu_bianliang/" data-id="cj4h7n3qn0004wgmmsit97efc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -325,7 +412,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/w3c_media_type/" data-id="cj3sflu2a000mlkmml2rxl87g" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/w3c_media_type/" data-id="cj4h7n3sv000kwgmmxezm7gm5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -369,7 +456,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/css_initial/" data-id="cj3sflu0d0003lkmm7xb26z7r" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/css_initial/" data-id="cj4h7n3rr000awgmmpww1lvs9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -420,7 +507,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_4/" data-id="cj3sflu1f000dlkmm5xrfl44d" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_4/" data-id="cj4h7n3ro0009wgmmbjmdfvzg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -462,7 +549,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_3/" data-id="cj3sflu1d000clkmmtxiviao5" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_3/" data-id="cj4h7n3sd000hwgmmayiq91nl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -517,7 +604,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_2/" data-id="cj3sflu1a000blkmmxzy3b67w" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_2/" data-id="cj4h7n3rl0008wgmm48mft9hn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -583,7 +670,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_1/" data-id="cj3sflu17000alkmmqb1jjrmw" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_1/" data-id="cj4h7n3r90006wgmmwu4ehyt0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -625,93 +712,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/14/catetree/" data-id="cj3sfltzr0000lkmmj5zv0cfs" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-twolevel_cate" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/14/twolevel_cate/" class="article-date">
-  <time datetime="2017-04-14T09:04:57.729Z" itemprop="datePublished">2017-04-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/14/twolevel_cate/">thinkphp动态调用二级分类栏目</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1.实例化栏目表并将pid为0即最高级祖宗对应的栏目查出来，然后分配给模板<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$cate = D(&apos;Category&apos;);</div><div class="line">$where[&apos;parentid&apos;] = array(&apos;eq&apos;,0);</div><div class="line">$cateres = $cate -&gt; where($where) -&gt; select();</div><div class="line">$this -&gt; assign(&apos;cateres&apos;,$cateres);</div></pre></td></tr></table></figure></p>
-<p>2.分配到模板之后进行volist循环,首先将一级栏目循环显示</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;volist name=&quot;cateres&quot; id=&quot;vo&quot;&gt;</div></pre></td></tr></table></figure>
-<p>3.写一个公共函数，此函数获取顶级栏目对应的所有二级子栏目，注意，该函数为公共函数，写在Common目录下的common目录下并命名为function.php。该函数如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function getsub($pid)&#123;</div><div class="line">	$cate = D(&apos;Category&apos;);</div><div class="line">	$where[&apos;parentid&apos;] = array(&apos;eq&apos;,$pid);</div><div class="line">	$cateres = $cate -&gt; where($where) -&gt; select();</div><div class="line">	return $cateres;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>该函数参数为$pid，传入一级顶级栏目的栏目id，然后查找所有父id等于此栏目id的所有栏目，并返回包含信息的数组。</p>
-<p>4.嵌套volist循环，在第二步的volist循环里面再嵌套一个volist循环</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;volist name=&quot;cateres&quot; id=&quot;vo&quot;&gt;</div><div class="line">    &lt;volist name=&quot;:getsub($vo[&apos;cate_id&apos;])&quot; id=&quot;vo&quot;&gt;</div><div class="line">         &lt;a href=&quot;__MODULE__/&lt;if condition=&apos;$vo[cate_type] eq 1&apos;&gt;list&lt;elseif condition=&apos;$vo[cate_type] eq 0&apos;/&gt;page&lt;/if&gt;/index/cate_id/&#123;$vo.cate_id&#125;&quot;&gt;&#123;$vo.cate_name&#125;&lt;/a&gt;</div><div class="line">    &lt;/volist&gt;</div><div class="line">&lt;/volist&gt;</div></pre></td></tr></table></figure>
-<p>向上面以上，第二个嵌套的volist循环调用getsub函数，并把第一个volist循环的$vo[‘cate_id’]传参，这就是把顶级栏目的id当作参数传进去，然后就可以得到此栏目下的所有子栏目，然后把在模板里面显示出来就可以了</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/14/twolevel_cate/" data-id="cj3sflu27000llkmmvmlwncza" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-thinkphpVariable" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/12/thinkphpVariable/" class="article-date">
-  <time datetime="2017-04-12T15:51:53.916Z" itemprop="datePublished">2017-04-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/12/thinkphpVariable/">thinkphp模板引擎volist标签与php原生代码嵌合的变量用法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>首先看一下代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;volist name=&quot;confres&quot; id=&quot;vo&quot;&gt;</div></pre></td></tr></table></figure></p>
-<p>在这里，我利用volist标签循环。</p>
-<p>然后接下来再看：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php </div><div class="line">    $arr = array();</div><div class="line">    $arr = explode(&apos;，&apos;,$vo[&apos;cf_values&apos;]);</div><div class="line">    foreach($arr as $k =&gt; $v)&#123;</div><div class="line">?&gt;</div><div class="line">    &lt;input type=&apos;&#123;$vo.cf_type&#125;&apos;name=&apos;&#123;$vo.cf_ename&apos;&lt;if condition=&quot;$vo[&apos;cf_value&apos;] eq $v&quot;&gt;checked=&quot;checked&quot;&lt;/if&gt; value=&apos;&#123;$v&#125;&apos;&gt;&#123;$v&#125;</div><div class="line">&lt;?php</div><div class="line">    &#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
-<p>在这里分析一下，看到php原生代码里面第二行explode这一行里面可以用$vo[‘cf_values’]变量，这个变量就是通过volist循环绑定的id：vo来调用的，然后看到第三行通过foreach循环，然后结束php原生代码，这时候，在模版里面，可以通过模版定界符加上变量来调用此变量，注意了，这里一定要加上模版定界符，否则会解析不了,这里还需要注意一下，在if标签里面是不续要加模版定界符就可以解析的,若是加了模版定界符反而会报出错误</p>
-<p>通过上述分析，可以看出volist循环的变量可以用在原生php代码里面，但是要用[]形式引用，而php原生代码的变量可以放在模版里面使用，但要用上定界符解析，if标签除外。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/12/thinkphpVariable/" data-id="cj3sflu22000klkmmlvmqhq51" class="article-share-link">Partager</a>
+      <a data-url="http://weilephp.github.io/2017/04/14/catetree/" data-id="cj4h7n3s2000dwgmm96h0lslr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -750,9 +751,17 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/06/29/wuziqi_AI/">javascirpt加canvas实现人机大战五子棋AI篇</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/28/wuziqi_UI/">javascirpt加canvas实现人机大战五子棋UI篇</a>
+          </li>
         
           <li>
             <a href="/2017/06/11/li_jianju/">css中li之间的空白符</a>
@@ -764,14 +773,6 @@
         
           <li>
             <a href="/2017/06/03/jsandjqtransform/">js对象与jq之间的转换</a>
-          </li>
-        
-          <li>
-            <a href="/2017/05/25/ie_error/">常见的IE错误</a>
-          </li>
-        
-          <li>
-            <a href="/2017/04/26/css_ie_bug/">CSS控制之BUG（不兼容问题）</a>
           </li>
         
       </ul>
@@ -787,7 +788,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 John Doe<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

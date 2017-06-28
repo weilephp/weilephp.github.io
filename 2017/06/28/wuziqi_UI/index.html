@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>javascirpt加canvas实现人机大战五子棋UI篇 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="首先HTML代码123456789101112&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;	&amp;lt;title&amp;gt;五子棋&amp;lt;/title&amp;gt;	&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; type=&amp;quot;text/css&amp;quot; href=&amp;quot;css/index.css&amp;quot; /&amp;gt;&amp;l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascirpt加canvas实现人机大战五子棋UI篇">
+<meta property="og:url" content="http://weilephp.github.io/2017/06/28/wuziqi_UI/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="首先HTML代码123456789101112&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;	&amp;lt;title&amp;gt;五子棋&amp;lt;/title&amp;gt;	&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; type=&amp;quot;text/css&amp;quot; href=&amp;quot;css/index.css&amp;quot; /&amp;gt;&amp;l">
+<meta property="og:image" content="http://on47sru77.bkt.clouddn.com/chesspan.png">
+<meta property="og:updated_time" content="2017-06-28T03:24:55.062Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascirpt加canvas实现人机大战五子棋UI篇">
+<meta name="twitter:description" content="首先HTML代码123456789101112&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;	&amp;lt;title&amp;gt;五子棋&amp;lt;/title&amp;gt;	&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; type=&amp;quot;text/css&amp;quot; href=&amp;quot;css/index.css&amp;quot; /&amp;gt;&amp;l">
+<meta name="twitter:image" content="http://on47sru77.bkt.clouddn.com/chesspan.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-wuziqi_UI" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/28/wuziqi_UI/" class="article-date">
+  <time datetime="2017-06-28T03:23:53.444Z" itemprop="datePublished">2017-06-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      javascirpt加canvas实现人机大战五子棋UI篇
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="首先HTML代码"><a href="#首先HTML代码" class="headerlink" title="首先HTML代码"></a>首先HTML代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;title&gt;五子棋&lt;/title&gt;</div><div class="line">	&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/index.css&quot; /&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	&lt;canvas id=&quot;chess&quot; width=&quot;450px&quot; height=&quot;450px&quot;&gt;&lt;/canvas&gt;</div><div class="line">	&lt;input type=&quot;button&quot; name=&quot;button&quot; id=&quot;reset&quot; value=&quot;重新开始棋局&quot;&gt;</div><div class="line">	&lt;script type=&quot;text/javascript&quot; src=&quot;js/script.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h4 id="CSS代码"><a href="#CSS代码" class="headerlink" title="CSS代码"></a>CSS代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">canvas&#123;</div><div class="line">	margin: 50px auto;</div><div class="line">	display: block;</div><div class="line">	box-shadow: -2px -2px 2px #E8E8E8,5px 5px 5px #898989;</div><div class="line">&#125;</div><div class="line">#reset&#123;</div><div class="line">	width:150px;</div><div class="line">	height:25px;</div><div class="line">	line-height: 25px;</div><div class="line">	text-align: center;</div><div class="line">	background: #6495ed;</div><div class="line">	border:none;</div><div class="line">	border-radius:10px;</div><div class="line">	color:#fff;</div><div class="line">	cursor:pointer;</div><div class="line">	margin-left:600px;</div><div class="line">&#125;</div><div class="line">#reset:hover&#123;</div><div class="line">	background:#fff;</div><div class="line">	border:1px solid #6495ed;</div><div class="line">	color:#6495ed;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="canvas画图"><a href="#canvas画图" class="headerlink" title="canvas画图"></a>canvas画图</h4><p>1、首先绘制棋盘，绘制15*15格子的棋盘，利用for循环绘制横线和纵线，两线交叉就可以实现棋盘，棋盘四周空15px，然后每个格子的大小为30px像素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//描绘棋盘的函数</div><div class="line">function chessPan()&#123;</div><div class="line">	context.fillStyle = &quot;#b8860b&quot;;</div><div class="line">	context.fillRect(0,0,450,450);</div><div class="line">	for(var i = 0;i&lt;=15;i++)&#123;</div><div class="line">		context.moveTo(15,15+i*30);</div><div class="line">		context.lineTo(435,15+i*30);</div><div class="line">		context.stroke();</div><div class="line">		context.moveTo(15+i*30,15);</div><div class="line">		context.lineTo(15+i*30,435);</div><div class="line">		context.stroke();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>2、描绘棋子，利用canvas画圆函数填充棋子，每个棋子半径为13px，i和j代表棋盘的各自的索引，棋盘最左上角为（0，0），以此类推棋子圆心坐标为“索引*30+15”，然后根据flag判断是白子还是黑子来进行颜色的填充选择。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">//描绘棋子的函数，根据索引和flag来描绘，flag为真代表我方棋子（黑子），为false代表计算机方棋子（白子）</div><div class="line">function playChess(i,j,flag)&#123;</div><div class="line">	context.beginPath();</div><div class="line">	var gradient = context.createRadialGradient(15+i*30,15+j*30,13,15+i*30,15+j*30,0);</div><div class="line">	if(flag)&#123;</div><div class="line">		gradient.addColorStop(0,&quot;#0A0A0A&quot;);</div><div class="line">		gradient.addColorStop(1,&quot;#696966&quot;);</div><div class="line">	&#125;else&#123;</div><div class="line">		gradient.addColorStop(0,&quot;#D1D1E1&quot;);</div><div class="line">		gradient.addColorStop(1,&quot;#f9f9f9&quot;);</div><div class="line">	&#125;</div><div class="line">	context.fillStyle = gradient;</div><div class="line">	context.arc(15+i*30,15+j*30,13,0,2*Math.PI);</div><div class="line">	context.closePath();</div><div class="line">	context.fill();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://on47sru77.bkt.clouddn.com/chesspan.png" alt="image"></p>
+<p>到此UI篇结束</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/06/28/wuziqi_UI/" data-id="cj4h7n3um000owgmmtle4h7ud" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/29/wuziqi_AI/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          javascirpt加canvas实现人机大战五子棋AI篇
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/11/li_jianju/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">css中li之间的空白符</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/06/29/wuziqi_AI/">javascirpt加canvas实现人机大战五子棋AI篇</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/28/wuziqi_UI/">javascirpt加canvas实现人机大战五子棋UI篇</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/11/li_jianju/">css中li之间的空白符</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/03/sidescroll/">固定边栏滚动效果</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/03/jsandjqtransform/">js对象与jq之间的转换</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
