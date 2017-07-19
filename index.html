@@ -61,6 +61,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-DOM_texing_shuxing" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/19/DOM_texing_shuxing/" class="article-date">
+  <time datetime="2017-07-19T03:32:39.921Z" itemprop="datePublished">2017-07-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/19/DOM_texing_shuxing/">DOM的特性和属性</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、特性</p>
+<p>每个元素都有一个或多个特性，这些特性的用途是给出相应元素或其他内容的附加信息</p>
+<p>特性设置：通过在HTML文档标签中设置”attributeName=’value’”，或者通过”element.setAttribute(‘attributeName’,’value’)”设置；</p>
+<p>特性访问：通过”element.getAttribute(attributeName)”取得特性值；<br>    、<br>删除特性：通过方法”element.removeAttribute()”。</p>
+<p>特性有公认特性（如id,class,title,lang,dir）和自定义特性。需要注意的是，根据HTML5规范，自定义特性要加上data-前缀以便验证。</p>
+<p>2、属性</p>
+<p>属性，说成是DOM对象的属性更容易理解，即通过”element.propertyName”进行设置和访问。通过”delete element.propertyName”进行删除。</p>
+<p>3、对于公认特性，属性和特性是相通的，即通过elememt.propertyName和element.setAttribute()和element.getAttribute()进行对象的访问和设置是一样的。看下面的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;myDiv&quot; align=&quot;left&quot; title=&quot;title&quot; my_attribute=&quot;hello!&quot;&gt;&lt;/div&gt;</div><div class="line"></div><div class="line"></div><div class="line">var div = document.getElementById(&quot;myDiv&quot;);</div><div class="line">div.title=&quot;asdf&quot;;或者(div.setAttribute(&quot;title&quot;,&quot;asdf&quot;);</div><div class="line">console.log(div.title);  //asdf</div><div class="line">console.log(div.getAttribute(&quot;title&quot;));  //asdf</div></pre></td></tr></table></figure>
+<p>通过element.propertyName和element.setAttribute()进行对特性的设置都会在html代码中反映出来，通过控制台的审查元素可以发现html代码的title值已经发生改变</p>
+<p>4、元素自定义特性，在元素中不存在相应属性，即不能以element.propertyName的形式访问到其相应属性。在这里，特性和属性没有关系，即通<br>过element.setAttribute()设置的元素自定义特性，没有属性与之相对应，同样，通过element.propertyName设置的自定义属性，也不能通过<br>element.getAttribute()访问到。看下面例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;myDiv&quot; align=&quot;left&quot; title=&quot;title&quot; my_attribute=&quot;hello!&quot;&gt;&lt;/div&gt;</div><div class="line"></div><div class="line">var div = document.getElementById(&quot;myDiv&quot;);</div><div class="line">console.log(div.my_attribute);  //undefined</div><div class="line">div.my_attribute = &quot;aaa&quot;;</div><div class="line">console.log(div.my_attribute);  //aaa</div><div class="line">console.log(div.getAttribute(&apos;my_attribute&apos;));  //hello! 审查元素html代码没有发生变化</div><div class="line">console.log(&quot;--------&quot;);</div><div class="line">div.setAttribute(&quot;my_attribute&quot;,&quot;bbb&quot;);</div><div class="line">console.log(div.my_attribute);  //aaa</div><div class="line">console.log(div.getAttribute(&quot;my_attribute&quot;));  //bbb  审查元素html代码发生改变</div><div class="line">console.log(&quot;--------------------&quot;);</div></pre></td></tr></table></figure>
+<p>这里查看控制台的审查元素，发现html代码改变，变成my_attribute值变成bbb<br>这可以说明element.getAttribute()得到的属性值是已经成为元素的特性的值，即html代码会改变的值<br>需要注意一点，上面的自定义提醒通过element.propertyName访问返回undefined是IE除外。</p>
+<p>通过element.propertyName添加自定义的属性，该属性不会自动成为元素的特性。看下面例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;myDiv1&quot; align=&quot;left&quot;&gt;&lt;/div&gt;</div><div class="line"></div><div class="line">var div1 = document.getElementById(&quot;myDiv1&quot;);</div><div class="line">div1.newAttribute = &quot;ooo&quot;; 控制台代码没有改变</div><div class="line">console.log(myDiv1.getAttribute(&quot;newAttribute&quot;));   //null</div><div class="line">console.log(div1.newAttribute);  //ooo</div><div class="line">div1.setAttribute(&quot;newAttribute&quot;,&quot;sss&quot;);</div><div class="line">console.log(div1.getAttribute(&quot;newAttribute&quot;));//sss  控制台代码发生变化</div><div class="line">console.log(div1.newAttribute);  //ooo</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;myDiv2&quot; align=&quot;left&quot;&gt;&lt;/div&gt; </div><div class="line"></div><div class="line">var div2 = document.getElementById(&quot;myDiv2&quot;);</div><div class="line">div2.setAttribute(&quot;newAttribute&quot;,&quot;sss&quot;);</div><div class="line">console.log(div2.getAttribute(&quot;newAttribute&quot;));//sss</div><div class="line">console.log(div2.newAttribute)//undefined</div></pre></td></tr></table></figure>
+<p>总结：</p>
+<p>element.propertyName设置或添加的自定义属性不能在html代码里反映出来，通过其添加的自定义属性不会自动成为元素的特性，不能通过element.getAttribute()获取设置后或添加的属性值。</p>
+<p>element.setAttribute()设置或添加的自定义特性会在html代码里反映出来，可以通过element.getAttribute()方法获取其值，而自定义特性不能和属性互通，也就是说不能通过element.propertyName获得值，这时通过element.propertyName得到的值是undefined（IE除外）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/07/19/DOM_texing_shuxing/" data-id="cj5agf8cv00008cmmhdw9m5xy" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-wuziqi_AI" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/06/29/wuziqi_AI/" class="article-date">
@@ -95,7 +150,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/06/29/wuziqi_AI/" data-id="cj4h7n3sp000iwgmm4k92b09u" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/06/29/wuziqi_AI/" data-id="cj5agf8ic000q8cmmx0yljux9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -139,7 +194,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/06/28/wuziqi_UI/" data-id="cj4h7n3um000owgmmtle4h7ud" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/06/28/wuziqi_UI/" data-id="cj5agf8hl000o8cmmn3iwzxbu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -183,7 +238,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/06/11/li_jianju/" data-id="cj4h7n3ru000bwgmm20w75n1i" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/06/11/li_jianju/" data-id="cj5agf8gg000b8cmmv2i74ps6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -225,7 +280,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/06/03/sidescroll/" data-id="cj4h7n3td000nwgmm0ebjgplq" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/06/03/sidescroll/" data-id="cj5agf8gx000g8cmmulsufvtt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -276,7 +331,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/06/03/jsandjqtransform/" data-id="cj4h7n3r70005wgmm2u3ujjsd" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/06/03/jsandjqtransform/" data-id="cj5agf8fo00058cmmwmqv5d18" class="article-share-link">Share</a>
       
       
     </footer>
@@ -322,7 +377,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/05/25/ie_error/" data-id="cj4h7n3s5000ewgmm2wx7v8h2" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/05/25/ie_error/" data-id="cj5agf8g800098cmmxfgncb5e" class="article-share-link">Share</a>
       
       
     </footer>
@@ -377,7 +432,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/26/css_ie_bug/" data-id="cj4h7n3pw0001wgmmdskprllb" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/26/css_ie_bug/" data-id="cj5agf8ex00028cmmq1azorc5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -434,7 +489,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/26/margin_chongdie/" data-id="cj4h7n3sa000gwgmm39h5vqee" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/26/margin_chongdie/" data-id="cj5agf8h8000k8cmmulr1b7ad" class="article-share-link">Share</a>
       
       
     </footer>
@@ -483,54 +538,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/26/clear_float/" data-id="cj4h7n3oz0000wgmm3ures4ab" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-position_absolute" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/21/position_absolute/" class="article-date">
-  <time datetime="2017-04-21T14:42:10.361Z" itemprop="datePublished">2017-04-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/21/position_absolute/">无依赖的绝对定位position absolute</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>无依赖的绝对定位，就是不依赖于父元素的绝对定位。什么是不依赖父元素的绝对定位呢？</p>
-<p>这里首先点名一点：absolute不一定非与relative绑定在一起；二者是分离的、对立的；不是兄弟元素；absolute越独立越强大；</p>
-<p>我们知道，一般子元素相对父元素的绝对定位都会在父元素那里加个absolute:position;例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;box&quot;&gt;</div><div class="line">	&lt;div class=&quot;sub&quot;&gt;&lt;/div&gt;</div><div class="line">	&lt;div class=&quot;sub1&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
-<p>例如，上述代码，要实现如图所示的效果：</p>
-<p><img src="http://on47sru77.bkt.clouddn.com/20170421221431.png" alt="image"><br>一般都会用如下代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">.box&#123;</div><div class="line">	background: red;</div><div class="line">	width:300px;</div><div class="line">	height:200px;</div><div class="line">	margin:50px auto;</div><div class="line">	position:relative;</div><div class="line">&#125;</div><div class="line">.sub&#123;</div><div class="line">	position:absolute;</div><div class="line">	width:20px;</div><div class="line">	height:20px;</div><div class="line">	left:-20px;</div><div class="line">	background: #000;</div><div class="line">&#125;</div><div class="line">.sub1&#123;</div><div class="line">	width:200px;</div><div class="line">	height:150px;</div><div class="line">	background: #ff7f50;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这是依赖于父元素的relative;而用无依赖的绝对定位，即不依赖与父元素的relative怎么实现呢，是利用绝对定位加margin实现的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">.box&#123;</div><div class="line">	background: red;</div><div class="line">	width:300px;</div><div class="line">	height:200px;</div><div class="line">	margin:50px auto;</div><div class="line">	//这里少了position:relative;</div><div class="line">&#125;</div><div class="line">.sub&#123;</div><div class="line">	position:absolute;</div><div class="line">	width:20px;</div><div class="line">	height:20px;</div><div class="line">	margin-left: -20px;//这里利用margin-left</div><div class="line">	background: #000;</div><div class="line">&#125;</div><div class="line">.sub1&#123;</div><div class="line">	width:200px;</div><div class="line">	height:150px;</div><div class="line">	background: #ff7f50;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这样同让会实现上述效果，这就是无依赖的绝对定位。<br>此外，要多多利用absolute的跟随性和无依赖，绝对定位的跟随性，就是原来出现在什么位置，绝对定位后就出现在什么位置，只不过这时它已经脱离了文档流而已，这就是跟随性，利用这种特性，可以实现图片居中。</p>
-<p>思路就是利用父元素给个text-align，然后父元素包裹一个空格，后面紧跟&lt;img&gt;图片，这是因为absolute不能继承text-align，所以给个空格继承，然后利用跟随性和无依赖就可以实现居中了。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/position_absolute/" data-id="cj4h7n3s7000fwgmm1ai7luhf" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/26/clear_float/" data-id="cj5agf8dv00018cmmpilksbnk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -561,7 +569,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
     </div>
   </div>
 
@@ -572,6 +580,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/07/19/DOM_texing_shuxing/">DOM的特性和属性</a>
+          </li>
         
           <li>
             <a href="/2017/06/29/wuziqi_AI/">javascirpt加canvas实现人机大战五子棋AI篇</a>
@@ -587,10 +599,6 @@
         
           <li>
             <a href="/2017/06/03/sidescroll/">固定边栏滚动效果</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/03/jsandjqtransform/">js对象与jq之间的转换</a>
           </li>
         
       </ul>

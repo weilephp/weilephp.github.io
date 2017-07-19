@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>DOM的特性和属性 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1、特性
+每个元素都有一个或多个特性，这些特性的用途是给出相应元素或其他内容的附加信息
+特性设置：通过在HTML文档标签中设置”attributeName=’value’”，或者通过”element.setAttribute(‘attributeName’,’value’)”设置；
+特性访问：通过”element.getAttribute(attributeName)”取得特性值；    、删除特">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DOM的特性和属性">
+<meta property="og:url" content="http://weilephp.github.io/2017/07/19/DOM_texing_shuxing/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1、特性
+每个元素都有一个或多个特性，这些特性的用途是给出相应元素或其他内容的附加信息
+特性设置：通过在HTML文档标签中设置”attributeName=’value’”，或者通过”element.setAttribute(‘attributeName’,’value’)”设置；
+特性访问：通过”element.getAttribute(attributeName)”取得特性值；    、删除特">
+<meta property="og:updated_time" content="2017-07-19T03:33:26.822Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DOM的特性和属性">
+<meta name="twitter:description" content="1、特性
+每个元素都有一个或多个特性，这些特性的用途是给出相应元素或其他内容的附加信息
+特性设置：通过在HTML文档标签中设置”attributeName=’value’”，或者通过”element.setAttribute(‘attributeName’,’value’)”设置；
+特性访问：通过”element.getAttribute(attributeName)”取得特性值；    、删除特">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-DOM_texing_shuxing" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/19/DOM_texing_shuxing/" class="article-date">
+  <time datetime="2017-07-19T03:32:39.921Z" itemprop="datePublished">2017-07-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      DOM的特性和属性
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、特性</p>
+<p>每个元素都有一个或多个特性，这些特性的用途是给出相应元素或其他内容的附加信息</p>
+<p>特性设置：通过在HTML文档标签中设置”attributeName=’value’”，或者通过”element.setAttribute(‘attributeName’,’value’)”设置；</p>
+<p>特性访问：通过”element.getAttribute(attributeName)”取得特性值；<br>    、<br>删除特性：通过方法”element.removeAttribute()”。</p>
+<p>特性有公认特性（如id,class,title,lang,dir）和自定义特性。需要注意的是，根据HTML5规范，自定义特性要加上data-前缀以便验证。</p>
+<p>2、属性</p>
+<p>属性，说成是DOM对象的属性更容易理解，即通过”element.propertyName”进行设置和访问。通过”delete element.propertyName”进行删除。</p>
+<p>3、对于公认特性，属性和特性是相通的，即通过elememt.propertyName和element.setAttribute()和element.getAttribute()进行对象的访问和设置是一样的。看下面的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;myDiv&quot; align=&quot;left&quot; title=&quot;title&quot; my_attribute=&quot;hello!&quot;&gt;&lt;/div&gt;</div><div class="line"></div><div class="line"></div><div class="line">var div = document.getElementById(&quot;myDiv&quot;);</div><div class="line">div.title=&quot;asdf&quot;;或者(div.setAttribute(&quot;title&quot;,&quot;asdf&quot;);</div><div class="line">console.log(div.title);  //asdf</div><div class="line">console.log(div.getAttribute(&quot;title&quot;));  //asdf</div></pre></td></tr></table></figure>
+<p>通过element.propertyName和element.setAttribute()进行对特性的设置都会在html代码中反映出来，通过控制台的审查元素可以发现html代码的title值已经发生改变</p>
+<p>4、元素自定义特性，在元素中不存在相应属性，即不能以element.propertyName的形式访问到其相应属性。在这里，特性和属性没有关系，即通<br>过element.setAttribute()设置的元素自定义特性，没有属性与之相对应，同样，通过element.propertyName设置的自定义属性，也不能通过<br>element.getAttribute()访问到。看下面例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;myDiv&quot; align=&quot;left&quot; title=&quot;title&quot; my_attribute=&quot;hello!&quot;&gt;&lt;/div&gt;</div><div class="line"></div><div class="line">var div = document.getElementById(&quot;myDiv&quot;);</div><div class="line">console.log(div.my_attribute);  //undefined</div><div class="line">div.my_attribute = &quot;aaa&quot;;</div><div class="line">console.log(div.my_attribute);  //aaa</div><div class="line">console.log(div.getAttribute(&apos;my_attribute&apos;));  //hello! 审查元素html代码没有发生变化</div><div class="line">console.log(&quot;--------&quot;);</div><div class="line">div.setAttribute(&quot;my_attribute&quot;,&quot;bbb&quot;);</div><div class="line">console.log(div.my_attribute);  //aaa</div><div class="line">console.log(div.getAttribute(&quot;my_attribute&quot;));  //bbb  审查元素html代码发生改变</div><div class="line">console.log(&quot;--------------------&quot;);</div></pre></td></tr></table></figure>
+<p>这里查看控制台的审查元素，发现html代码改变，变成my_attribute值变成bbb<br>这可以说明element.getAttribute()得到的属性值是已经成为元素的特性的值，即html代码会改变的值<br>需要注意一点，上面的自定义提醒通过element.propertyName访问返回undefined是IE除外。</p>
+<p>通过element.propertyName添加自定义的属性，该属性不会自动成为元素的特性。看下面例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;myDiv1&quot; align=&quot;left&quot;&gt;&lt;/div&gt;</div><div class="line"></div><div class="line">var div1 = document.getElementById(&quot;myDiv1&quot;);</div><div class="line">div1.newAttribute = &quot;ooo&quot;; 控制台代码没有改变</div><div class="line">console.log(myDiv1.getAttribute(&quot;newAttribute&quot;));   //null</div><div class="line">console.log(div1.newAttribute);  //ooo</div><div class="line">div1.setAttribute(&quot;newAttribute&quot;,&quot;sss&quot;);</div><div class="line">console.log(div1.getAttribute(&quot;newAttribute&quot;));//sss  控制台代码发生变化</div><div class="line">console.log(div1.newAttribute);  //ooo</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;myDiv2&quot; align=&quot;left&quot;&gt;&lt;/div&gt; </div><div class="line"></div><div class="line">var div2 = document.getElementById(&quot;myDiv2&quot;);</div><div class="line">div2.setAttribute(&quot;newAttribute&quot;,&quot;sss&quot;);</div><div class="line">console.log(div2.getAttribute(&quot;newAttribute&quot;));//sss</div><div class="line">console.log(div2.newAttribute)//undefined</div></pre></td></tr></table></figure>
+<p>总结：</p>
+<p>element.propertyName设置或添加的自定义属性不能在html代码里反映出来，通过其添加的自定义属性不会自动成为元素的特性，不能通过element.getAttribute()获取设置后或添加的属性值。</p>
+<p>element.setAttribute()设置或添加的自定义特性会在html代码里反映出来，可以通过element.getAttribute()方法获取其值，而自定义特性不能和属性互通，也就是说不能通过element.propertyName获得值，这时通过element.propertyName得到的值是undefined（IE除外）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/07/19/DOM_texing_shuxing/" data-id="cj5agf8cv00008cmmhdw9m5xy" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/06/29/wuziqi_AI/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">javascirpt加canvas实现人机大战五子棋AI篇</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/19/DOM_texing_shuxing/">DOM的特性和属性</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/29/wuziqi_AI/">javascirpt加canvas实现人机大战五子棋AI篇</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/28/wuziqi_UI/">javascirpt加canvas实现人机大战五子棋UI篇</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/11/li_jianju/">css中li之间的空白符</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/03/sidescroll/">固定边栏滚动效果</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
