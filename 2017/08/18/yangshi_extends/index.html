@@ -3,48 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>ueditor的使用 | Hexo</title>
+  <title>样式继承 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="tp下的udeitord的使用
-下载ueditor的扩展包，然后解压在合适的目录下
-引入ueditor文件里面的js文件
-
-123ueditor.config.jsueditor.all.min.jslang/zh-cn/zh-cn.js
-上面三个文件
-13. 编辑器处像&amp;lt;textarea&amp;gt;标签引入id=&amp;quot;content&amp;quot;
-
-底部
-
-1&amp;lt;script type">
+  <meta name="description" content="不可继承的：display、margin、border、padding、background、height、min-height、max- height、width、min-width、max-width、overflow、position、left、right、top、 bottom、z-index、float、clear、table-layout、vertical-align、page-bre">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ueditor的使用">
-<meta property="og:url" content="http://weilephp.github.io/2017/03/20/ueditor/index.html">
+<meta property="og:title" content="样式继承">
+<meta property="og:url" content="http://weilephp.github.io/2017/08/18/yangshi_extends/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="tp下的udeitord的使用
-下载ueditor的扩展包，然后解压在合适的目录下
-引入ueditor文件里面的js文件
-
-123ueditor.config.jsueditor.all.min.jslang/zh-cn/zh-cn.js
-上面三个文件
-13. 编辑器处像&amp;lt;textarea&amp;gt;标签引入id=&amp;quot;content&amp;quot;
-
-底部
-
-1&amp;lt;script type">
-<meta property="og:updated_time" content="2017-03-20T15:05:02.133Z">
+<meta property="og:description" content="不可继承的：display、margin、border、padding、background、height、min-height、max- height、width、min-width、max-width、overflow、position、left、right、top、 bottom、z-index、float、clear、table-layout、vertical-align、page-bre">
+<meta property="og:updated_time" content="2017-08-18T10:39:13.353Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ueditor的使用">
-<meta name="twitter:description" content="tp下的udeitord的使用
-下载ueditor的扩展包，然后解压在合适的目录下
-引入ueditor文件里面的js文件
-
-123ueditor.config.jsueditor.all.min.jslang/zh-cn/zh-cn.js
-上面三个文件
-13. 编辑器处像&amp;lt;textarea&amp;gt;标签引入id=&amp;quot;content&amp;quot;
-
-底部
-
-1&amp;lt;script type">
+<meta name="twitter:title" content="样式继承">
+<meta name="twitter:description" content="不可继承的：display、margin、border、padding、background、height、min-height、max- height、width、min-width、max-width、overflow、position、left、right、top、 bottom、z-index、float、clear、table-layout、vertical-align、page-bre">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -93,10 +63,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-ueditor" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-yangshi_extends" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/03/20/ueditor/" class="article-date">
-  <time datetime="2017-03-20T14:46:47.655Z" itemprop="datePublished">2017-03-20</time>
+    <a href="/2017/08/18/yangshi_extends/" class="article-date">
+  <time datetime="2017-08-18T10:36:31.114Z" itemprop="datePublished">2017-08-18</time>
 </a>
     
   </div>
@@ -107,7 +77,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      ueditor的使用
+      样式继承
     </h1>
   
 
@@ -115,25 +85,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="tp下的udeitord的使用"><a href="#tp下的udeitord的使用" class="headerlink" title="tp下的udeitord的使用"></a>tp下的udeitord的使用</h1><ol>
-<li>下载ueditor的扩展包，然后解压在合适的目录下</li>
-<li>引入ueditor文件里面的js文件</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ueditor.config.js</div><div class="line">ueditor.all.min.js</div><div class="line">lang/zh-cn/zh-cn.js</div></pre></td></tr></table></figure>
-<p>上面三个文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">3. 编辑器处像&lt;textarea&gt;标签引入id=&quot;content&quot;</div></pre></td></tr></table></figure>
-<ol>
-<li>底部</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//实例化编辑器</div><div class="line">    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor(&apos;editor&apos;)就能拿到相关的实例</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">UE.getEditor(&apos;content&apos;,&#123;initialFrameWidth:1500,initialFrameHeight:400,&#125;);</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+        <p>不可继承的：display、margin、border、padding、background、height、min-height、max- height、width、min-width、max-width、overflow、position、left、right、top、 bottom、z-index、float、clear、table-layout、vertical-align、page-break-after、 page-bread-before和unicode-bidi。</p>
+<p>所有元素可继承：visibility和cursor。 </p>
+<p>内联元素可继承：letter-spacing、word-spacing、white-space、line-height、color、font、 font-family、font-size、font-style、font-variant、font-weight、text- decoration、text-transform、direction。</p>
+<p>块状元素可继承：text-indent和text-align。 </p>
+<p>列表元素可继承：list-style、list-style-type、list-style-position、list-style-image。</p>
+<p>表格元素可继承：border-collapse。 </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/03/20/ueditor/" data-id="cj6hquasb000ju4mm9b883osm" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/08/18/yangshi_extends/" data-id="cj6hquasp000nu4mm2z4281ku" class="article-share-link">Share</a>
       
       
     </footer>
@@ -142,15 +104,20 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/03/22/thinkphp/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/08/18/zoom_display_inline_block/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          thinkphp笔记
+          display的inline-block兼容IE6,IE7的写法还有zoom 1的作用
         
       </div>
     </a>
   
+  
+    <a href="/2017/07/19/DOM_texing_shuxing/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">DOM的特性和属性</div>
+    </a>
   
 </nav>
 

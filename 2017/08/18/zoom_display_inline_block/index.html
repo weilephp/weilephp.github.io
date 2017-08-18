@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>display的inline-block兼容IE6,IE7的写法还有zoom 1的作用 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="display:inline-block属性可以将一个元素变成行内块元素，就是能够在一行显示，同时不设置float就可以定义宽高。1.ie6/7支持display:inline-block这个属性吗？
+
+在内联元素上定义display:inline-block属性，发现IE6、IE7中的显示效果同其它浏览器一致，但事实是ie7及更低版本的ie浏览器不支持display:inline-block这个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="display的inline-block兼容IE6,IE7的写法还有zoom 1的作用">
+<meta property="og:url" content="http://weilephp.github.io/2017/08/18/zoom_display_inline_block/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="display:inline-block属性可以将一个元素变成行内块元素，就是能够在一行显示，同时不设置float就可以定义宽高。1.ie6/7支持display:inline-block这个属性吗？
+
+在内联元素上定义display:inline-block属性，发现IE6、IE7中的显示效果同其它浏览器一致，但事实是ie7及更低版本的ie浏览器不支持display:inline-block这个">
+<meta property="og:updated_time" content="2017-08-18T10:39:34.387Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="display的inline-block兼容IE6,IE7的写法还有zoom 1的作用">
+<meta name="twitter:description" content="display:inline-block属性可以将一个元素变成行内块元素，就是能够在一行显示，同时不设置float就可以定义宽高。1.ie6/7支持display:inline-block这个属性吗？
+
+在内联元素上定义display:inline-block属性，发现IE6、IE7中的显示效果同其它浏览器一致，但事实是ie7及更低版本的ie浏览器不支持display:inline-block这个">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://weilephp.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-zoom_display_inline_block" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/18/zoom_display_inline_block/" class="article-date">
+  <time datetime="2017-08-18T10:38:33.865Z" itemprop="datePublished">2017-08-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      display的inline-block兼容IE6,IE7的写法还有zoom 1的作用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="display-inline-block属性可以将一个元素变成行内块元素，就是能够在一行显示，同时不设置float就可以定义宽高。"><a href="#display-inline-block属性可以将一个元素变成行内块元素，就是能够在一行显示，同时不设置float就可以定义宽高。" class="headerlink" title="display:inline-block属性可以将一个元素变成行内块元素，就是能够在一行显示，同时不设置float就可以定义宽高。"></a>display:inline-block属性可以将一个元素变成行内块元素，就是能够在一行显示，同时不设置float就可以定义宽高。</h4><p>1.ie6/7支持display:inline-block这个属性吗？</p>
+<blockquote>
+<p>在内联元素上定义display:inline-block属性，发现IE6、IE7中的显示效果同其它浏览器一致，但事实是ie7及更低版本的ie浏览器不支持display:inline-block这个属性！ 正确的解释是”使用inline-block属性在IE下会触发layout，因此元素上设置的width、height是能生效的，所以也就有了同其它浏览器一致的显示效果”,而不能说IE6/7支持 display:inline-block！</p>
+</blockquote>
+<p>那么，什么是layout呢？</p>
+<blockquote>
+<p>“Layout”是一个 IE/Win 的私有概念，它决定了一个元素如何显示以及约束其包含的内容、如何与其他元素交互和建立联系、如何响应和传递应用程序事件/用户事件等。 这种渲染特性可以通过某些 CSS 属性被不可逆转地触发。而有些 HTML 元素则默认就具有“layout”。 微软的开发者们认为元素都应该可以拥有一个“属性(property)”(这是面向对象编程中的一个概念)，于是他们便使用了 hasLayout，这种渲染特性生效时也就是将 hasLayout 设成了 true 之时。 术语 当我们说一个元素“得到 layout”，或者说一个元素“拥有 layout” 的时候，我们的意思是指它的微软专有属性 hasLayout <a href="http://msdn.microsoft.com/worksh" target="_blank" rel="external">http://msdn.microsoft.com/worksh</a> … rties/haslayout.asp 为此被设为了 true 。一个“layout元素”可以是一个默认就拥有 layout 的元素或者是一个通过设置某些 CSS 属性得到 layout 的元素。 而“无layout元素”，是指 hasLayout 未被触发的元素，比如一个未设定宽高尺寸的干净 div 元素就可以做为一个“无layout祖先”。 给一个默认没有 layout 的元素赋予 layout 的方法包括设置可触发 hasLayout = true 的 CSS 属性。参考默认 layout 元素以及这些属性列表。没有办法设置 hasLayout = false ， 除非把一开始那些触发 hasLayout = true 的 CSS 属性去除</p>
+</blockquote>
+<p>2.行内元素只需定义display:inline-block，显示效果各浏览器都是一致，IE7下块元素如何实现<br>display:inline-block 的效果？？</p>
+<blockquote>
+<p>在IE下，display: inline-block只是触发了元素的layout。比如将display: inline-block设置到div上，只能保证这个div拥有块元素的特征（可以设置宽度，高度等），但还是会产生换行。接下来要设置display:<br>inline，使其不产生换行。将display:inline-block;<em>display:inline;写在同一个样式上，inline-block属性是不会触发元素的layout的，因此我们还要额外加上 </em>zoom:1来触发layout!</p>
+</blockquote>
+<p>3.IE7下块元素如何兼容display:inline-block写法？</p>
+<blockquote>
+<p>实际有效的方法共有2种：</p>
+<p>方法1：直接让块元素设置为内联对象呈递（设置属性 display:inline），然后触发块元素的 layout（如：zoom:1等）。兼容各浏览器的代码如下： div {display:inline-block;+display:inline; +zoom:1;…}</p>
+<p>解释：dispaly:inline-block照顾的是ie8+的浏览器，这是正常的设置，在低版本的ie下设置行内块有2个条件，一个是行内，一个是设置宽高，触发layout即可设置宽高，而div设置了宽高后还是会换行，layout不是为水平而设置的，所以为块级元素转行内块加上了*display：inline属性，但是display：inline不会触发layout，于是加上zoom：1重新触发layout，于是就形成了一个可以“设置宽高的行内元素”</p>
+<p>方法二：方法2：先使用 display:inline-block 属性触发块元素，然后再定义 display:inline，让块元素呈递为内联对象（两个display 要先后放在两个 CSS 样式声明中才有效果，这是 IE 的一个经典bug ，如果先定义了 display:inline-block，然后再将 display 设回 inline 或 block，layout不会消失）。代码如下（…为省略的其他属性内容）： div {display:inline-block;…}div{*display:inline;}</p>
+</blockquote>
+<p>对方法2的解释——inline-block和inline分别放在两个样式声明layout触发后不消失，否则前一个属性自动被后一个覆盖，前一个属性根本不会执行。</p>
+<h4 id="前面的display-inline-block的兼容中，用到了zoom-1触发Layout-那么zoom-1到底哪些作用的？？"><a href="#前面的display-inline-block的兼容中，用到了zoom-1触发Layout-那么zoom-1到底哪些作用的？？" class="headerlink" title="前面的display:inline-block的兼容中，用到了zoom:1触发Layout,那么zoom:1到底哪些作用的？？"></a>前面的display:inline-block的兼容中，用到了zoom:1触发Layout,那么zoom:1到底哪些作用的？？</h4><p>zoom:1确实帮我们解决了不少ie下的bug</p>
+<p>Zoom属性是IE浏览器的专有属性， 它可以设置或检索对象的缩放比例。</p>
+<p>在平常的css编写过程中，zoom:1能够比较神奇地解决ie下比较奇葩的bug。</p>
+<p>例如外边距（margin）的重叠，浮动的清除，触发ie的 haslayout属性等等。</p>
+<p>zoom是 设置或检索对象的缩放比例。设置或更改一个已被呈递的对象的此属性值将导致环绕对象的内容重新流动，于是就出发了Layout。</p>
+<p>当设置了zoom的值之后，所设置的元素就会就会扩大或者缩小，高度宽度就会重新计算了，这里一旦改变zoom值时其实也会发生重新渲染，运用这个原理，也就解决了ie下子元素浮动时候父元素不随着自动扩大的问题。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/08/18/zoom_display_inline_block/" data-id="cj6hquasq000ou4mmvjxupmgn" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/08/18/yangshi_extends/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">样式继承</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/08/18/zoom_display_inline_block/">display的inline-block兼容IE6,IE7的写法还有zoom 1的作用</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/18/yangshi_extends/">样式继承</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/19/DOM_texing_shuxing/">DOM的特性和属性</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/29/wuziqi_AI/">javascirpt加canvas实现人机大战五子棋AI篇</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/28/wuziqi_UI/">javascirpt加canvas实现人机大战五子棋UI篇</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
