@@ -61,6 +61,52 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-wps_juzhongti" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/20/wps_juzhongti/" class="article-date">
+  <time datetime="2017-09-20T02:31:00.992Z" itemprop="datePublished">2017-09-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/20/wps_juzhongti/">不设置宽高的水平垂直居中</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>昨天金山wps笔试，有一道题是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;div1&quot;&gt;&lt;div id=&quot;div2&quot;&gt;&lt;/div&gt;&lt;/div&gt; 在不确定div2的情况下，实现div2上下左右居中。</div></pre></td></tr></table></figure>
+<p>也就是不知道宽高的情况下设置垂直水平居中；<br>我当时只知道flex方法，而找了一些资料，有了一些总结。</p>
+<p>html结构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;father&quot;&gt;</div><div class="line">	&lt;div class=&quot;son&quot;&gt;abcdefg&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>css：</p>
+<p>1、用flex；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">.father&#123;</div><div class="line">    width:400px;</div><div class="line">    height:400px;</div><div class="line">    background-color: #00a0dc;</div><div class="line">    display: flex;</div><div class="line">    justify-content:center;</div><div class="line">	align-items:center;</div><div class="line">&#125;</div><div class="line">.son&#123;</div><div class="line">	background-color: #dc65d2;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2、用flex+margin;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">.father&#123;</div><div class="line">    width:400px;</div><div class="line">    height:400px;</div><div class="line">    background-color: #00a0dc;</div><div class="line">    display: flex;</div><div class="line">&#125;</div><div class="line">.son&#123;</div><div class="line">	background-color: #dc65d2;</div><div class="line">	margin:auto;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3、transform;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">.father&#123;</div><div class="line">    width:400px;</div><div class="line">    height:400px;</div><div class="line">    background-color: #00a0dc;</div><div class="line">    position: relative;</div><div class="line">&#125;</div><div class="line">.son&#123;</div><div class="line">	background-color: #dc65d2;</div><div class="line">	position:absolute;</div><div class="line">	top:50%;</div><div class="line">	left: 50%;</div><div class="line">	transform: translate(-50%,-50%);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>4、display:table-cell;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">.father&#123;</div><div class="line">    width:400px;</div><div class="line">    height:400px;</div><div class="line">    background-color: #00a0dc;</div><div class="line">    display: table-cell;</div><div class="line">    text-align: center;</div><div class="line">    vertical-align: middle;</div><div class="line">&#125;</div><div class="line">.son&#123;</div><div class="line">	display: inline-block;</div><div class="line">	background-color: #dc65d2;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>经过试验，以上4中方法都是可以的！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/09/20/wps_juzhongti/" data-id="cj7seynvj000ln8mmf334zkkw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-zoom_display_inline_block" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/08/18/zoom_display_inline_block/" class="article-date">
@@ -113,7 +159,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/08/18/zoom_display_inline_block/" data-id="cj6hr1kdz000s2wmmx6oulu50" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/08/18/zoom_display_inline_block/" data-id="cj7seynvz000qn8mmcygmq0r6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -155,7 +201,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/08/18/yangshi_extends/" data-id="cj6hr1kdx000r2wmmjzkx0qkk" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/08/18/yangshi_extends/" data-id="cj7seynw6000sn8mmzhfj0x1l" class="article-share-link">Share</a>
       
       
     </footer>
@@ -210,7 +256,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/07/19/DOM_texing_shuxing/" data-id="cj6hr1kaw00002wmmwxmr4ijn" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/07/19/DOM_texing_shuxing/" data-id="cj7seynrq0000n8mmsolr9t79" class="article-share-link">Share</a>
       
       
     </footer>
@@ -254,7 +300,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/06/29/wuziqi_AI/" data-id="cj6hr1kdr000p2wmmuqs11119" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/06/29/wuziqi_AI/" data-id="cj7seynw3000rn8mmo5dxyrqs" class="article-share-link">Share</a>
       
       
     </footer>
@@ -298,7 +344,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/06/28/wuziqi_UI/" data-id="cj6hr1kdt000q2wmmcd81qqam" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/06/28/wuziqi_UI/" data-id="cj7seynvt000on8mmv9un6m4e" class="article-share-link">Share</a>
       
       
     </footer>
@@ -342,7 +388,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/06/11/li_jianju/" data-id="cj6hr1kcw000f2wmm5yzwa3d1" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/06/11/li_jianju/" data-id="cj7seynue000en8mmwjsvtplf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -384,7 +430,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/06/03/sidescroll/" data-id="cj6hr1kd9000j2wmmeb58xki8" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/06/03/sidescroll/" data-id="cj7seynuk000gn8mmfilh3zxd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -435,7 +481,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/06/03/jsandjqtransform/" data-id="cj6hr1kci000a2wmm5gzlr9rm" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/06/03/jsandjqtransform/" data-id="cj7seynt50007n8mm81itt9nw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -481,62 +527,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/05/25/ie_error/" data-id="cj6hr1kc100072wmm3aiaw48a" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-css_ie_bug" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/26/css_ie_bug/" class="article-date">
-  <time datetime="2017-04-26T15:27:15.797Z" itemprop="datePublished">2017-04-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/26/css_ie_bug/">CSS控制之BUG（不兼容问题）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="常见的几种原因："><a href="#常见的几种原因：" class="headerlink" title="常见的几种原因："></a>常见的几种原因：</h4><p>1.没有使用正确的doctype（解决：使用严格doctype声明）</p>
-<p>2.各浏览器对不同的标签的初始值不同，特别是ie和其他浏览器的区别。（解决：css初始化，即*{padding:0px;margin:0px;}）</p>
-<p>3.自身书写不规范引起的（解决：规范代码书写）</p>
-<p>4.浏览器Bug引起的。如下：</p>
-<p>（1）IE之双倍margin BUG：浮动ie产生的双倍距离（IE6双边距问题：在IE6下，如果对元素设置了浮动，同时又设置了margin-left或margin-right，margin值会加倍。）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#box&#123; float:left; width:10px; margin:0 0 0 100px;&#125;</div></pre></td></tr></table></figure></p>
-<p>这种情况之下IE会产生20px的距离，解决方案是在float的标签样式控制中加入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">_display:inline;(display:inline;display:table;)</div></pre></td></tr></table></figure>
-<p>将其转化为行内属性。(_这个符号只有ie6会识别)</p>
-<p>（2）3像素nargin BUG：两个相邻DIV，如果只写一个浮动，那么另一个也会跟着浮了，但之间有隔3像素</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div style=&quot;margin: 0 auto; background-color: #ccc;&quot;&gt;</div><div class="line">    &lt;div style=&quot;width: 200px; height: 100px; float: left; background-color: #95f49e;&quot;&gt;left&lt;/div&gt;</div><div class="line">    &lt;div style=&quot;background-color: #fff; height: 100px; border: 1px solid #ccc;&quot;&gt;right&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
-<p>上面的代码在ie6低下运行时，会发现right前面出现3px的空格。</p>
-<p>　解决方法：a.对另一个元素同时使用float； b.为已经浮动的div添加一条语句：margin-right:-3px; </p>
-<p>（3）设置较小高度标签（一般小于10px），在IE6，IE7，遨游中高度超出自己设置高度，即想要弄一个3像素高的div，在IE6，IE7会出现问题，高度会超出。</p>
-<p>解决方案：给超出高度的标签设置overflow:hidden;或者设置行高line-height 小于你设置的高度。</p>
-<p>(4)图片默认有间距：几个img标签放在一起的时候，有些浏览器会有默认的间距</p>
-<p>解决：使用float属性为img布局</p>
-<p>（5）png24位的图片在iE6浏览器上出现背景，解决方案是做成PNG8.也可以引用一段脚本处理.</p>
-<p>（6）css hack：简单的说，CS Shack的目的就是使你的CSS代码兼容不同的浏览器。当然，我们也可以反过来利用CSS hack为不同版本的浏览器定制编写不同的CSS效果。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">.bb&#123;</div><div class="line"></div><div class="line">   background-color:#f1ee18;/*所有识别*/</div><div class="line"></div><div class="line">  .background-color:#00deff\9; /*IE6、7、8识别*/</div><div class="line"></div><div class="line">  +background-color:#a200ff;/*IE6、7识别*/</div><div class="line"></div><div class="line">  _background-color:#1e0bd1;/*IE6识别*/</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/26/css_ie_bug/" data-id="cj6hr1kbk00042wmml6t0bhsc" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/05/25/ie_error/" data-id="cj7seyntv000an8mmdf7g4itx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -567,7 +558,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
     </div>
   </div>
 
@@ -578,6 +569,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/09/20/wps_juzhongti/">不设置宽高的水平垂直居中</a>
+          </li>
         
           <li>
             <a href="/2017/08/18/zoom_display_inline_block/">display的inline-block兼容IE6,IE7的写法还有zoom 1的作用</a>
@@ -593,10 +588,6 @@
         
           <li>
             <a href="/2017/06/29/wuziqi_AI/">javascirpt加canvas实现人机大战五子棋AI篇</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/28/wuziqi_UI/">javascirpt加canvas实现人机大战五子棋UI篇</a>
           </li>
         
       </ul>

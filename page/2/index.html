@@ -61,6 +61,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-css_ie_bug" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/26/css_ie_bug/" class="article-date">
+  <time datetime="2017-04-26T15:27:15.797Z" itemprop="datePublished">2017-04-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/26/css_ie_bug/">CSS控制之BUG（不兼容问题）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="常见的几种原因："><a href="#常见的几种原因：" class="headerlink" title="常见的几种原因："></a>常见的几种原因：</h4><p>1.没有使用正确的doctype（解决：使用严格doctype声明）</p>
+<p>2.各浏览器对不同的标签的初始值不同，特别是ie和其他浏览器的区别。（解决：css初始化，即*{padding:0px;margin:0px;}）</p>
+<p>3.自身书写不规范引起的（解决：规范代码书写）</p>
+<p>4.浏览器Bug引起的。如下：</p>
+<p>（1）IE之双倍margin BUG：浮动ie产生的双倍距离（IE6双边距问题：在IE6下，如果对元素设置了浮动，同时又设置了margin-left或margin-right，margin值会加倍。）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#box&#123; float:left; width:10px; margin:0 0 0 100px;&#125;</div></pre></td></tr></table></figure></p>
+<p>这种情况之下IE会产生20px的距离，解决方案是在float的标签样式控制中加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">_display:inline;(display:inline;display:table;)</div></pre></td></tr></table></figure>
+<p>将其转化为行内属性。(_这个符号只有ie6会识别)</p>
+<p>（2）3像素nargin BUG：两个相邻DIV，如果只写一个浮动，那么另一个也会跟着浮了，但之间有隔3像素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div style=&quot;margin: 0 auto; background-color: #ccc;&quot;&gt;</div><div class="line">    &lt;div style=&quot;width: 200px; height: 100px; float: left; background-color: #95f49e;&quot;&gt;left&lt;/div&gt;</div><div class="line">    &lt;div style=&quot;background-color: #fff; height: 100px; border: 1px solid #ccc;&quot;&gt;right&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>上面的代码在ie6低下运行时，会发现right前面出现3px的空格。</p>
+<p>　解决方法：a.对另一个元素同时使用float； b.为已经浮动的div添加一条语句：margin-right:-3px; </p>
+<p>（3）设置较小高度标签（一般小于10px），在IE6，IE7，遨游中高度超出自己设置高度，即想要弄一个3像素高的div，在IE6，IE7会出现问题，高度会超出。</p>
+<p>解决方案：给超出高度的标签设置overflow:hidden;或者设置行高line-height 小于你设置的高度。</p>
+<p>(4)图片默认有间距：几个img标签放在一起的时候，有些浏览器会有默认的间距</p>
+<p>解决：使用float属性为img布局</p>
+<p>（5）png24位的图片在iE6浏览器上出现背景，解决方案是做成PNG8.也可以引用一段脚本处理.</p>
+<p>（6）css hack：简单的说，CS Shack的目的就是使你的CSS代码兼容不同的浏览器。当然，我们也可以反过来利用CSS hack为不同版本的浏览器定制编写不同的CSS效果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">.bb&#123;</div><div class="line"></div><div class="line">   background-color:#f1ee18;/*所有识别*/</div><div class="line"></div><div class="line">  .background-color:#00deff\9; /*IE6、7、8识别*/</div><div class="line"></div><div class="line">  +background-color:#a200ff;/*IE6、7识别*/</div><div class="line"></div><div class="line">  _background-color:#1e0bd1;/*IE6识别*/</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://weilephp.github.io/2017/04/26/css_ie_bug/" data-id="cj7seyns90002n8mmhij3zxcg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-margin_chongdie" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/04/26/margin_chongdie/" class="article-date">
@@ -108,7 +163,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/26/margin_chongdie/" data-id="cj6hr1kcz000g2wmm04vk5pm5" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/26/margin_chongdie/" data-id="cj7seynuw000hn8mm4ycn9qda" class="article-share-link">Share</a>
       
       
     </footer>
@@ -157,7 +212,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/26/clear_float/" data-id="cj6hr1kbc00022wmmdlhzuq5l" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/26/clear_float/" data-id="cj7seyns30001n8mmogwo4hzx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -204,7 +259,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/position_absolute/" data-id="cj6hr1kd6000i2wmm2mirq6f6" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/position_absolute/" data-id="cj7seynv0000in8mmo1mtqwxn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -253,7 +308,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/" data-id="cj6hr1kd3000h2wmmj2svqbk3" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/meta_http-equiv_X-UA-Compatible_viewport/" data-id="cj7seynu5000cn8mmgsw3is2d" class="article-share-link">Share</a>
       
       
     </footer>
@@ -291,7 +346,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/input_button/" data-id="cj6hr1kcc00082wmmgj99suth" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/input_button/" data-id="cj7seynsl0004n8mmvk2ift9e" class="article-share-link">Share</a>
       
       
     </footer>
@@ -336,7 +391,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/javascript_global_jubu_bianliang/" data-id="cj6hr1kcf00092wmm0c9blhtw" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/javascript_global_jubu_bianliang/" data-id="cj7seynt10006n8mm1gcyjaxv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -565,7 +620,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/w3c_media_type/" data-id="cj6hr1kdo000o2wmmplshqnwj" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/w3c_media_type/" data-id="cj7seynvn000mn8mmy3bjcd04" class="article-share-link">Share</a>
       
       
     </footer>
@@ -609,7 +664,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/21/css_initial/" data-id="cj6hr1kbv00052wmmz3qnxn85" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/21/css_initial/" data-id="cj7seynuh000fn8mm8apq077b" class="article-share-link">Share</a>
       
       
     </footer>
@@ -660,49 +715,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_4/" data-id="cj6hr1kcv000e2wmm7vurq0dm" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-lamp_3" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/04/15/lamp_3/" class="article-date">
-  <time datetime="2017-04-14T16:54:16.514Z" itemprop="datePublished">2017-04-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/15/lamp_3/">lamp环境搭建（三）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="PHP篇"><a href="#PHP篇" class="headerlink" title="PHP篇"></a>PHP篇</h2><p>安装centos6.5自带php</p>
-<p>安装相关模块：为了让PHP支持MySQL，我们可以安装php-mysql软件包；也可使用以下命令搜索可用的php模块<br>[root@localhost ~]# yum -y install php php-mysql</p>
-<h4 id="安装php常用扩展"><a href="#安装php常用扩展" class="headerlink" title="安装php常用扩展"></a>安装php常用扩展</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# yum search php</div><div class="line">[root@localhost ~]# yum -y install gd php-gd gd-devel php-xml php-common php-mbstring php-ldap php-pear php-xmlrpc php-imap</div></pre></td></tr></table></figure>
-<p>其中gd-devel php-mbstring php-imap找不到镜像，要下载rpm包才可以，但是找不到php-imap-5.3.3-26-el6-x86_64的包，所以没装</p>
-<h4 id="重启httpd服务，这一步很重要"><a href="#重启httpd服务，这一步很重要" class="headerlink" title="重启httpd服务，这一步很重要"></a>重启httpd服务，这一步很重要</h4><p>[root@localhost ~]# service httpd restart</p>
-<p>然后，我们提供php页面，测试</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# cd /var/www/html/</div><div class="line">[root@localhost html]# vi index.php</div><div class="line">&lt;?php</div><div class="line">    phpinfo();</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://weilephp.github.io/2017/04/15/lamp_3/" data-id="cj6hr1kcs000d2wmmiwxe1f6u" class="article-share-link">Share</a>
+      <a data-url="http://weilephp.github.io/2017/04/15/lamp_4/" data-id="cj7seynu9000dn8mmdnk9vgdz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -733,7 +746,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
     </div>
   </div>
 
@@ -744,6 +757,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/09/20/wps_juzhongti/">不设置宽高的水平垂直居中</a>
+          </li>
         
           <li>
             <a href="/2017/08/18/zoom_display_inline_block/">display的inline-block兼容IE6,IE7的写法还有zoom 1的作用</a>
@@ -759,10 +776,6 @@
         
           <li>
             <a href="/2017/06/29/wuziqi_AI/">javascirpt加canvas实现人机大战五子棋AI篇</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/28/wuziqi_UI/">javascirpt加canvas实现人机大战五子棋UI篇</a>
           </li>
         
       </ul>
